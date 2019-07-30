@@ -100,7 +100,7 @@ const styleStrings = {
 };
 
 const ControlContainer = styled.div`
-  margin-top: 16px;
+  margin-top: 0px;
 
   &:first-of-type {
     margin-top: 36px;

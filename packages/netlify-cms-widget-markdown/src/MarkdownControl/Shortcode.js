@@ -14,6 +14,8 @@ const ShortcodeContainer = styled.div`
   border: 2px solid ${colors.textFieldBorder};
   margin: 12px 0;
   padding: 14px;
+  padding-left: 4px;
+  padding-right: 4px;
 
   ${props =>
     props.collapsed &&
@@ -25,12 +27,12 @@ const ShortcodeContainer = styled.div`
 
 const ShortcodeTopBar = styled(ListItemTopBar)`
   background-color: ${colors.textFieldBorder};
-  margin: -14px -14px 0;
+  margin: -4px -4px 0;
   border-radius: 0;
 `;
 
 const ShortcodeTitle = styled.div`
-  padding: 8px;
+  padding: 0px;
   color: ${colors.controlLabel};
 `;
 
