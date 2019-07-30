@@ -14,11 +14,17 @@ import PreviewHOC from './PreviewHOC';
 import EditorPreview from './EditorPreview';
 
 const PreviewPaneFrame = styled(Frame)`
-  width: 100%;
-  height: 100%;
+  width: 1440px;
+  height: 200%;
   border: none;
   background: #fff;
   border-radius: ${lengths.borderRadius};
+  transform: scale(0.5);
+  top: 0px;
+  left: 0px;
+  position: relative;
+  transform-origin: top left;
+  max-width: none !important;
 `;
 
 export default class PreviewPane extends React.Component {
