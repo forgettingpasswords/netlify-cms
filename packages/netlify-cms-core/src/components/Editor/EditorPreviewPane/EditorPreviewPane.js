@@ -14,12 +14,12 @@ import PreviewHOC from './PreviewHOC';
 import EditorPreview from './EditorPreview';
 
 const PreviewPaneFrame = styled(Frame)`
-  width: 1440px;
+  width: 1024px;
   height: 200%;
   border: none;
   background: #fff;
   border-radius: ${lengths.borderRadius};
-  transform: scale(0.5);
+  transform: scale(0.75);
   top: 0px;
   left: 0px;
   position: relative;
