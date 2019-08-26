@@ -14,19 +14,22 @@ import PreviewHOC from './PreviewHOC';
 import EditorPreview from './EditorPreview';
 
 const PreviewPaneFrame = styled(Frame)`
-  width: 1024px;
+  //width: 1024px;
+  width: ${props => (props.previewMode == 0 ? '1024px' : '375px')};
   height: 200%;
   border: none;
   background: #fff;
   border-radius: ${lengths.borderRadius};
-  transform: scale(0.75);
+  //transform: scale(0.75);
+  transform: ${props => (props.previewMode == 0 ? 'scale(0.75)' : 'scale(1.0)')};
   top: 0px;
   left: 0px;
   position: relative;
   transform-origin: top left;
   max-width: none !important;
   position: absolute;
-  left: calc(50% - 384px);
+  //left: calc(50% - 384px);
+  left: ${props => (props.previewMode == 0 ? 'calc(50% - 384px)' : 'calc(50% - 187px)')};
   box-shadow: 0px 10px 15px RGBA(0,0,0,0.4);
 `;
 
@@ -218,7 +221,7 @@ export default class PreviewPane extends React.Component {
 
     return (
       <ErrorBoundary>
-        <PreviewPaneFrame head={styleEls} initialContent={initialContent}>
+        <PreviewPaneFrame head={styleEls} initialContent={initialContent} previewMode={this.props.previewMode}>
           <EditorPreviewContent {...{ previewComponent, previewProps }} />
         </PreviewPaneFrame>
       </ErrorBoundary>
