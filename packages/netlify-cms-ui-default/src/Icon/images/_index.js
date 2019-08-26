@@ -10,6 +10,7 @@ import iconCircle from './circle.svg';
 import iconClose from './close.svg';
 import iconCode from './code.svg';
 import iconCodeBlock from './code-block.svg';
+import iconDisplay from './display.svg';
 import iconDragHandle from './drag-handle.svg';
 import iconEye from './eye.svg';
 import iconFolder from './folder.svg';
@@ -28,6 +29,7 @@ import iconListNumbered from './list-numbered.svg';
 import iconMarkdown from './markdown.svg';
 import iconMedia from './media.svg';
 import iconMediaAlt from './media-alt.svg';
+import iconMobile from './mobile.svg';
 import iconNetlify from './netlify.svg';
 import iconNetlifyCms from './netlify-cms-logo.svg';
 import iconNewTab from './new-tab.svg';
@@ -59,6 +61,7 @@ const images = {
   code: iconCode,
   'code-block': iconCodeBlock,
   'drag-handle': iconDragHandle,
+  display: iconDisplay,
   eye: iconEye,
   folder: iconFolder,
   github: iconGithub,
@@ -76,6 +79,7 @@ const images = {
   markdown: iconMarkdown,
   media: iconMedia,
   'media-alt': iconMediaAlt,
+  mobile: iconMobile,
   netlify: iconNetlify,
   'netlify-cms': iconNetlifyCms,
   'new-tab': iconNewTab,

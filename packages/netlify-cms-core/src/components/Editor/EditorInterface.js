@@ -13,6 +13,7 @@ import EditorToggle from './EditorToggle';
 
 const PREVIEW_VISIBLE = 'cms.preview-visible';
 const SCROLL_SYNC_ENABLED = 'cms.scroll-sync-enabled';
+const PREVIEW_MODE = 'cms.preview-mode';
 const SPLIT_PANE_POSITION = 'cms.split-pane-position';
 
 const styles = {
@@ -118,6 +119,7 @@ class EditorInterface extends Component {
     showEventBlocker: false,
     previewVisible: localStorage.getItem(PREVIEW_VISIBLE) !== 'false',
     scrollSyncEnabled: localStorage.getItem(SCROLL_SYNC_ENABLED) !== 'false',
+    previewMode: localStorage.getItem(PREVIEW_MODE) || 0,
   };
 
   handleSplitPaneDragStart = () => {
@@ -152,6 +154,13 @@ class EditorInterface extends Component {
     localStorage.setItem(SCROLL_SYNC_ENABLED, newScrollSyncEnabled);
   };
 
+  handleSetPreviewMode(previewMode) {
+    return () => {
+      this.setState({ previewMode: previewMode });
+      localStorage.setItem(PREVIEW_MODE, previewMode);
+    };
+  }
+
   render() {
     const {
       collection,
@@ -181,7 +190,7 @@ class EditorInterface extends Component {
       deployPreview,
     } = this.props;
 
-    const { previewVisible, scrollSyncEnabled, showEventBlocker } = this.state;
+    const { previewVisible, scrollSyncEnabled, showEventBlocker, previewMode } = this.state;
 
     const collectionPreviewEnabled = collection.getIn(['editor', 'preview'], true);
 
@@ -219,6 +228,7 @@ class EditorInterface extends Component {
                 fields={fields}
                 fieldsMetaData={fieldsMetaData}
                 getAsset={getAsset}
+                previewMode={previewMode}
               />
             </PreviewPaneContainer>
           </StyledSplitPane>
@@ -268,6 +278,18 @@ class EditorInterface extends Component {
               active={scrollSyncEnabled}
               onClick={this.handleToggleScrollSync}
               icon="scroll"
+            />
+            <EditorToggle
+              enabled={collectionPreviewEnabled && previewVisible}
+              active={previewMode == 0}
+              onClick={this.handleSetPreviewMode(0)}
+              icon="display"
+            />
+            <EditorToggle
+              enabled={collectionPreviewEnabled && previewVisible}
+              active={previewMode == 1}
+              onClick={this.handleSetPreviewMode(1)}
+              icon="mobile"
             />
           </ViewControls>
           {collectionPreviewEnabled && this.state.previewVisible ? (
