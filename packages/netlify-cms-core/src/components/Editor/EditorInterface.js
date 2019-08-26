@@ -93,9 +93,14 @@ const PreviewPaneContainer = styled.div`
   height: 100%;
   overflow-y: auto;
   pointer-events: ${props => (props.blockEntry ? 'none' : 'auto')};
+  background: #999;
+  position: relative;
 `;
 
-const ControlPaneContainer = styled(PreviewPaneContainer)`
+const ControlPaneContainer = styled.div`
+  height: 100%;
+  overflow-y: auto;
+  pointer-events: ${props => (props.blockEntry ? 'none' : 'auto')};
   padding: 0 16px;
   position: relative;
   overflow-x: hidden;

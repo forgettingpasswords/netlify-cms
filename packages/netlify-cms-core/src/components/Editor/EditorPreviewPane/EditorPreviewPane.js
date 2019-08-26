@@ -25,6 +25,9 @@ const PreviewPaneFrame = styled(Frame)`
   position: relative;
   transform-origin: top left;
   max-width: none !important;
+  position: absolute;
+  left: calc(50% - 384px);
+  box-shadow: 0px 10px 15px RGBA(0,0,0,0.4);
 `;
 
 export default class PreviewPane extends React.Component {
