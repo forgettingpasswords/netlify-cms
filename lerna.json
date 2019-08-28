@@ -7,7 +7,7 @@
   "loglevel": "success",
   "command": {
     "version": {
-      "allowBranch": "master",
+      "allowBranch": "features",
       "conventionalCommits": true,
       "preid": "beta",
       "gitRemote": "upstream",
