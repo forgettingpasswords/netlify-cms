@@ -11,6 +11,9 @@ const styleStrings = {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    //background: red !important;
+    //color: blue !important;
+    padding: 4px !important;
   `,
   objectWidgetTopBarContainer: `
     padding: ${lengths.objectWidgetTopBarContainerPadding}

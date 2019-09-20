@@ -85,6 +85,8 @@ const styleStrings = {
     position: relative;
     font-size: 15px;
     line-height: 1.5;
+    //background: ${props => (props.widgetName == 'object' ? 'red' : 'green')};
+    //background: blue;
 
     select& {
       text-indent: 14px;
@@ -100,7 +102,10 @@ const styleStrings = {
 };
 
 const ControlContainer = styled.div`
-  margin-top: 0px;
+  //margin-top: 0px;
+  //background: ${props => (props.widgetName == 'object' ? 'red' : 'green')};
+  //padding: '0px !important';
+  //background: red;
 
   &:first-of-type {
     margin-top: 36px;
@@ -189,6 +194,7 @@ class EditorControl extends React.Component {
       t,
     } = this.props;
     const widgetName = field.get('widget');
+    console.log(widgetName);
     const widget = resolveWidget(widgetName);
     const fieldName = field.get('name');
     const fieldHint = field.get('hint');
@@ -199,7 +205,7 @@ class EditorControl extends React.Component {
     return (
       <ClassNames>
         {({ css, cx }) => (
-          <ControlContainer>
+          <ControlContainer widgetName={widgetName}>
             {widget.globalStyles && <Global styles={coreCss`${widget.globalStyles}`} />}
             <ControlErrorsList>
               {errors &&
@@ -232,9 +238,14 @@ class EditorControl extends React.Component {
               {`${field.get('label', field.get('name'))}${isFieldOptional ? ' (optional)' : ''}`}
             </label>
             <Widget
+              widgetName={widgetName}
               classNameWrapper={cx(
                 css`
                   ${styleStrings.widget};
+                `,
+                css`
+                  ${widgetName == 'object' ? 'padding: 4px !important;' : ''}
+                  //background: red;
                 `,
                 {
                   [css`
