@@ -233,7 +233,9 @@ class EditorControl extends React.Component {
                   ${styleStrings.widget};
                 `,
                 css`
-                  ${(widgetName == 'object' || widgetName == 'list') ? 'padding-left: 4px !important; padding-right: 4px !important;' : ''}
+                  ${widgetName == 'object' || widgetName == 'list'
+                    ? 'padding-left: 4px !important; padding-right: 4px !important;'
+                    : ''}
                 `,
                 {
                   [css`

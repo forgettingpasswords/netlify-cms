@@ -21,8 +21,8 @@ const EditorToggleButton = styled.button`
 const EditorToggle = ({ enabled, active, onClick, icon }) =>
   !enabled ? null : (
     <EditorToggleButton onClick={onClick} isActive={active}>
-			{(icon == "mobile" || icon=="display") && <Icon type={icon} size="medium" />}
-			{!(icon == "mobile" || icon=="display") && <Icon type={icon} size="large" />}
+      {(icon == 'mobile' || icon == 'display') && <Icon type={icon} size="medium" />}
+      {!(icon == 'mobile' || icon == 'display') && <Icon type={icon} size="large" />}
     </EditorToggleButton>
   );
 
