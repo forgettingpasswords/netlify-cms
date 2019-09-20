@@ -36,6 +36,8 @@ const NestedObjectLabel = styled.div`
   color: ${props => (props.error ? colors.errorText : 'inherit')};
   background-color: ${colors.textFieldBorder};
   padding: 13px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   border-radius: 0 0 ${lengths.borderRadius} ${lengths.borderRadius};
 `;
 
@@ -52,11 +54,7 @@ const styleStrings = {
 
 const styles = {
   listControlItem: css`
-    margin-top: 18px;
-
-    &:first-of-type {
-      margin-top: 26px;
-    }
+    margin-top: 10px;
   `,
   listControlItemCollapsed: css`
     padding-bottom: 0;

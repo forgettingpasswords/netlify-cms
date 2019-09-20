@@ -101,10 +101,6 @@ const styleStrings = {
 
 const ControlContainer = styled.div`
   margin-top: 16px;
-
-  &:first-of-type {
-    margin-top: 36px;
-  }
 `;
 
 const ControlErrorsList = styled.ul`
