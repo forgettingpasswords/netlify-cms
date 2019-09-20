@@ -15,3 +15,6 @@ cypress/screenshots
 /coverage/
 .cache
 *.log
+*.swp
+*.swo
+*.swn
