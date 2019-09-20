@@ -13,7 +13,9 @@ const styleStrings = {
     border-top-right-radius: 0;
   `,
   objectWidgetTopBarContainer: `
-    padding: ${lengths.objectWidgetTopBarContainerPadding}
+    padding: ${lengths.objectWidgetTopBarContainerPadding};
+    padding-left: 4px !important;
+    padding-right: 4px !important;
   `,
 };
 

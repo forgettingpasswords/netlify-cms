@@ -45,6 +45,8 @@ const styleStrings = {
   `,
   objectWidgetTopBarContainer: `
     padding: ${lengths.objectWidgetTopBarContainerPadding};
+    padding-left: 4px !important;
+    padding-right: 4px !important;
   `,
 };
 

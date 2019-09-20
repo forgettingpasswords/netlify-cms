@@ -12,7 +12,7 @@ const TopBarContainer = styled.div`
   background-color: ${colors.textFieldBorder};
   display: flex;
   justify-content: space-between;
-  margin: 0 -14px;
+  margin: 0 -4px;
   padding: 13px;
 `;
 
