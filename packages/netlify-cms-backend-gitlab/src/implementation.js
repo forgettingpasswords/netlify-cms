@@ -13,7 +13,7 @@ export default class GitLab {
     this.options = {
       proxied: false,
       API: null,
-      ...options,
+      ...options
     };
 
     if (this.options.useWorkflow) {
@@ -46,7 +46,7 @@ export default class GitLab {
       token: this.token,
       branch: this.branch,
       repo: this.repo,
-      api_root: this.api_root,
+      api_root: this.api_root
     });
     const user = await this.api.user();
     const isCollab = await this.api.hasWriteAccess(user).catch(error => {
@@ -80,13 +80,11 @@ export default class GitLab {
 
   entriesByFolder(collection, extension) {
     return this.api.listFiles(collection.get('folder')).then(({ files, cursor }) =>
-      this.fetchFiles(files.filter(file => file.name.endsWith('.' + extension))).then(
-        fetchedFiles => {
-          const returnedFiles = fetchedFiles;
-          returnedFiles[CURSOR_COMPATIBILITY_SYMBOL] = cursor;
-          return returnedFiles;
-        },
-      ),
+      this.fetchFiles(files.filter(file => file.name.endsWith('.' + extension))).then(fetchedFiles => {
+        const returnedFiles = fetchedFiles;
+        returnedFiles[CURSOR_COMPATIBILITY_SYMBOL] = cursor;
+        return returnedFiles;
+      })
     );
   }
 
@@ -99,7 +97,7 @@ export default class GitLab {
   entriesByFiles(collection) {
     const files = collection.get('files').map(collectionFile => ({
       path: collectionFile.get('file'),
-      label: collectionFile.get('label'),
+      label: collectionFile.get('label')
     }));
     return this.fetchFiles(files).then(fetchedFiles => {
       const returnedFiles = fetchedFiles;
@@ -124,21 +122,19 @@ export default class GitLab {
                 sem.leave();
                 console.error(`failed to load file from GitLab: ${file.path}`);
                 resolve({ error });
-              }),
-          ),
-        ),
+              })
+          )
+        )
       );
     });
-    return Promise.all(promises).then(loadedEntries =>
-      loadedEntries.filter(loadedEntry => !loadedEntry.error),
-    );
+    return Promise.all(promises).then(loadedEntries => loadedEntries.filter(loadedEntry => !loadedEntry.error));
   };
 
   // Fetches a single entry.
   getEntry(collection, slug, path) {
     return this.api.readFile(path).then(data => ({
       file: { path },
-      data,
+      data
     }));
   }
 
@@ -148,7 +144,7 @@ export default class GitLab {
       ref: id,
       date: committed_date,
       author: author_name,
-      file: { path },
+      file: { path }
     }));
   }
 
@@ -156,7 +152,7 @@ export default class GitLab {
     return this.api.listAllFiles(this.config.get('media_folder')).then(files =>
       files.map(({ id, name, path }) => {
         return { id, name, path, displayURL: { id, name, path } };
-      }),
+      })
     );
   }
 
@@ -176,8 +172,8 @@ export default class GitLab {
           })
           .then(blob => URL.createObjectURL(blob))
           .then(resolve, reject)
-          .finally(() => this._mediaDisplayURLSem.leave()),
-      ),
+          .finally(() => this._mediaDisplayURLSem.leave())
+      )
     );
   }
 
@@ -198,9 +194,9 @@ export default class GitLab {
   traverseCursor(cursor, action) {
     return this.api.traverseCursor(cursor, action).then(async ({ entries, cursor: newCursor }) => ({
       entries: await Promise.all(
-        entries.map(file => this.api.readFile(file.path, file.id).then(data => ({ file, data }))),
+        entries.map(file => this.api.readFile(file.path, file.id).then(data => ({ file, data })))
       ),
-      cursor: newCursor,
+      cursor: newCursor
     }));
   }
 }
