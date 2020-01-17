@@ -478,6 +478,15 @@ export class Backend {
     );
   }
 
+  getFileVersions(collection, slug) {
+    const path = selectEntryPath(collection, slug);
+    return this.implementation.getFileVersions(path);
+  }
+
+  supportsFileVersioning() {
+    return !!this.implementation.getFileVersions;
+  }
+
   getMedia() {
     return this.implementation.getMedia();
   }
