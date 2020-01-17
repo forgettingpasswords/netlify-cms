@@ -24,8 +24,8 @@ const generateCommits = length => {
         committer_email: 'admin@example.com',
         committer_name: 'Administrator',
         message: `Update Post “Test”`,
-        parent_ids: [acc[acc.length - 1].id],
-      },
+        parent_ids: [acc[acc.length - 1].id]
+      }
     ],
     [
       {
@@ -37,9 +37,9 @@ const generateCommits = length => {
         committer_email: 'admin@example.com',
         committer_name: 'Administrator',
         message: `Create Post “Test”`,
-        parent_ids: [],
-      },
-    ],
+        parent_ids: []
+      }
+    ]
   );
 };
 
@@ -57,7 +57,7 @@ const generateEntries = (path, length) => {
       name: fileName,
       type: 'blob',
       path: filePath,
-      mode: '100644',
+      mode: '100644'
     })),
     files: entries.reduce(
       (acc, { id, filePath }) => ({
@@ -67,10 +67,10 @@ const generateEntries = (path, length) => {
         title: test ${id}
         ---
         # test ${id}
-      `,
+      `
       }),
-      {},
-    ),
+      {}
+    )
   };
 };
 
@@ -85,8 +85,8 @@ const mockRepo = {
         name: 'content',
         type: 'tree',
         path: 'content',
-        mode: '040000',
-      },
+        mode: '040000'
+      }
     ],
     content: [
       {
@@ -94,17 +94,17 @@ const mockRepo = {
         name: 'test1.md',
         type: 'blob',
         path: 'content/test1.md',
-        mode: '100644',
+        mode: '100644'
       },
       {
         id: 'd8345753a1d935fa47a26317a503e73e1192d623',
         name: 'test2.md',
         type: 'blob',
         path: 'content/test2.md',
-        mode: '100644',
-      },
+        mode: '100644'
+      }
     ],
-    'many-entries': manyEntries.tree,
+    'many-entries': manyEntries.tree
   },
   files: {
     'content/test1.md': stripIndent`
@@ -119,7 +119,7 @@ const mockRepo = {
       ---
       # test 2
     `,
-    ...manyEntries.files,
+    ...manyEntries.files
   },
   commits: {
     'content/test1.md': [
@@ -132,7 +132,7 @@ const mockRepo = {
         committer_name: 'Administrator',
         id: 'a48b8cddeaddb67bb0e0f921697ed540b1a8d678',
         message: 'Create Post “2020-01-16-test”',
-        parent_ids: [],
+        parent_ids: []
       },
       {
         author_email: 'admin@example.com',
@@ -143,35 +143,35 @@ const mockRepo = {
         committer_name: 'Administrator',
         id: '3b871fb6a28a98bf693d92f5feec7b69083ddbd4',
         message: 'Update Post “2020-01-16-test”',
-        parent_ids: ['a48b8cddeaddb67bb0e0f921697ed540b1a8d678'],
-      },
+        parent_ids: ['a48b8cddeaddb67bb0e0f921697ed540b1a8d678']
+      }
     ],
-    'content/test2.md': commitsSpanning2Pages,
-  },
+    'content/test2.md': commitsSpanning2Pages
+  }
 };
 
 const resp = {
   user: {
     success: {
-      id: 1,
-    },
+      id: 1
+    }
   },
   project: {
     success: {
       permissions: {
         project_access: {
-          access_level: 30,
-        },
-      },
+          access_level: 30
+        }
+      }
     },
     readOnly: {
       permissions: {
         project_access: {
-          access_level: 10,
-        },
-      },
-    },
-  },
+          access_level: 10
+        }
+      }
+    }
+  }
 };
 
 describe('gitlab backend', () => {
@@ -181,8 +181,8 @@ describe('gitlab backend', () => {
   const defaultConfig = {
     backend: {
       name: 'gitlab',
-      repo,
-    },
+      repo
+    }
   };
   const collectionContentConfig = {
     name: 'foo',
@@ -190,7 +190,7 @@ describe('gitlab backend', () => {
     fields: [{ name: 'title' }],
     // TODO: folder_based_collection is an internal string, we should not
     // be depending on it here
-    type: 'folder_based_collection',
+    type: 'folder_based_collection'
   };
   const collectionManyEntriesConfig = {
     name: 'foo',
@@ -198,7 +198,7 @@ describe('gitlab backend', () => {
     fields: [{ name: 'title' }],
     // TODO: folder_based_collection is an internal string, we should not
     // be depending on it here
-    type: 'folder_based_collection',
+    type: 'folder_based_collection'
   };
   const collectionFilesConfig = {
     name: 'foo',
@@ -207,16 +207,16 @@ describe('gitlab backend', () => {
         label: 'foo',
         name: 'foo',
         file: 'content/test1.md',
-        fields: [{ name: 'title' }],
+        fields: [{ name: 'title' }]
       },
       {
         label: 'bar',
         name: 'bar',
         file: 'content/test2.md',
-        fields: [{ name: 'title' }],
-      },
+        fields: [{ name: 'title' }]
+      }
     ],
-    type: 'file_based_collection',
+    type: 'file_based_collection'
   };
   const mockCredentials = { token: 'MOCK_TOKEN' };
   const expectedRepo = encodeURIComponent(repo);
@@ -226,13 +226,13 @@ describe('gitlab backend', () => {
     authStore = new LocalStorageAuthStore();
     return new Backend(
       {
-        init: (...args) => new Gitlab(...args),
+        init: (...args) => new Gitlab(...args)
       },
       {
         backendName: 'gitlab',
         config: fromJS(config),
-        authStore,
-      },
+        authStore
+      }
     );
   }
 
@@ -284,15 +284,11 @@ describe('gitlab backend', () => {
       'X-Total-Pages': pageCount,
       'X-Per-Page': perPage,
       'X-Total': totalCount,
-      Link: linkHeader,
+      Link: linkHeader
     };
   }
 
-  function interceptCollection(
-    backend,
-    collection,
-    { verb = 'get', repeat = 1, page: expectedPage } = {},
-  ) {
+  function interceptCollection(backend, collection, { verb = 'get', repeat = 1, page: expectedPage } = {}) {
     const api = mockApi(backend);
     const url = `${expectedRepoUrl}/repository/tree`;
     const { folder } = collection;
@@ -323,8 +319,8 @@ describe('gitlab backend', () => {
             page,
             perPage: per_page,
             pageCount,
-            totalCount: tree.length,
-          }),
+            totalCount: tree.length
+          })
         ];
       });
   }
@@ -347,7 +343,7 @@ describe('gitlab backend', () => {
       .reply(200, mockRepo.commits[path], {
         Link: req => {
           return `<${expectedRepoUrl}${req.path}&page=1>; rel="next"`;
-        },
+        }
       });
   }
 
@@ -375,8 +371,8 @@ describe('gitlab backend', () => {
             page,
             perPage: 100,
             pageCount: totalPages,
-            totalCount: mockRepo.commits[path].length,
-          }),
+            totalCount: mockRepo.commits[path].length
+          })
         ];
       });
   };
@@ -394,16 +390,16 @@ describe('gitlab backend', () => {
   it('throws if configuration requires editorial workflow', () => {
     const resolveBackendWithWorkflow = partial(resolveBackend, {
       ...defaultConfig,
-      publish_mode: 'editorial_workflow',
+      publish_mode: 'editorial_workflow'
     });
     expect(resolveBackendWithWorkflow).toThrowErrorMatchingInlineSnapshot(
-      `"The GitLab backend does not support the Editorial Workflow."`,
+      `"The GitLab backend does not support the Editorial Workflow."`
     );
   });
 
   it('throws if configuration does not include repo', () => {
     expect(resolveBackend).toThrowErrorMatchingInlineSnapshot(
-      `"The GitLab backend needs a \\"repo\\" in the backend configuration."`,
+      `"The GitLab backend needs a \\"repo\\" in the backend configuration."`
     );
   });
 
@@ -418,10 +414,8 @@ describe('gitlab backend', () => {
     it('throws if user does not have access to project', async () => {
       backend = resolveBackend(defaultConfig);
       interceptAuth(backend, { projectResponse: resp.project.readOnly });
-      await expect(
-        backend.authenticate(mockCredentials),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Your GitLab user account does not have access to this repo."`,
+      await expect(backend.authenticate(mockCredentials)).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"Your GitLab user account does not have access to this repo."`
       );
     });
 
@@ -510,10 +504,8 @@ describe('gitlab backend', () => {
       const commits = await backend.getFileVersions(fromJS(collectionContentConfig), slug);
       expect(commits).toEqual(
         expect.arrayContaining(
-          mockRepo.commits[filePath].map(({ id }) =>
-            expect.objectContaining({ ref: id, file: { path: filePath } }),
-          ),
-        ),
+          mockRepo.commits[filePath].map(({ id }) => expect.objectContaining({ ref: id, file: { path: filePath } }))
+        )
       );
     });
 
@@ -538,9 +530,7 @@ describe('gitlab backend', () => {
 
       expect(entries).toEqual({
         cursor: expect.any(Cursor),
-        entries: expect.arrayContaining(
-          tree.map(file => expect.objectContaining({ path: file.path })),
-        ),
+        entries: expect.arrayContaining(tree.map(file => expect.objectContaining({ path: file.path })))
       });
       expect(entries.entries).toHaveLength(2);
     });
@@ -552,9 +542,7 @@ describe('gitlab backend', () => {
       interceptCollection(backend, collectionManyEntriesConfig, { repeat: 5 });
       const entries = await backend.listAllEntries(fromJS(collectionManyEntriesConfig));
 
-      expect(entries).toEqual(
-        expect.arrayContaining(tree.map(file => expect.objectContaining({ path: file.path }))),
-      );
+      expect(entries).toEqual(expect.arrayContaining(tree.map(file => expect.objectContaining({ path: file.path }))));
       expect(entries).toHaveLength(500);
     }, 7000);
 
@@ -565,9 +553,7 @@ describe('gitlab backend', () => {
 
       expect(entries).toEqual({
         cursor: expect.any(Cursor),
-        entries: expect.arrayContaining(
-          files.map(file => expect.objectContaining({ path: file.file })),
-        ),
+        entries: expect.arrayContaining(files.map(file => expect.objectContaining({ path: file.file })))
       });
       expect(entries.entries).toHaveLength(2);
     });
@@ -580,7 +566,7 @@ describe('gitlab backend', () => {
       const entries = await backend.listEntries(fromJS(collectionManyEntriesConfig));
 
       expect(entries.entries).toEqual(
-        expect.arrayContaining(pageTree.map(file => expect.objectContaining({ path: file.path }))),
+        expect.arrayContaining(pageTree.map(file => expect.objectContaining({ path: file.path })))
       );
       expect(entries.entries).toHaveLength(20);
     });
@@ -601,9 +587,7 @@ describe('gitlab backend', () => {
       const nextPage = await backend.traverseCursor(entries.cursor, 'next');
 
       expect(nextPage.entries).toEqual(
-        expect.arrayContaining(
-          nextPageTree.map(file => expect.objectContaining({ path: file.path })),
-        ),
+        expect.arrayContaining(nextPageTree.map(file => expect.objectContaining({ path: file.path })))
       );
       expect(nextPage.entries).toHaveLength(20);
 
@@ -611,9 +595,7 @@ describe('gitlab backend', () => {
       interceptCollection(backend, collectionManyEntriesConfig, { page: 25 });
       const prevPage = await backend.traverseCursor(nextPage.cursor, 'prev');
       expect(prevPage.entries).toEqual(
-        expect.arrayContaining(
-          prevPageTree.map(file => expect.objectContaining({ path: file.path })),
-        ),
+        expect.arrayContaining(prevPageTree.map(file => expect.objectContaining({ path: file.path })))
       );
       expect(prevPage.entries).toHaveLength(20);
     });
