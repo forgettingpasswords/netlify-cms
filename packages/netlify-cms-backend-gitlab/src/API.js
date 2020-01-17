@@ -16,26 +16,20 @@ export default class API {
     unsentRequest.withHeaders(this.token ? { Authorization: `Bearer ${this.token}` } : {}, req);
 
   buildRequest = req =>
-    flow([
-      unsentRequest.withRoot(this.api_root),
-      this.withAuthorizationHeaders,
-      unsentRequest.withTimestamp,
-    ])(req);
+    flow([unsentRequest.withRoot(this.api_root), this.withAuthorizationHeaders, unsentRequest.withTimestamp])(req);
 
   request = async req =>
     flow([
       this.buildRequest,
       unsentRequest.performRequest,
-      p => p.catch(err => Promise.reject(new APIError(err.message, null, 'GitLab'))),
+      p => p.catch(err => Promise.reject(new APIError(err.message, null, 'GitLab')))
     ])(req);
 
   catchFormatErrors = (format, formatter) => res => {
     try {
       return formatter(res);
     } catch (err) {
-      throw new Error(
-        `Response cannot be parsed into the expected format (${format}): ${err.message}`,
-      );
+      throw new Error(`Response cannot be parsed into the expected format (${format}): ${err.message}`);
     }
   };
 
@@ -48,7 +42,7 @@ export default class API {
       return res.json();
     },
     text: async res => res.text(),
-    blob: async res => res.blob(),
+    blob: async res => res.blob()
   }).mapEntries(([format, formatter]) => [format, this.catchFormatErrors(format, formatter)]);
 
   parseResponse = async (res, { expectingOk = true, expectingFormat = 'text' }) => {
@@ -95,7 +89,7 @@ export default class API {
     let { cursor, entries: initialEntries } = await this.fetchCursorAndEntries({
       url: `${this.repoURL}/repository/commits`,
       params: { ref_name: ref, path, all: true, per_page: 100 },
-      cache: 'no-store',
+      cache: 'no-store'
     });
 
     entries.push(...initialEntries);
@@ -118,7 +112,7 @@ export default class API {
     const result = await this.request({
       url: `${this.repoURL}/repository/files/${encodeURIComponent(path)}/raw`,
       params: { ref },
-      cache: 'no-store',
+      cache: 'no-store'
     }).then(parseText ? this.responseToText : this.responseToBlob);
     if (sha) {
       localForage.setItem(cacheKey, result);
@@ -142,8 +136,8 @@ export default class API {
           linkStr
             .trim()
             .match(/<(.*?)>/)[1]
-            .replace(/\+/g, '%20'),
-        ),
+            .replace(/\+/g, '%20')
+        )
       ])
       .update(list => Map(list));
     const actions = links
@@ -154,12 +148,12 @@ export default class API {
         (key === 'first' && index > 0) ||
         (key === 'last' && index < pageCount)
           ? [key]
-          : [],
+          : []
       );
     return Cursor.create({
       actions,
       meta: { index, count, pageSize, pageCount },
-      data: { links },
+      data: { links }
     });
   };
 
@@ -167,14 +161,13 @@ export default class API {
 
   // Gets a cursor without retrieving the entries by using a HEAD
   // request
-  fetchCursor = req =>
-    flow([unsentRequest.withMethod('HEAD'), this.request, then(this.getCursor)])(req);
+  fetchCursor = req => flow([unsentRequest.withMethod('HEAD'), this.request, then(this.getCursor)])(req);
   fetchCursorAndEntries = req =>
     flow([
       unsentRequest.withMethod('GET'),
       this.request,
       p => Promise.all([p.then(this.getCursor), p.then(this.responseToJSON)]),
-      then(([cursor, entries]) => ({ cursor, entries })),
+      then(([cursor, entries]) => ({ cursor, entries }))
     ])(req);
   fetchRelativeCursor = async (cursor, action) => this.fetchCursor(cursor.data.links[action]);
 
@@ -182,7 +175,7 @@ export default class API {
     first: 'last',
     last: 'first',
     next: 'prev',
-    prev: 'next',
+    prev: 'next'
   });
 
   reverseCursor = cursor => {
@@ -193,15 +186,13 @@ export default class API {
     const links = cursor.data.get('links', Map());
     const reversedLinks = links.mapEntries(([k, v]) => [this.reversableActions.get(k) || k, v]);
 
-    const reversedActions = cursor.actions.map(
-      action => this.reversableActions.get(action) || action,
-    );
+    const reversedActions = cursor.actions.map(action => this.reversableActions.get(action) || action);
 
     return cursor.updateStore(store =>
       store
         .setIn(['meta', 'index'], newIndex)
         .setIn(['data', 'links'], reversedLinks)
-        .set('actions', reversedActions),
+        .set('actions', reversedActions)
     );
   };
 
@@ -214,13 +205,13 @@ export default class API {
   listFiles = async path => {
     const firstPageCursor = await this.fetchCursor({
       url: `${this.repoURL}/repository/tree`,
-      params: { path, ref: this.branch },
+      params: { path, ref: this.branch }
     });
     const lastPageLink = firstPageCursor.data.getIn(['links', 'last']);
     const { entries, cursor } = await this.fetchCursorAndEntries(lastPageLink);
     return {
       files: entries.filter(({ type }) => type === 'blob').reverse(),
-      cursor: this.reverseCursor(cursor),
+      cursor: this.reverseCursor(cursor)
     };
   };
 
@@ -235,7 +226,7 @@ export default class API {
     let { cursor, entries: initialEntries } = await this.fetchCursorAndEntries({
       url: `${this.repoURL}/repository/tree`,
       // Get the maximum number of entries per page
-      params: { path, ref: this.branch, per_page: 100 },
+      params: { path, ref: this.branch, per_page: 100 }
     });
     entries.push(...initialEntries);
     while (cursor && cursor.actions.has('next')) {
@@ -251,7 +242,7 @@ export default class API {
   fromBase64 = str => Base64.decode(str);
   uploadAndCommit = async (
     item,
-    { commitMessage, updateFile = false, branch = this.branch, author = this.commitAuthor },
+    { commitMessage, updateFile = false, branch = this.branch, author = this.commitAuthor }
   ) => {
     const content = await result(item, 'toBase64', partial(this.toBase64, item.raw));
     const file_path = item.path.replace(/^\//, '');
@@ -261,7 +252,7 @@ export default class API {
     const commitParams = {
       branch,
       commit_message: commitMessage,
-      actions: [{ action, file_path, content, encoding }],
+      actions: [{ action, file_path, content, encoding }]
     };
     if (author) {
       const { name, email } = author;
@@ -273,18 +264,14 @@ export default class API {
       url: `${this.repoURL}/repository/commits`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(commitParams),
+      body: JSON.stringify(commitParams)
     });
 
     return { ...item, uploaded: true };
   };
 
   persistFiles = (files, { commitMessage, newEntry }) =>
-    Promise.all(
-      files.map(file =>
-        this.uploadAndCommit(file, { commitMessage, updateFile: newEntry === false }),
-      ),
-    );
+    Promise.all(files.map(file => this.uploadAndCommit(file, { commitMessage, updateFile: newEntry === false })));
 
   deleteFile = (path, commit_message, options = {}) => {
     const branch = options.branch || this.branch;
@@ -298,7 +285,7 @@ export default class API {
       unsentRequest.withMethod('DELETE'),
       // TODO: only send author params if they are defined.
       unsentRequest.withParams(commitParams),
-      this.request,
+      this.request
     ])(`${this.repoURL}/repository/files/${encodeURIComponent(path)}`);
   };
 }
