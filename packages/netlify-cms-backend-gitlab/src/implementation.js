@@ -142,6 +142,16 @@ export default class GitLab {
     }));
   }
 
+  async getFileVersions(path) {
+    const commits = await this.api.readFileHistory(path);
+    return commits.map(({ id, committed_date, author_name }) => ({
+      ref: id,
+      date: committed_date,
+      author: author_name,
+      file: { path },
+    }));
+  }
+
   getMedia() {
     return this.api.listAllFiles(this.config.get('media_folder')).then(files =>
       files.map(({ id, name, path }) => {
