@@ -108,4 +108,32 @@ describe('Backend', () => {
       expect(result.length).toBe(1);
     });
   });
+
+  describe('supportsFileVersioning', () => {
+    it('returns true for a backend supporting file versioning', () => {
+      registry.getBackend.mockReturnValue({
+        init: jest.fn(() => ({
+          getFileVersions: jest.fn()
+        })),
+      });
+      const backend = resolveBackend({
+        getIn: jest.fn().mockReturnValue('gitlab'),
+      });
+
+      expect(backend.supportsFileVersioning()).toEqual(true);
+    });
+
+    it('returns false for a backend not supporting file versioning', () => {
+      registry.getBackend.mockReturnValue({
+        init: jest.fn(() => ({
+          getFileVersions: undefined
+        })),
+      });
+      const backend = resolveBackend({
+        getIn: jest.fn().mockReturnValue('git-gateway'),
+      });
+
+      expect(backend.supportsFileVersioning()).toEqual(false);
+    });
+  });
 });

@@ -9,6 +9,40 @@ import AuthenticationPage from '../AuthenticationPage';
 
 const { Backend, LocalStorageAuthStore } = jest.requireActual('netlify-cms-core/src/backend');
 
+const generateCommits = length => {
+  const ids = [...Array(length - 1).keys()];
+
+  return ids.reduce(
+    (acc, id) => [
+      ...acc,
+      {
+        id: `p8341953a1d935fa19a26317a503e73e1192d${id}`,
+        author_email: 'tester@testing.test',
+        author_name: 'tester',
+        authored_date: '2020-01-16T09:36:56.000+01:00',
+        committed_date: '2020-01-16T09:36:56.000+01:00',
+        committer_email: 'admin@example.com',
+        committer_name: 'Administrator',
+        message: `Update Post “Test”`,
+        parent_ids: [acc[acc.length - 1].id],
+      },
+    ],
+    [
+      {
+        id: `p8341953a1d935fa19a26317a503e73e1192s71`,
+        author_email: 'tester@testing.test',
+        author_name: 'tester',
+        authored_date: '2020-01-16T09:36:56.000+01:00',
+        committed_date: '2020-01-16T09:36:56.000+01:00',
+        committer_email: 'admin@example.com',
+        committer_name: 'Administrator',
+        message: `Create Post “Test”`,
+        parent_ids: [],
+      },
+    ],
+  );
+};
+
 const generateEntries = (path, length) => {
   const entries = Array.from({ length }, (val, idx) => {
     const count = idx + 1;
@@ -41,6 +75,7 @@ const generateEntries = (path, length) => {
 };
 
 const manyEntries = generateEntries('many-entries', 500);
+const commitsSpanning2Pages = generateCommits(101);
 
 const mockRepo = {
   tree: {
@@ -85,6 +120,33 @@ const mockRepo = {
       # test 2
     `,
     ...manyEntries.files,
+  },
+  commits: {
+    'content/test1.md': [
+      {
+        author_email: 'admin@example.com',
+        author_name: 'Administrator',
+        authored_date: '2020-01-16T09:36:56.000+01:00',
+        committed_date: '2020-01-16T09:36:56.000+01:00',
+        committer_email: 'admin@example.com',
+        committer_name: 'Administrator',
+        id: 'a48b8cddeaddb67bb0e0f921697ed540b1a8d678',
+        message: 'Create Post “2020-01-16-test”',
+        parent_ids: [],
+      },
+      {
+        author_email: 'admin@example.com',
+        author_name: 'Administrator',
+        authored_date: '2020-01-16T09:38:02.000+01:00',
+        committed_date: '2020-01-16T09:38:02.000+01:00',
+        committer_email: 'admin@example.com',
+        committer_name: 'Administrator',
+        id: '3b871fb6a28a98bf693d92f5feec7b69083ddbd4',
+        message: 'Update Post “2020-01-16-test”',
+        parent_ids: ['a48b8cddeaddb67bb0e0f921697ed540b1a8d678'],
+      },
+    ],
+    'content/test2.md': commitsSpanning2Pages,
   },
 };
 
@@ -276,6 +338,49 @@ describe('gitlab backend', () => {
       .reply(200, mockRepo.files[path]);
   }
 
+  function interceptCommitHistory(backend, path) {
+    const api = mockApi(backend);
+    const url = `${expectedRepoUrl}/repository/commits`;
+    api
+      .get(url)
+      .query(({ path: requestPath }) => requestPath === path)
+      .reply(200, mockRepo.commits[path], {
+        Link: req => {
+          return `<${expectedRepoUrl}${req.path}&page=1>; rel="next"`;
+        },
+      });
+  }
+
+  const interceptManyCommitHistory = (backend, path) => {
+    const url = `${expectedRepoUrl}/repository/commits`;
+    const totalPages = Math.ceil(mockRepo.commits[path].length / 100);
+
+    const api = mockApi(backend);
+
+    api
+      .get(url)
+      .query(({ path: queryPath }) => (queryPath !== path ? false : true))
+      .times(totalPages)
+      .reply(uri => {
+        const { page = 1, per_page = 100 } = parseQuery(uri);
+        const pageLastIndex = page * per_page;
+        const pageFirstIndex = pageLastIndex - per_page;
+        const response = mockRepo.commits[path].slice(pageFirstIndex, pageLastIndex);
+        return [
+          200,
+          response,
+          createHeaders(backend, {
+            basePath: url,
+            path,
+            page,
+            perPage: 100,
+            pageCount: totalPages,
+            totalCount: mockRepo.commits[path].length,
+          }),
+        ];
+      });
+  };
+
   function sharedSetup() {
     beforeEach(async () => {
       backend = resolveBackend(defaultConfig);
@@ -383,6 +488,41 @@ describe('gitlab backend', () => {
       const entry = await backend.getEntry(fromJS(collectionContentConfig), slug);
 
       expect(entry).toEqual(expect.objectContaining({ path: entryTree.path }));
+    });
+  });
+
+  describe('getFileVersions', () => {
+    sharedSetup();
+
+    const getEntryTree = index => {
+      const entryTree = mockRepo.tree[collectionContentConfig.folder][index];
+      const slug = entryTree.path
+        .split('/')
+        .pop()
+        .replace('.md', '');
+      return slug;
+    };
+
+    it('returns stripped commit properties', async () => {
+      const slug = getEntryTree(0);
+      const filePath = 'content/test1.md';
+      interceptCommitHistory(backend, filePath);
+      const commits = await backend.getFileVersions(fromJS(collectionContentConfig), slug);
+      expect(commits).toEqual(
+        expect.arrayContaining(
+          mockRepo.commits[filePath].map(({ id }) =>
+            expect.objectContaining({ ref: id, file: { path: filePath } }),
+          ),
+        ),
+      );
+    });
+
+    it('returns full list of results for paged commits', async () => {
+      const slug = getEntryTree(1);
+      const filePath = 'content/test2.md';
+      interceptManyCommitHistory(backend, filePath);
+      const commits = await backend.getFileVersions(fromJS(collectionContentConfig), slug);
+      expect(commits.length).toEqual(101);
     });
   });
 
