@@ -90,6 +90,25 @@ export default class API {
       return false;
     });
 
+  readFileHistory = async (path, ref = this.branch) => {
+    const entries = [];
+    let { cursor, entries: initialEntries } = await this.fetchCursorAndEntries({
+      url: `${this.repoURL}/repository/commits`,
+      params: { ref_name: ref, path, all: true, per_page: 100 },
+      cache: 'no-store',
+    });
+
+    entries.push(...initialEntries);
+    while (cursor && cursor.actions.has('next')) {
+      const link = cursor.data.getIn(['links', 'next']);
+      const { cursor: newCursor, entries: newEntries } = await this.fetchCursorAndEntries(link);
+      entries.push(...newEntries);
+      cursor = newCursor;
+    }
+
+    return entries;
+  };
+
   readFile = async (path, sha, { ref = this.branch, parseText = true } = {}) => {
     const cacheKey = parseText ? `gl.${sha}` : `gl.${sha}.blob`;
     const cachedFile = sha ? await localForage.getItem(cacheKey) : null;
