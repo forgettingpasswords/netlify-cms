@@ -2,6 +2,12 @@ import { Map } from 'immutable';
 import { oneLine } from 'common-tags';
 import EditorComponent from 'ValueObjects/EditorComponent';
 
+const allowedEvents = ['prePublish', 'postPublish'];
+const eventHandlers = {};
+allowedEvents.forEach(e => {
+  eventHandlers[e] = [];
+});
+
 /**
  * Global Registry Object
  */
@@ -13,6 +19,8 @@ const registry = {
   editorComponents: Map(),
   widgetValueSerializers: {},
   mediaLibraries: [],
+  locales: {},
+  eventHandlers
 };
 
 export default {
@@ -31,6 +39,12 @@ export default {
   getBackend,
   registerMediaLibrary,
   getMediaLibrary,
+  registerLocale,
+  getLocale,
+  registerEventListener,
+  removeEventListener,
+  getEventListeners,
+  invokeEvent
 };
 
 /**
@@ -74,12 +88,7 @@ export function registerWidget(name, control, preview) {
     const newControl = typeof control === 'string' ? registry.widgets[control].control : control;
     registry.widgets[name] = { control: newControl, preview };
   } else if (typeof name === 'object') {
-    const {
-      name: widgetName,
-      controlComponent: control,
-      previewComponent: preview,
-      globalStyles,
-    } = name;
+    const { name: widgetName, controlComponent: control, previewComponent: preview, globalStyles } = name;
     if (registry.widgets[widgetName]) {
       console.error(oneLine`
         Multiple widgets registered with name "${widgetName}". Only the last widget registered with
@@ -127,14 +136,12 @@ export function getWidgetValueSerializer(widgetName) {
  */
 export function registerBackend(name, BackendClass) {
   if (!name || !BackendClass) {
-    console.error(
-      "Backend parameters invalid. example: CMS.registerBackend('myBackend', BackendClass)",
-    );
+    console.error("Backend parameters invalid. example: CMS.registerBackend('myBackend', BackendClass)");
   } else if (registry.backends[name]) {
     console.error(`Backend [${name}] already registered. Please choose a different name.`);
   } else {
     registry.backends[name] = {
-      init: (...args) => new BackendClass(...args),
+      init: (...args) => new BackendClass(...args)
     };
   }
 }
@@ -155,4 +162,56 @@ export function registerMediaLibrary(mediaLibrary, options) {
 
 export function getMediaLibrary(name) {
   return registry.mediaLibraries.find(ml => ml.name === name);
+}
+
+function validateEventName(name) {
+  if (!allowedEvents.includes(name)) {
+    throw new Error(`Invalid event name '${name}'`);
+  }
+}
+
+export function getEventListeners(name) {
+  validateEventName(name);
+  return [...registry.eventHandlers[name]];
+}
+
+export function registerEventListener({ name, handler }, options = {}) {
+  validateEventName(name);
+  registry.eventHandlers[name].push({ handler, options });
+}
+
+export async function invokeEvent({ name, data }) {
+  validateEventName(name);
+  const handlers = registry.eventHandlers[name];
+  for (const { handler, options } of handlers) {
+    try {
+      await handler(data, options);
+    } catch (e) {
+      console.warn(`Failed running handler for event ${name} with message: ${e.message}`);
+    }
+  }
+}
+
+export function removeEventListener({ name, handler }) {
+  validateEventName(name);
+  if (handler) {
+    registry.eventHandlers[name] = registry.eventHandlers[name].filter(item => item.handler !== handler);
+  } else {
+    registry.eventHandlers[name] = [];
+  }
+}
+
+/**
+ * Locales
+ */
+export function registerLocale(locale, phrases) {
+  if (!locale || !phrases) {
+    console.error("Locale parameters invalid. example: CMS.registerLocale('locale', phrases)");
+  } else {
+    registry.locales[locale] = phrases;
+  }
+}
+
+export function getLocale(locale) {
+  return registry.locales[locale];
 }

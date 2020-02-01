@@ -9,6 +9,7 @@ const truthy = () => ({ error: false });
 const isEmpty = value =>
   value === null ||
   value === undefined ||
+  // eslint-disable-next-line no-prototype-builtins
   (value.hasOwnProperty('length') && value.length === 0) ||
   (value.constructor === Object && Object.keys(value).length === 0) ||
   (List.isList(value) && value.size === 0);
@@ -25,12 +26,7 @@ export default class Widget extends Component {
     classNameWidgetActive: PropTypes.string.isRequired,
     classNameLabel: PropTypes.string.isRequired,
     classNameLabelActive: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.object,
-      PropTypes.string,
-      PropTypes.bool,
-    ]),
+    value: PropTypes.oneOfType([PropTypes.node, PropTypes.object, PropTypes.string, PropTypes.bool]),
     mediaPaths: ImmutablePropTypes.map.isRequired,
     metadata: ImmutablePropTypes.map,
     fieldsErrors: ImmutablePropTypes.map,
@@ -53,7 +49,7 @@ export default class Widget extends Component {
     editorControl: PropTypes.func.isRequired,
     uniqueFieldId: PropTypes.string.isRequired,
     loadEntry: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate(nextProps) {
@@ -115,8 +111,8 @@ export default class Widget extends Component {
       const error = {
         type: ValidationErrorTypes.PRESENCE,
         message: t('editor.editorControlPane.widget.required', {
-          fieldLabel: field.get('label', field.get('name')),
-        }),
+          fieldLabel: field.get('label', field.get('name'))
+        })
       };
 
       return { error };
@@ -137,8 +133,8 @@ export default class Widget extends Component {
         type: ValidationErrorTypes.PATTERN,
         message: t('editor.editorControlPane.widget.regexPattern', {
           fieldLabel: field.get('label', field.get('name')),
-          pattern: pattern.last(),
-        }),
+          pattern: pattern.last()
+        })
       };
 
       return { error };
@@ -153,6 +149,7 @@ export default class Widget extends Component {
     if (typeof response === 'boolean') {
       const isValid = response;
       return { error: !isValid };
+      // eslint-disable-next-line no-prototype-builtins
     } else if (response.hasOwnProperty('error')) {
       return response;
     } else if (response instanceof Promise) {
@@ -163,18 +160,18 @@ export default class Widget extends Component {
         err => {
           const error = {
             type: ValidationErrorTypes.CUSTOM,
-            message: `${field.get('label', field.get('name'))} - ${err}.`,
+            message: `${field.get('label', field.get('name'))} - ${err}.`
           };
 
           this.validate({ error });
-        },
+        }
       );
 
       const error = {
         type: ValidationErrorTypes.CUSTOM,
         message: t('editor.editorControlPane.widget.processing', {
-          fieldLabel: field.get('label', field.get('name')),
-        }),
+          fieldLabel: field.get('label', field.get('name'))
+        })
       };
 
       return { error };
@@ -194,10 +191,7 @@ export default class Widget extends Component {
    */
   onChangeObject = (fieldName, newValue, newMetadata) => {
     const newObjectValue = this.getObjectValue().set(fieldName, newValue);
-    return this.props.onChange(
-      newObjectValue,
-      newMetadata && { [this.props.field.get('name')]: newMetadata },
-    );
+    return this.props.onChange(newObjectValue, newMetadata && { [this.props.field.get('name')]: newMetadata });
   };
 
   render() {
@@ -235,7 +229,7 @@ export default class Widget extends Component {
       loadEntry,
       fieldsErrors,
       controlRef,
-      t,
+      t
     } = this.props;
     return React.createElement(controlComponent, {
       field,
@@ -272,7 +266,7 @@ export default class Widget extends Component {
       loadEntry,
       fieldsErrors,
       controlRef,
-      t,
+      t
     });
   }
 }

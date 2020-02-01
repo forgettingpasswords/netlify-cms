@@ -16,7 +16,7 @@ import {
 } from 'Reducers/collections';
 import { createEntry } from 'ValueObjects/Entry';
 import { sanitizeSlug } from 'Lib/urlHelper';
-import { getBackend } from 'Lib/registry';
+import { getBackend, invokeEvent } from 'Lib/registry';
 import { localForage, Cursor, CURSOR_COMPATIBILITY_SYMBOL, EditorialWorkflowError } from 'netlify-cms-lib-util';
 import { EDITORIAL_WORKFLOW, status } from 'Constants/publishModes';
 import {
@@ -764,14 +764,36 @@ export class Backend {
 
     const isFileVersioningSupported = this.supportsFileVersioning();
 
-    if (isFileVersioningSupported) {
-      return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(results => {
-        const [publishResponse] = results;
-        return { slug: entryObj.slug, ...publishResponse };
-      });
-    } else {
-      return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(() => entryObj.slug);
+    if (!useWorkflow) {
+      await this.invokePrePublishEvent(entryDraft.get('entry'));
     }
+
+    let returnValue = undefined;
+
+    if (isFileVersioningSupported) {
+      const results = this.implementation.persistEntry(entryObj, MediaFiles, opts);
+      const [publishResponse] = results;
+      returnValue = { slug: entryObj.slug, ...publishResponse };
+    } else {
+      await this.implementation.persistEntry(entryObj, MediaFiles, opts);
+      returnValue = entryObj.slug;
+    }
+
+    if (!useWorkflow) {
+      await this.invokePostPublishEvent(entryDraft.get('entry'));
+    }
+
+    return returnValue;
+  }
+
+  async invokePrePublishEvent(entry) {
+    const { login, name } = await this.currentUser();
+    await invokeEvent({ name: 'prePublish', data: { entry, author: { login, name } } });
+  }
+
+  async invokePostPublishEvent(entry) {
+    const { login, name } = await this.currentUser();
+    await invokeEvent({ name: 'postPublish', data: { entry, author: { login, name } } });
   }
 
   persistMedia(config, file) {
@@ -805,8 +827,13 @@ export class Backend {
     return this.implementation.updateUnpublishedEntryStatus(collection, slug, newStatus);
   }
 
-  publishUnpublishedEntry(collection, slug) {
-    return this.implementation.publishUnpublishedEntry(collection, slug);
+  async publishUnpublishedEntry(entry) {
+    const collection = entry.get('collection');
+    const slug = entry.get('slug');
+
+    await this.invokePrePublishEvent(entry);
+    await this.implementation.publishUnpublishedEntry(collection, slug);
+    await this.invokePostPublishEvent(entry);
   }
 
   deleteUnpublishedEntry(collection, slug) {

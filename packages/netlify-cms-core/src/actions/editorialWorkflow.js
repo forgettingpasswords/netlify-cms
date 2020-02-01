@@ -3,9 +3,9 @@ import { actions as notifActions } from 'redux-notifications';
 import { BEGIN, COMMIT, REVERT } from 'redux-optimist';
 import { serializeValues } from 'Lib/serializeEntryValues';
 import { currentBackend } from 'coreSrc/backend';
-import { getAsset, selectPublishedSlugs, selectUnpublishedSlugs } from 'Reducers';
+import { getAsset, selectPublishedSlugs, selectUnpublishedSlugs, selectUnpublishedEntry } from 'Reducers';
 import { selectFields } from 'Reducers/collections';
-import { EDITORIAL_WORKFLOW } from 'Constants/publishModes';
+import { EDITORIAL_WORKFLOW } from '../constants/publishModes';
 import { EDITORIAL_WORKFLOW_ERROR } from 'netlify-cms-lib-util';
 import { loadEntry } from './entries';
 import ValidationErrorTypes from 'Constants/validationErrorTypes';
@@ -48,8 +48,8 @@ function unpublishedEntryLoading(collection, slug) {
     type: UNPUBLISHED_ENTRY_REQUEST,
     payload: {
       collection: collection.get('name'),
-      slug,
-    },
+      slug
+    }
   };
 }
 
@@ -58,8 +58,8 @@ function unpublishedEntryLoaded(collection, entry) {
     type: UNPUBLISHED_ENTRY_SUCCESS,
     payload: {
       collection: collection.get('name'),
-      entry,
-    },
+      entry
+    }
   };
 }
 
@@ -68,14 +68,14 @@ function unpublishedEntryRedirected(collection, slug) {
     type: UNPUBLISHED_ENTRY_REDIRECT,
     payload: {
       collection: collection.get('name'),
-      slug,
-    },
+      slug
+    }
   };
 }
 
 function unpublishedEntriesLoading() {
   return {
-    type: UNPUBLISHED_ENTRIES_REQUEST,
+    type: UNPUBLISHED_ENTRIES_REQUEST
   };
 }
 
@@ -84,8 +84,8 @@ function unpublishedEntriesLoaded(entries, pagination) {
     type: UNPUBLISHED_ENTRIES_SUCCESS,
     payload: {
       entries,
-      pages: pagination,
-    },
+      pages: pagination
+    }
   };
 }
 
@@ -93,7 +93,7 @@ function unpublishedEntriesFailed(error) {
   return {
     type: UNPUBLISHED_ENTRIES_FAILURE,
     error: 'Failed to load entries',
-    payload: error,
+    payload: error
   };
 }
 
@@ -102,9 +102,9 @@ function unpublishedEntryPersisting(collection, entry, transactionID) {
     type: UNPUBLISHED_ENTRY_PERSIST_REQUEST,
     payload: {
       collection: collection.get('name'),
-      entry,
+      entry
     },
-    optimist: { type: BEGIN, id: transactionID },
+    optimist: { type: BEGIN, id: transactionID }
   };
 }
 
@@ -114,9 +114,9 @@ function unpublishedEntryPersisted(collection, entry, transactionID, slug) {
     payload: {
       collection: collection.get('name'),
       entry,
-      slug,
+      slug
     },
-    optimist: { type: COMMIT, id: transactionID },
+    optimist: { type: COMMIT, id: transactionID }
   };
 }
 
@@ -125,45 +125,33 @@ function unpublishedEntryPersistedFail(error, transactionID) {
     type: UNPUBLISHED_ENTRY_PERSIST_FAILURE,
     payload: { error },
     optimist: { type: REVERT, id: transactionID },
-    error,
+    error
   };
 }
 
-function unpublishedEntryStatusChangeRequest(
-  collection,
-  slug,
-  oldStatus,
-  newStatus,
-  transactionID,
-) {
+function unpublishedEntryStatusChangeRequest(collection, slug, oldStatus, newStatus, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_STATUS_CHANGE_REQUEST,
     payload: {
       collection,
       slug,
       oldStatus,
-      newStatus,
+      newStatus
     },
-    optimist: { type: BEGIN, id: transactionID },
+    optimist: { type: BEGIN, id: transactionID }
   };
 }
 
-function unpublishedEntryStatusChangePersisted(
-  collection,
-  slug,
-  oldStatus,
-  newStatus,
-  transactionID,
-) {
+function unpublishedEntryStatusChangePersisted(collection, slug, oldStatus, newStatus, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_STATUS_CHANGE_SUCCESS,
     payload: {
       collection,
       slug,
       oldStatus,
-      newStatus,
+      newStatus
     },
-    optimist: { type: COMMIT, id: transactionID },
+    optimist: { type: COMMIT, id: transactionID }
   };
 }
 
@@ -171,7 +159,7 @@ function unpublishedEntryStatusChangeError(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_STATUS_CHANGE_FAILURE,
     payload: { collection, slug },
-    optimist: { type: REVERT, id: transactionID },
+    optimist: { type: REVERT, id: transactionID }
   };
 }
 
@@ -179,7 +167,7 @@ function unpublishedEntryPublishRequest(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_PUBLISH_REQUEST,
     payload: { collection, slug },
-    optimist: { type: BEGIN, id: transactionID },
+    optimist: { type: BEGIN, id: transactionID }
   };
 }
 
@@ -187,7 +175,7 @@ function unpublishedEntryPublished(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_PUBLISH_SUCCESS,
     payload: { collection, slug },
-    optimist: { type: COMMIT, id: transactionID },
+    optimist: { type: COMMIT, id: transactionID }
   };
 }
 
@@ -195,7 +183,7 @@ function unpublishedEntryPublishError(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_PUBLISH_FAILURE,
     payload: { collection, slug },
-    optimist: { type: REVERT, id: transactionID },
+    optimist: { type: REVERT, id: transactionID }
   };
 }
 
@@ -204,7 +192,7 @@ function unpublishedEntryDeleteRequest(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_DELETE_REQUEST,
     payload: { collection, slug },
-    optimist: { type: BEGIN, id: transactionID },
+    optimist: { type: BEGIN, id: transactionID }
   };
 }
 
@@ -212,7 +200,7 @@ function unpublishedEntryDeleted(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_DELETE_SUCCESS,
     payload: { collection, slug },
-    optimist: { type: COMMIT, id: transactionID },
+    optimist: { type: COMMIT, id: transactionID }
   };
 }
 
@@ -221,7 +209,7 @@ function unpublishedEntryDeleteError(collection, slug, transactionID) {
   return {
     type: UNPUBLISHED_ENTRY_DELETE_FAILURE,
     payload: { collection, slug },
-    optimist: { type: REVERT, id: transactionID },
+    optimist: { type: REVERT, id: transactionID }
   };
 }
 
@@ -246,11 +234,11 @@ export function loadUnpublishedEntry(collection, slug) {
             notifSend({
               message: {
                 key: 'ui.toast.onFailToLoadEntries',
-                details: error,
+                details: error
               },
               kind: 'danger',
-              dismissAfter: 8000,
-            }),
+              dismissAfter: 8000
+            })
           );
         }
       });
@@ -271,11 +259,11 @@ export function loadUnpublishedEntries(collections) {
           notifSend({
             message: {
               key: 'ui.toast.onFailToLoadEntries',
-              details: error,
+              details: error
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         dispatch(unpublishedEntriesFailed(error));
         Promise.reject(error);
@@ -295,18 +283,18 @@ export function persistUnpublishedEntry(collection, existingUnpublishedEntry) {
     // Early return if draft contains validation errors
     if (!fieldsErrors.isEmpty()) {
       const hasPresenceErrors = fieldsErrors.some(errors =>
-        errors.some(error => error.type && error.type === ValidationErrorTypes.PRESENCE),
+        errors.some(error => error.type && error.type === ValidationErrorTypes.PRESENCE)
       );
 
       if (hasPresenceErrors) {
         dispatch(
           notifSend({
             message: {
-              key: 'ui.toast.missingRequiredField',
+              key: 'ui.toast.missingRequiredField'
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
       }
       return Promise.reject();
@@ -327,9 +315,7 @@ export function persistUnpublishedEntry(collection, existingUnpublishedEntry) {
     const serializedEntryDraft = entryDraft.set('entry', serializedEntry);
 
     dispatch(unpublishedEntryPersisting(collection, serializedEntry, transactionID));
-    const persistAction = existingUnpublishedEntry
-      ? backend.persistUnpublishedEntry
-      : backend.persistEntry;
+    const persistAction = existingUnpublishedEntry ? backend.persistUnpublishedEntry : backend.persistEntry;
     const persistCallArgs = [
       backend,
       state.config,
@@ -337,7 +323,7 @@ export function persistUnpublishedEntry(collection, existingUnpublishedEntry) {
       serializedEntryDraft,
       assetProxies.toJS(),
       state.integrations,
-      usedSlugs,
+      usedSlugs
     ];
 
     try {
@@ -345,11 +331,11 @@ export function persistUnpublishedEntry(collection, existingUnpublishedEntry) {
       dispatch(
         notifSend({
           message: {
-            key: 'ui.toast.entrySaved',
+            key: 'ui.toast.entrySaved'
           },
           kind: 'success',
-          dismissAfter: 4000,
-        }),
+          dismissAfter: 4000
+        })
       );
       dispatch(unpublishedEntryPersisted(collection, serializedEntry, transactionID, newSlug));
     } catch (error) {
@@ -357,11 +343,11 @@ export function persistUnpublishedEntry(collection, existingUnpublishedEntry) {
         notifSend({
           message: {
             key: 'ui.toast.onFailToPersist',
-            details: error,
+            details: error
           },
           kind: 'danger',
-          dismissAfter: 8000,
-        }),
+          dismissAfter: 8000
+        })
       );
       return Promise.reject(dispatch(unpublishedEntryPersistedFail(error, transactionID)));
     }
@@ -374,41 +360,31 @@ export function updateUnpublishedEntryStatus(collection, slug, oldStatus, newSta
     const state = getState();
     const backend = currentBackend(state.config);
     const transactionID = uuid();
-    dispatch(
-      unpublishedEntryStatusChangeRequest(collection, slug, oldStatus, newStatus, transactionID),
-    );
+    dispatch(unpublishedEntryStatusChangeRequest(collection, slug, oldStatus, newStatus, transactionID));
     backend
       .updateUnpublishedEntryStatus(collection, slug, newStatus)
       .then(() => {
         dispatch(
           notifSend({
             message: {
-              key: 'ui.toast.entryUpdated',
+              key: 'ui.toast.entryUpdated'
             },
             kind: 'success',
-            dismissAfter: 4000,
-          }),
+            dismissAfter: 4000
+          })
         );
-        dispatch(
-          unpublishedEntryStatusChangePersisted(
-            collection,
-            slug,
-            oldStatus,
-            newStatus,
-            transactionID,
-          ),
-        );
+        dispatch(unpublishedEntryStatusChangePersisted(collection, slug, oldStatus, newStatus, transactionID));
       })
       .catch(error => {
         dispatch(
           notifSend({
             message: {
               key: 'ui.toast.onFailToUpdateStatus',
-              details: error,
+              details: error
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         dispatch(unpublishedEntryStatusChangeError(collection, slug, transactionID));
       });
@@ -428,8 +404,8 @@ export function deleteUnpublishedEntry(collection, slug) {
           notifSend({
             message: { key: 'ui.toast.onDeleteUnpublishedChanges' },
             kind: 'success',
-            dismissAfter: 4000,
-          }),
+            dismissAfter: 4000
+          })
         );
         dispatch(unpublishedEntryDeleted(collection, slug, transactionID));
       })
@@ -438,8 +414,8 @@ export function deleteUnpublishedEntry(collection, slug) {
           notifSend({
             message: { key: 'ui.toast.onDeleteUnpublishedChanges', details: error },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         dispatch(unpublishedEntryDeleteError(collection, slug, transactionID));
       });
@@ -452,16 +428,17 @@ export function publishUnpublishedEntry(collection, slug) {
     const collections = state.collections;
     const backend = currentBackend(state.config);
     const transactionID = uuid();
+    const entry = selectUnpublishedEntry(state, collection, slug);
     dispatch(unpublishedEntryPublishRequest(collection, slug, transactionID));
     return backend
-      .publishUnpublishedEntry(collection, slug)
+      .publishUnpublishedEntry(entry)
       .then(() => {
         dispatch(
           notifSend({
             message: { key: 'ui.toast.entryPublished' },
             kind: 'success',
-            dismissAfter: 4000,
-          }),
+            dismissAfter: 4000
+          })
         );
         dispatch(unpublishedEntryPublished(collection, slug, transactionID));
         dispatch(loadEntry(collections.get(collection), slug));
@@ -471,8 +448,8 @@ export function publishUnpublishedEntry(collection, slug) {
           notifSend({
             message: { key: 'ui.toast.onFailToPublishEntry', details: error },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         dispatch(unpublishedEntryPublishError(collection, slug, transactionID));
       });
