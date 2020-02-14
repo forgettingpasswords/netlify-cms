@@ -78,5 +78,8 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-immutable-proptypes": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "forgettingpasswords"
   }
 }

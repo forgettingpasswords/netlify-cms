@@ -8553,6 +8553,14 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+netlify-cms-backend-gitlab@^2.3.2:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/netlify-cms-backend-gitlab/-/netlify-cms-backend-gitlab-2.6.0.tgz#b62097326364adc2fcf26e53f48f649e0510559e"
+  integrity sha512-Kd1KXB5P9LGnjVZl4+tdaGQwnEJRDsE+6acfB0iztyC7uKVrKdWdBEF+3MV7Tf62AwlSCbM8k0qNA2X/Jly1Ow==
+  dependencies:
+    js-base64 "^2.5.1"
+    semaphore "^1.1.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
