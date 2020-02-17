@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.5.0 (2020-02-17)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/7987091))
+* **a11y:** correct label "for" references to fields ([#1904](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/1904)) ([955f94f](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/955f94f))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/ccef446))
+* **netlify-cms-widget-relation:** use react-select and add support for multiple entries ([#1936](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/1936)) ([518f6fb](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/518f6fb))
+* **netlify-cms-widget-select:** add support for multiple selection ([#1901](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/issues/1901)) ([88bf287](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/commit/88bf287))
+
+
+
+
+
 ## [2.4.3](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-select/compare/netlify-cms-widget-select@2.4.2...netlify-cms-widget-select@2.4.3) (2019-07-24)
 
 **Note:** Version bump only for package netlify-cms-widget-select

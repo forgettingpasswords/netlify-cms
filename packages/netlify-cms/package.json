@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms",
   "description": "An extensible, open source, Git-based, React CMS for static sites.",
-  "version": "2.9.8-beta.2",
+  "version": "2.10.0-dpl.0",
   "homepage": "https://www.netlifycms.org",
   "repository": "https://github.com/netlify/netlify-cms",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
@@ -20,9 +20,9 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@forgettingpasswords/netlify-cms-app": "^2.9.8-beta.2",
-    "@forgettingpasswords/netlify-cms-media-library-cloudinary": "^1.3.3",
-    "@forgettingpasswords/netlify-cms-media-library-uploadcare": "^0.5.3",
+    "@forgettingpasswords/netlify-cms-app": "^2.10.0-dpl.0",
+    "@forgettingpasswords/netlify-cms-media-library-cloudinary": "^1.4.0",
+    "@forgettingpasswords/netlify-cms-media-library-uploadcare": "^0.6.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
