@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const { toGlobalName, externals } = require('./externals');
+const npm_package = require('../package.json');
 const pkg = require(path.join(process.cwd(), 'package.json'));
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -113,7 +114,9 @@ const baseConfig = ({ target = isProduction ? 'umd' : 'umddir' } = {}) => ({
   plugins: Object.values(plugins()).map(plugin => plugin()),
   devtool: 'source-map',
   target: 'web',
-
+  resolve: {
+    alias: npm_package.moduleAliases || {},
+  },
   /**
    * Exclude peer dependencies from package bundles.
    */
