@@ -8,7 +8,6 @@ const path = require('path');
  */
 const toGlobalName = name =>
   `${name}`
-    .split('/')[1]
     .replace(new RegExp(/[-_/]+/, 'g'), ' ')
     .replace(new RegExp(/[^\w\s]/, 'g'), '')
     .replace(
@@ -18,20 +17,20 @@ const toGlobalName = name =>
     .replace(new RegExp(/\s/, 'g'), '')
     .replace(new RegExp(/\w/), s => s.toUpperCase());
 
+// const toNonScopedName = name => name.split('/')[1];
+
 const packages = fs.readdirSync(path.resolve(__dirname, '../packages'));
 
 const packageExports = {};
-packages
-  .map(name => `@forgettingpasswords/${name}`)
-  .map(name => {
-    packageExports[name] = {
-      root: `${toGlobalName(name)}`.split('.'),
-      commonjs2: name,
-      commonjs: name,
-      amd: name,
-      umd: name,
-    };
-  });
+packages.map(name => {
+  packageExports[`@forgettingpasswords/${name}`] = {
+    root: `${toGlobalName(name)}`.split('.'),
+    commonjs2: name,
+    commonjs: name,
+    amd: name,
+    umd: name,
+  };
+});
 
 console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
 console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
