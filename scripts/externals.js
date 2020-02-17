@@ -24,10 +24,14 @@ packages.map(name => {
   packageExports[`@forgettingpasswords/${name}`] = {
     // packageExports[`${name}`] = {
     root: `${toGlobalName(name)}`.split('.'),
-    commonjs2: name,
-    commonjs: name,
-    amd: name,
-    umd: name,
+    // commonjs2: name,
+    commonjs2: `@forgettingpasswords/${name}`,
+    // commonjs: name,
+    commonjs: `@forgettingpasswords/${name}`,
+    // amd: name,
+    amd: `@forgettingpasswords/${name}`,
+    // umd: name,
+    umd: `@forgettingpasswords/${name}`,
   };
 });
 
