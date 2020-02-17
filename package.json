@@ -31,7 +31,6 @@
     "lint-quiet": "run-p -c --aggregate-output \"lint:* -- --quiet\"",
     "lint:css": "stylelint --ignore-path .gitignore \"{packages/**/*.{css,js},website/**/*.css}\"",
     "lint:js": "eslint --color --ignore-path .gitignore \"{{packages,scripts,website}/**/,}*.js\"",
-    "lint:format": "prettier \"{{packages,scripts,website}/**/,}*.{js,css}\" --list-different",
     "format": "run-s \"lint:css -- --fix --quiet\" \"lint:js -- --fix --quiet\" \"format:prettier -- --write\"",
     "format:prettier": "prettier \"{{packages,scripts,website}/**/,}*.{js,css}\"",
     "publish": "run-s publish:before-manual-version publish:after-manual-version",
@@ -100,6 +99,7 @@
     "jest-cli": "^24.5.0",
     "jest-dom": "^3.1.3",
     "jest-emotion": "^10.0.9",
+    "module-alias": "^2.2.2",
     "ncp": "^2.0.0",
     "nock": "^10.0.4",
     "node-fetch": "^2.3.0",
@@ -126,5 +126,39 @@
   "dependencies": {
     "emotion": "^10.0.9",
     "lerna": "^3.15.0"
+  },
+  "_moduleAliases": {
+    "netlify-cms": "@forgettingpasswords/netlify-cms",
+    "netlify-cms-app": "@forgettingpasswords/netlify-cms-app",
+    "netlify-cms-backend-bitbucket": "@forgettingpasswords/netlify-cms-backend-bitbucket",
+    "netlify-cms-backend-git-gateway": "@forgettingpasswords/netlify-cms-backend-git-gateway",
+    "netlify-cms-backend-github": "@forgettingpasswords/netlify-cms-backend-github",
+    "netlify-cms-backend-gitlab": "@forgettingpasswords/netlify-cms-backend-gitlab",
+    "netlify-cms-backend-test": "@forgettingpasswords/netlify-cms-backend-test",
+    "netlify-cms-core": "@forgettingpasswords/netlify-cms-core",
+    "netlify-cms-default-exports": "@forgettingpasswords/netlify-cms-default-exports",
+    "netlify-cms-editor-component-image": "@forgettingpasswords/netlify-cms-editor-component-image",
+    "netlify-cms-lib-auth": "@forgettingpasswords/netlify-cms-lib-auth",
+    "netlify-cms-lib-util": "@forgettingpasswords/netlify-cms-lib-util",
+    "netlify-cms-media-library-cloudinary": "@forgettingpasswords/netlify-cms-media-library-cloudinary",
+    "netlify-cms-media-library-uploadcare": "@forgettingpasswords/netlify-cms-media-library-uploadcare",
+    "netlify-cms-ui-default": "@forgettingpasswords/netlify-cms-ui-default",
+    "netlify-cms-widget-boolean": "@forgettingpasswords/netlify-cms-widget-boolean",
+    "netlify-cms-widget-date": "@forgettingpasswords/netlify-cms-widget-date",
+    "netlify-cms-widget-datetime": "@forgettingpasswords/netlify-cms-widget-datetime",
+    "netlify-cms-widget-file": "@forgettingpasswords/netlify-cms-widget-file",
+    "netlify-cms-widget-image": "@forgettingpasswords/netlify-cms-widget-image",
+    "netlify-cms-widget-list": "@forgettingpasswords/netlify-cms-widget-list",
+    "netlify-cms-widget-map": "@forgettingpasswords/netlify-cms-widget-map",
+    "netlify-cms-widget-markdown": "@forgettingpasswords/netlify-cms-widget-markdown",
+    "netlify-cms-widget-number": "@forgettingpasswords/netlify-cms-widget-number",
+    "netlify-cms-widget-object": "@forgettingpasswords/netlify-cms-widget-object",
+    "netlify-cms-widget-relation": "@forgettingpasswords/netlify-cms-widget-relation",
+    "netlify-cms-widget-select": "@forgettingpasswords/netlify-cms-widget-select",
+    "netlify-cms-widget-string": "@forgettingpasswords/netlify-cms-widget-string",
+    "netlify-cms-widget-text": "@forgettingpasswords/netlify-cms-widget-text"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

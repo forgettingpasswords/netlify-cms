@@ -113,7 +113,9 @@ const baseConfig = ({ target = isProduction ? 'umd' : 'umddir' } = {}) => ({
   plugins: Object.values(plugins()).map(plugin => plugin()),
   devtool: 'source-map',
   target: 'web',
-
+  resolve: {
+    alias: pkg.moduleAliases || {},
+  },
   /**
    * Exclude peer dependencies from package bundles.
    */

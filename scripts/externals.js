@@ -21,7 +21,8 @@ const packages = fs.readdirSync(path.resolve(__dirname, '../packages'));
 
 const packageExports = {};
 packages.map(name => {
-  packageExports[name] = {
+  // packageExports[`@forgettingpasswords/${name}`] = {
+  packageExports[`${name}`] = {
     root: `${toGlobalName(name)}`.split('.'),
     commonjs2: name,
     commonjs: name,
