@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.10.0-dpl.0 (2020-02-17)
+
+
+### Bug Fixes
+
+* **netlify-cms-app:** add missing dependencies([#2255](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-app/issues/2255)) ([cf03a37](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-app/commit/cf03a37))
+
+
+### Features
+
+* add byo react package netlify-cms-app ([#2252](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-app/issues/2252)) ([ff4ffd7](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-app/commit/ff4ffd7))
+
+
+
+
+
 ## [2.9.8-beta.2](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-app/compare/netlify-cms-app@2.9.8-beta.0...netlify-cms-app@2.9.8-beta.2) (2019-09-20)
 
 **Note:** Version bump only for package netlify-cms-app
