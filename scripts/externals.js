@@ -23,7 +23,8 @@ const packages = fs.readdirSync(path.resolve(__dirname, '../packages'));
 
 const packageExports = {};
 packages.map(name => {
-  packageExports[`@forgettingpasswords/${name}`] = {
+  // packageExports[`@forgettingpasswords/${name}`] = {
+  packageExports[`${name}`] = {
     root: `${toGlobalName(name)}`.split('.'),
     commonjs2: name,
     commonjs: name,
@@ -31,16 +32,6 @@ packages.map(name => {
     umd: name,
   };
 });
-
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log(packageExports);
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
-console.log('+++++++++++++++++++++++++++++++++++++++++++++++');
 
 module.exports = {
   toGlobalName,
