@@ -32,6 +32,7 @@ const baseConfig = {
     host: 'localhost',
     port: 8080,
   },
+  resolve: { alias: pkg['_moduleAliases'] || {} },
 };
 
 if (isProduction) {
