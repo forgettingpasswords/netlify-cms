@@ -17,14 +17,12 @@ const toGlobalName = name =>
     .replace(new RegExp(/\s/, 'g'), '')
     .replace(new RegExp(/\w/), s => s.toUpperCase());
 
-// const toNonScopedName = name => name.split('/')[1];
-
 const packages = fs.readdirSync(path.resolve(__dirname, '../packages'));
 
 const packageExports = {};
 packages.map(name => {
-  // packageExports[`@forgettingpasswords/${name}`] = {
-  packageExports[`${name}`] = {
+  packageExports[`@forgettingpasswords/${name}`] = {
+    // packageExports[`${name}`] = {
     root: `${toGlobalName(name)}`.split('.'),
     commonjs2: name,
     commonjs: name,
