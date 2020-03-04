@@ -10,6 +10,7 @@ import search from './search';
 import mediaLibrary from './mediaLibrary';
 import medias, * as fromMedias from './medias';
 import deploys, * as fromDeploys from './deploys';
+import entryHistory, * as fromEntryHistory from './entryHistory';
 import globalUI from './globalUI';
 
 const reducers = {
@@ -26,6 +27,7 @@ const reducers = {
   medias,
   deploys,
   globalUI,
+  entryHistory
 };
 
 export default reducers;
@@ -35,6 +37,9 @@ export default reducers;
  */
 export const selectEntry = (state, collection, slug) =>
   fromEntries.selectEntry(state.entries, collection, slug);
+
+export const selectEntryHistory = (state, collectionName, slug) =>
+  fromEntryHistory.selectEntryHistory(state.entryHistory, collectionName, slug);
 
 export const selectEntries = (state, collection) =>
   fromEntries.selectEntries(state.entries, collection);

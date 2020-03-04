@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { translate } from 'react-polyglot';
+import Select from 'react-select';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 import {
@@ -15,7 +16,7 @@ import {
   colors,
   components,
   buttons,
-  lengths,
+  lengths
 } from 'netlify-cms-ui-default';
 import { status } from 'Constants/publishModes';
 import SettingsDropdown from 'UI/SettingsDropdown';
@@ -29,12 +30,11 @@ const styles = {
     display: flex;
     align-items: center;
     border: 0 solid ${colors.textFieldBorder};
-  `,
+  `
 };
 
 const ToolbarContainer = styled.div`
-  box-shadow: 0 2px 6px 0 rgba(68, 74, 87, 0.05), 0 1px 3px 0 rgba(68, 74, 87, 0.1),
-    0 2px 54px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px 0 rgba(68, 74, 87, 0.05), 0 1px 3px 0 rgba(68, 74, 87, 0.1), 0 2px 54px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -226,7 +226,7 @@ class EditorToolbar extends React.Component {
     onLogoutClick: PropTypes.func.isRequired,
     deployPreview: ImmutablePropTypes.map,
     loadDeployPreview: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -247,9 +247,7 @@ class EditorToolbar extends React.Component {
     const { showDelete, onDelete, t } = this.props;
     return (
       <div>
-        {showDelete ? (
-          <DeleteButton onClick={onDelete}>{t('editor.editorToolbar.deleteEntry')}</DeleteButton>
-        ) : null}
+        {showDelete ? <DeleteButton onClick={onDelete}>{t('editor.editorToolbar.deleteEntry')}</DeleteButton> : null}
       </div>
     );
   };
@@ -283,15 +281,7 @@ class EditorToolbar extends React.Component {
   };
 
   renderSimplePublishControls = () => {
-    const {
-      collection,
-      onPersist,
-      onPersistAndNew,
-      isPersisting,
-      hasChanged,
-      isNewEntry,
-      t,
-    } = this.props;
+    const { collection, onPersist, onPersistAndNew, isPersisting, hasChanged, isNewEntry, t } = this.props;
     if (!isNewEntry && !hasChanged) {
       return (
         <>
@@ -307,24 +297,13 @@ class EditorToolbar extends React.Component {
           dropdownWidth="150px"
           renderButton={() => (
             <PublishButton>
-              {isPersisting
-                ? t('editor.editorToolbar.publishing')
-                : t('editor.editorToolbar.publish')}
+              {isPersisting ? t('editor.editorToolbar.publishing') : t('editor.editorToolbar.publish')}
             </PublishButton>
           )}
         >
-          <DropdownItem
-            label="Publish now"
-            icon="arrow"
-            iconDirection="right"
-            onClick={onPersist}
-          />
+          <DropdownItem label="Publish now" icon="arrow" iconDirection="right" onClick={onPersist} />
           {collection.get('create') ? (
-            <DropdownItem
-              label={t('editor.editorToolbar.publishAndCreateNew')}
-              icon="add"
-              onClick={onPersistAndNew}
-            />
+            <DropdownItem label={t('editor.editorToolbar.publishAndCreateNew')} icon="add" onClick={onPersistAndNew} />
           ) : null}
         </ToolbarDropdown>
       </div>
@@ -343,16 +322,12 @@ class EditorToolbar extends React.Component {
       isDeleting,
       isNewEntry,
       isModification,
-      t,
+      t
     } = this.props;
 
     const deleteLabel =
-      (hasUnpublishedChanges &&
-        isModification &&
-        t('editor.editorToolbar.deleteUnpublishedChanges')) ||
-      (hasUnpublishedChanges &&
-        (isNewEntry || !isModification) &&
-        t('editor.editorToolbar.deleteUnpublishedEntry')) ||
+      (hasUnpublishedChanges && isModification && t('editor.editorToolbar.deleteUnpublishedChanges')) ||
+      (hasUnpublishedChanges && (isNewEntry || !isModification) && t('editor.editorToolbar.deleteUnpublishedEntry')) ||
       (!hasUnpublishedChanges && !isModification && t('editor.editorToolbar.deletePublishedEntry'));
 
     return [
@@ -360,13 +335,10 @@ class EditorToolbar extends React.Component {
         {isPersisting ? t('editor.editorToolbar.saving') : t('editor.editorToolbar.save')}
       </SaveButton>,
       !showDelete && !hasUnpublishedChanges && !isModification ? null : (
-        <DeleteButton
-          key="delete-button"
-          onClick={hasUnpublishedChanges ? onDeleteUnpublishedChanges : onDelete}
-        >
+        <DeleteButton key="delete-button" onClick={hasUnpublishedChanges ? onDeleteUnpublishedChanges : onDelete}>
           {isDeleting ? t('editor.editorToolbar.deleting') : deleteLabel}
         </DeleteButton>
-      ),
+      )
     ];
   };
 
@@ -381,7 +353,7 @@ class EditorToolbar extends React.Component {
       currentStatus,
       isNewEntry,
       useForkWorkflow,
-      t,
+      t
     } = this.props;
     if (currentStatus) {
       return (
@@ -392,9 +364,7 @@ class EditorToolbar extends React.Component {
             dropdownWidth="120px"
             renderButton={() => (
               <StatusButton>
-                {isUpdatingStatus
-                  ? t('editor.editorToolbar.updating')
-                  : t('editor.editorToolbar.setStatus')}
+                {isUpdatingStatus ? t('editor.editorToolbar.updating') : t('editor.editorToolbar.setStatus')}
               </StatusButton>
             )}
           >
@@ -426,9 +396,7 @@ class EditorToolbar extends React.Component {
               dropdownWidth="150px"
               renderButton={() => (
                 <PublishButton>
-                  {isPublishing
-                    ? t('editor.editorToolbar.publishing')
-                    : t('editor.editorToolbar.publish')}
+                  {isPublishing ? t('editor.editorToolbar.publishing') : t('editor.editorToolbar.publish')}
                 </PublishButton>
               )}
             >
@@ -465,7 +433,15 @@ class EditorToolbar extends React.Component {
   };
 
   render() {
-    const { user, hasChanged, displayUrl, collection, hasWorkflow, onLogoutClick, t } = this.props;
+    const { entryCommits, user, hasChanged, displayUrl, collection, hasWorkflow, onLogoutClick, t } = this.props;
+
+    const entryOptions = entryCommits.map(({ ref, date, author }) => ({
+      label: `${author} ${date}`,
+      value: ref
+    }));
+
+    const selectedEntry = 'nothing';
+    const onSelectEntry = () => {};
 
     return (
       <ToolbarContainer>
@@ -474,7 +450,7 @@ class EditorToolbar extends React.Component {
           <div>
             <BackCollection>
               {t('editor.editorToolbar.backCollection', {
-                collectionLabel: collection.get('label'),
+                collectionLabel: collection.get('label')
               })}
             </BackCollection>
             {hasChanged ? (
@@ -489,17 +465,18 @@ class EditorToolbar extends React.Component {
             {hasWorkflow ? this.renderWorkflowSaveControls() : this.renderSimpleSaveControls()}
           </ToolbarSubSectionFirst>
           <ToolbarSubSectionLast>
-            {hasWorkflow
-              ? this.renderWorkflowPublishControls()
-              : this.renderSimplePublishControls()}
+            <Select
+              value={selectedEntry}
+              onChange={({ value }) => this.props.onSelectHistoryEntry(value)}
+              options={entryOptions}
+              isSearchable={false}
+              styles={{ container: styles => ({ ...styles, width: '20em' }) }}
+            />
+            {hasWorkflow ? this.renderWorkflowPublishControls() : this.renderSimplePublishControls()}
           </ToolbarSubSectionLast>
         </ToolbarSectionMain>
         <ToolbarSectionMeta>
-          <SettingsDropdown
-            displayUrl={displayUrl}
-            imageUrl={user.get('avatar_url')}
-            onLogoutClick={onLogoutClick}
-          />
+          <SettingsDropdown displayUrl={displayUrl} imageUrl={user.get('avatar_url')} onLogoutClick={onLogoutClick} />
         </ToolbarSectionMeta>
       </ToolbarContainer>
     );

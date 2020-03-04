@@ -131,10 +131,11 @@ export default class GitLab {
   };
 
   // Fetches a single entry.
-  getEntry(collection, slug, path) {
-    return this.api.readFile(path).then(data => ({
+  getEntry(collection, slug, path, ref) {
+    return this.api.readFile(path, undefined, { ref }).then(data => ({
       file: { path },
-      data
+      data,
+      ref: ref || this.branch
     }));
   }
 

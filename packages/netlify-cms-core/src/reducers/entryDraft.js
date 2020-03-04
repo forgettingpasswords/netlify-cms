@@ -11,12 +11,13 @@ import {
   ENTRY_PERSIST_REQUEST,
   ENTRY_PERSIST_SUCCESS,
   ENTRY_PERSIST_FAILURE,
-  ENTRY_DELETE_SUCCESS,
+  ENTRY_DELETE_SUCCESS
 } from 'Actions/entries';
+import { DRAFT_CREATE_FROM_ENTRY_HISTORY } from 'Actions/entryHistory';
 import {
   UNPUBLISHED_ENTRY_PERSIST_REQUEST,
   UNPUBLISHED_ENTRY_PERSIST_SUCCESS,
-  UNPUBLISHED_ENTRY_PERSIST_FAILURE,
+  UNPUBLISHED_ENTRY_PERSIST_FAILURE
 } from 'Actions/editorialWorkflow';
 import { ADD_ASSET, REMOVE_ASSET } from 'Actions/media';
 
@@ -25,7 +26,7 @@ const initialState = Map({
   mediaFiles: List(),
   fieldsMetaData: Map(),
   fieldsErrors: Map(),
-  hasChanged: false,
+  hasChanged: false
 });
 
 const entryDraftReducer = (state = Map(), action) => {
@@ -43,6 +44,15 @@ const entryDraftReducer = (state = Map(), action) => {
         state.set('fieldsErrors', Map());
         state.set('hasChanged', false);
       });
+    case DRAFT_CREATE_FROM_ENTRY_HISTORY: {
+      const {
+        payload: { entry, metadata }
+      } = action;
+      return state.withMutations(state => {
+        state.set('entry', entry);
+        state.set('fieldsMetaData', metadata || Map());
+      });
+    }
     case DRAFT_CREATE_EMPTY:
       // New Entry
       return state.withMutations(state => {
