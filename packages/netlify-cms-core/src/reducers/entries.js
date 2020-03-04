@@ -6,7 +6,7 @@ import {
   ENTRIES_REQUEST,
   ENTRIES_SUCCESS,
   ENTRIES_FAILURE,
-  ENTRY_DELETE_SUCCESS,
+  ENTRY_DELETE_SUCCESS
 } from 'Actions/entries';
 
 import { SEARCH_ENTRIES_SUCCESS } from 'Actions/search';
@@ -20,21 +20,21 @@ let slug;
 const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
   switch (action.type) {
     case ENTRY_REQUEST:
-      return state.setIn(
-        ['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'],
-        true,
-      );
+      return state.setIn(['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'], true);
 
-    case ENTRY_SUCCESS:
+    case ENTRY_SUCCESS: {
       collection = action.payload.collection;
       slug = action.payload.entry.slug;
-      return state.withMutations(map => {
+      const newState = state.withMutations(map => {
         map.setIn(['entities', `${collection}.${slug}`], fromJS(action.payload.entry));
         const ids = map.getIn(['pages', collection, 'ids'], List());
         if (!ids.includes(slug)) {
           map.setIn(['pages', collection, 'ids'], ids.unshift(slug));
         }
       });
+
+      return newState;
+    }
 
     case ENTRIES_REQUEST:
       return state.setIn(['pages', action.payload.collection, 'isFetching'], true);
@@ -46,10 +46,7 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       page = action.payload.page;
       return state.withMutations(map => {
         loadedEntries.forEach(entry =>
-          map.setIn(
-            ['entities', `${collection}.${entry.slug}`],
-            fromJS(entry).set('isFetching', false),
-          ),
+          map.setIn(['entities', `${collection}.${entry.slug}`], fromJS(entry).set('isFetching', false))
         );
 
         const ids = List(loadedEntries.map(entry => entry.slug));
@@ -57,8 +54,8 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
           ['pages', collection],
           Map({
             page,
-            ids: append ? map.getIn(['pages', collection, 'ids'], List()).concat(ids) : ids,
-          }),
+            ids: append ? map.getIn(['pages', collection, 'ids'], List()).concat(ids) : ids
+          })
         );
       });
 
@@ -67,13 +64,10 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
 
     case ENTRY_FAILURE:
       return state.withMutations(map => {
-        map.setIn(
-          ['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'],
-          false,
-        );
+        map.setIn(['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'], false);
         map.setIn(
           ['entities', `${action.payload.collection}.${action.payload.slug}`, 'error'],
-          action.payload.error.message,
+          action.payload.error.message
         );
       });
 
@@ -81,10 +75,7 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       loadedEntries = action.payload.entries;
       return state.withMutations(map => {
         loadedEntries.forEach(entry =>
-          map.setIn(
-            ['entities', `${entry.collection}.${entry.slug}`],
-            fromJS(entry).set('isFetching', false),
-          ),
+          map.setIn(['entities', `${entry.collection}.${entry.slug}`], fromJS(entry).set('isFetching', false))
         );
       });
 
@@ -92,7 +83,7 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       return state.withMutations(map => {
         map.deleteIn(['entities', `${action.payload.collectionName}.${action.payload.entrySlug}`]);
         map.updateIn(['pages', action.payload.collectionName, 'ids'], ids =>
-          ids.filter(id => id !== action.payload.entrySlug),
+          ids.filter(id => id !== action.payload.entrySlug)
         );
       });
 
@@ -101,11 +92,9 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
   }
 };
 
-export const selectEntry = (state, collection, slug) =>
-  state.getIn(['entities', `${collection}.${slug}`]);
+export const selectEntry = (state, collection, slug) => state.getIn(['entities', `${collection}.${slug}`]);
 
-export const selectPublishedSlugs = (state, collection) =>
-  state.getIn(['pages', collection, 'ids'], List());
+export const selectPublishedSlugs = (state, collection) => state.getIn(['pages', collection, 'ids'], List());
 
 export const selectEntries = (state, collection) => {
   const slugs = selectPublishedSlugs(state, collection);

@@ -20,16 +20,17 @@ import {
   persistLocalBackup,
   loadLocalBackup,
   retrieveLocalBackup,
-  deleteLocalBackup,
+  deleteLocalBackup
 } from 'Actions/entries';
+import { loadEntryHistory, selectEntryHistoryItem } from 'Actions/entryHistory';
 import {
   updateUnpublishedEntryStatus,
   publishUnpublishedEntry,
-  deleteUnpublishedEntry,
+  deleteUnpublishedEntry
 } from 'Actions/editorialWorkflow';
 import { loadDeployPreview } from 'Actions/deploys';
 import { deserializeValues } from 'Lib/serializeEntryValues';
-import { selectEntry, selectUnpublishedEntry, selectDeployPreview, getAsset } from 'Reducers';
+import { selectEntry, selectEntryHistory, selectUnpublishedEntry, selectDeployPreview, getAsset } from 'Reducers';
 import { selectFields } from 'Reducers/collections';
 import { status, EDITORIAL_WORKFLOW } from 'Constants/publishModes';
 import EditorInterface from './EditorInterface';
@@ -38,8 +39,7 @@ import withWorkflow from './withWorkflow';
 const navigateCollection = collectionPath => history.push(`/collections/${collectionPath}`);
 const navigateToCollection = collectionName => navigateCollection(collectionName);
 const navigateToNewEntry = collectionName => navigateCollection(`${collectionName}/new`);
-const navigateToEntry = (collectionName, slug) =>
-  navigateCollection(`${collectionName}/entries/${slug}`);
+const navigateToEntry = (collectionName, slug) => navigateCollection(`${collectionName}/entries/${slug}`);
 
 class Editor extends React.Component {
   static propTypes = {
@@ -53,6 +53,7 @@ class Editor extends React.Component {
     entry: ImmutablePropTypes.map,
     entryDraft: ImmutablePropTypes.map.isRequired,
     loadEntry: PropTypes.func.isRequired,
+    loadEntryHistory: PropTypes.func.isRequired,
     persistEntry: PropTypes.func.isRequired,
     deleteEntry: PropTypes.func.isRequired,
     showDelete: PropTypes.bool.isRequired,
@@ -75,10 +76,10 @@ class Editor extends React.Component {
     currentStatus: PropTypes.string,
     user: ImmutablePropTypes.map.isRequired,
     location: PropTypes.shape({
-      pathname: PropTypes.string,
+      pathname: PropTypes.string
     }),
     hasChanged: PropTypes.bool,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -87,11 +88,12 @@ class Editor extends React.Component {
       collection,
       slug,
       loadEntry,
+      loadEntryHistory,
       createEmptyDraft,
       loadEntries,
       retrieveLocalBackup,
       collectionEntriesLoaded,
-      t,
+      t
     } = this.props;
 
     retrieveLocalBackup(collection, slug);
@@ -100,6 +102,7 @@ class Editor extends React.Component {
       createEmptyDraft(collection);
     } else {
       loadEntry(collection, slug);
+      loadEntryHistory(collection, slug);
     }
 
     const leaveMessage = t('editor.editor.onLeavePage');
@@ -121,12 +124,7 @@ class Editor extends React.Component {
       const isPersisting = this.props.entryDraft.getIn(['entry', 'isPersisting']);
       const newRecord = this.props.entryDraft.getIn(['entry', 'newRecord']);
       const newEntryPath = `/collections/${collection.get('name')}/new`;
-      if (
-        isPersisting &&
-        newRecord &&
-        this.props.location.pathname === newEntryPath &&
-        action === 'PUSH'
-      ) {
+      if (isPersisting && newRecord && this.props.location.pathname === newEntryPath && action === 'PUSH') {
         return;
       }
 
@@ -145,10 +143,7 @@ class Editor extends React.Component {
       const newEntryPath = `/collections/${collection.get('name')}/new`;
       const entriesPath = `/collections/${collection.get('name')}/entries/`;
       const { pathname } = location;
-      if (
-        pathname.startsWith(newEntryPath) ||
-        (pathname.startsWith(entriesPath) && action === 'PUSH')
-      ) {
+      if (pathname.startsWith(newEntryPath) || (pathname.startsWith(entriesPath) && action === 'PUSH')) {
         return;
       }
 
@@ -221,14 +216,7 @@ class Editor extends React.Component {
   };
 
   handleChangeStatus = newStatusName => {
-    const {
-      entryDraft,
-      updateUnpublishedEntryStatus,
-      collection,
-      slug,
-      currentStatus,
-      t,
-    } = this.props;
+    const { entryDraft, updateUnpublishedEntryStatus, collection, slug, currentStatus, t } = this.props;
     if (entryDraft.get('hasChanged')) {
       window.alert(t('editor.editor.onUpdatingWithUnsavedChanges'));
       return;
@@ -243,17 +231,14 @@ class Editor extends React.Component {
     deleteLocalBackup(collection, !newEntry && slug);
   }
 
+  handleSelectEntryHistory = ref => {
+    const { collection, slug, loadEntry } = this.props;
+    loadEntry(collection, slug, ref);
+  };
+
   handlePersistEntry = async (opts = {}) => {
     const { createNew = false } = opts;
-    const {
-      persistEntry,
-      collection,
-      currentStatus,
-      hasWorkflow,
-      loadEntry,
-      slug,
-      createEmptyDraft,
-    } = this.props;
+    const { persistEntry, collection, currentStatus, hasWorkflow, loadEntry, slug, createEmptyDraft } = this.props;
 
     await persistEntry(collection);
 
@@ -310,15 +295,7 @@ class Editor extends React.Component {
   };
 
   handleDeleteUnpublishedChanges = async () => {
-    const {
-      entryDraft,
-      collection,
-      slug,
-      deleteUnpublishedEntry,
-      loadEntry,
-      isModification,
-      t,
-    } = this.props;
+    const { entryDraft, collection, slug, deleteUnpublishedEntry, loadEntry, isModification, t } = this.props;
     if (
       entryDraft.get('hasChanged') &&
       !window.confirm(t('editor.editor.onDeleteUnpublishedChangesWithUnsavedChanges'))
@@ -342,6 +319,7 @@ class Editor extends React.Component {
     const {
       entry,
       entryDraft,
+      entryCommits,
       fields,
       boundGetAsset,
       collection,
@@ -360,7 +338,7 @@ class Editor extends React.Component {
       deployPreview,
       loadDeployPreview,
       slug,
-      t,
+      t
     } = this.props;
 
     const isPublished = !newEntry && !unpublishedEntry;
@@ -371,17 +349,14 @@ class Editor extends React.Component {
           <h3>{entry.get('error')}</h3>
         </div>
       );
-    } else if (
-      entryDraft == null ||
-      entryDraft.get('entry') === undefined ||
-      (entry && entry.get('isFetching'))
-    ) {
+    } else if (entryDraft == null || entryDraft.get('entry') === undefined || (entry && entry.get('isFetching'))) {
       return <Loader active>{t('editor.editor.loadingEntry')}</Loader>;
     }
 
     return (
       <EditorInterface
         entry={entryDraft.get('entry')}
+        entryCommits={entryCommits}
         getAsset={boundGetAsset}
         collection={collection}
         fields={fields}
@@ -394,6 +369,7 @@ class Editor extends React.Component {
         onDeleteUnpublishedChanges={this.handleDeleteUnpublishedChanges}
         onChangeStatus={this.handleChangeStatus}
         onPublish={this.handlePublishEntry}
+        onSelectHistoryEntry={this.handleSelectEntryHistory}
         showDelete={this.props.showDelete}
         user={user}
         hasChanged={hasChanged}
@@ -420,6 +396,7 @@ function mapStateToProps(state, ownProps) {
   const newEntry = ownProps.newRecord === true;
   const fields = selectFields(collection, slug);
   const entry = newEntry ? null : selectEntry(state, collectionName, slug);
+  const entryCommits = selectEntryHistory(state, collectionName, slug);
   const boundGetAsset = getAsset.bind(null, state);
   const user = auth && auth.get('user');
   const hasChanged = entryDraft.get('hasChanged');
@@ -437,6 +414,7 @@ function mapStateToProps(state, ownProps) {
     collections,
     newEntry,
     entryDraft,
+    entryCommits,
     boundGetAsset,
     fields,
     slug,
@@ -450,30 +428,29 @@ function mapStateToProps(state, ownProps) {
     collectionEntriesLoaded,
     currentStatus,
     deployPreview,
-    localBackup,
+    localBackup
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    changeDraftField,
-    changeDraftFieldValidation,
-    loadEntry,
-    loadEntries,
-    loadDeployPreview,
-    loadLocalBackup,
-    retrieveLocalBackup,
-    persistLocalBackup,
-    deleteLocalBackup,
-    createDraftFromEntry,
-    createEmptyDraft,
-    discardDraft,
-    persistEntry,
-    deleteEntry,
-    updateUnpublishedEntryStatus,
-    publishUnpublishedEntry,
-    deleteUnpublishedEntry,
-    logoutUser,
-  },
-)(withWorkflow(translate()(Editor)));
+export default connect(mapStateToProps, {
+  changeDraftField,
+  changeDraftFieldValidation,
+  loadEntry,
+  loadEntries,
+  loadDeployPreview,
+  loadLocalBackup,
+  retrieveLocalBackup,
+  persistLocalBackup,
+  deleteLocalBackup,
+  createDraftFromEntry,
+  createEmptyDraft,
+  discardDraft,
+  persistEntry,
+  deleteEntry,
+  updateUnpublishedEntryStatus,
+  publishUnpublishedEntry,
+  deleteUnpublishedEntry,
+  logoutUser,
+  loadEntryHistory,
+  selectEntryHistoryItem
+})(withWorkflow(translate()(Editor)));

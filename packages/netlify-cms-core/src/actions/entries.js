@@ -51,8 +51,8 @@ export function entryLoading(collection, slug) {
     type: ENTRY_REQUEST,
     payload: {
       collection: collection.get('name'),
-      slug,
-    },
+      slug
+    }
   };
 }
 
@@ -61,8 +61,8 @@ export function entryLoaded(collection, entry) {
     type: ENTRY_SUCCESS,
     payload: {
       collection: collection.get('name'),
-      entry,
-    },
+      entry
+    }
   };
 }
 
@@ -72,8 +72,8 @@ export function entryLoadError(error, collection, slug) {
     payload: {
       error,
       collection: collection.get('name'),
-      slug,
-    },
+      slug
+    }
   };
 }
 
@@ -81,8 +81,8 @@ export function entriesLoading(collection) {
   return {
     type: ENTRIES_REQUEST,
     payload: {
-      collection: collection.get('name'),
-    },
+      collection: collection.get('name')
+    }
   };
 }
 
@@ -94,8 +94,8 @@ export function entriesLoaded(collection, entries, pagination, cursor, append = 
       entries,
       page: pagination,
       cursor: Cursor.create(cursor),
-      append,
-    },
+      append
+    }
   };
 }
 
@@ -104,7 +104,7 @@ export function entriesFailed(collection, error) {
     type: ENTRIES_FAILURE,
     error: 'Failed to load entries',
     payload: error.toString(),
-    meta: { collection: collection.get('name') },
+    meta: { collection: collection.get('name') }
   };
 }
 
@@ -113,8 +113,8 @@ export function entryPersisting(collection, entry) {
     type: ENTRY_PERSIST_REQUEST,
     payload: {
       collectionName: collection.get('name'),
-      entrySlug: entry.get('slug'),
-    },
+      entrySlug: entry.get('slug')
+    }
   };
 }
 
@@ -128,8 +128,8 @@ export function entryPersisted(collection, entry, slug) {
       /**
        * Pass slug from backend for newly created entries.
        */
-      slug,
-    },
+      slug
+    }
   };
 }
 
@@ -140,8 +140,8 @@ export function entryPersistFail(collection, entry, error) {
     payload: {
       collectionName: collection.get('name'),
       entrySlug: entry.get('slug'),
-      error: error.toString(),
-    },
+      error: error.toString()
+    }
   };
 }
 
@@ -150,8 +150,8 @@ export function entryDeleting(collection, slug) {
     type: ENTRY_DELETE_REQUEST,
     payload: {
       collectionName: collection.get('name'),
-      entrySlug: slug,
-    },
+      entrySlug: slug
+    }
   };
 }
 
@@ -160,8 +160,8 @@ export function entryDeleted(collection, slug) {
     type: ENTRY_DELETE_SUCCESS,
     payload: {
       collectionName: collection.get('name'),
-      entrySlug: slug,
-    },
+      entrySlug: slug
+    }
   };
 }
 
@@ -171,15 +171,15 @@ export function entryDeleteFail(collection, slug, error) {
     payload: {
       collectionName: collection.get('name'),
       entrySlug: slug,
-      error: error.toString(),
-    },
+      error: error.toString()
+    }
   };
 }
 
 export function emptyDraftCreated(entry) {
   return {
     type: DRAFT_CREATE_EMPTY,
-    payload: entry,
+    payload: entry
   };
 }
 /*
@@ -188,34 +188,34 @@ export function emptyDraftCreated(entry) {
 export function createDraftFromEntry(entry, metadata) {
   return {
     type: DRAFT_CREATE_FROM_ENTRY,
-    payload: { entry, metadata },
+    payload: { entry, metadata }
   };
 }
 
 export function discardDraft() {
   return {
-    type: DRAFT_DISCARD,
+    type: DRAFT_DISCARD
   };
 }
 
 export function changeDraft(entry) {
   return {
     type: DRAFT_CHANGE,
-    payload: entry,
+    payload: entry
   };
 }
 
 export function changeDraftField(field, value, metadata) {
   return {
     type: DRAFT_CHANGE_FIELD,
-    payload: { field, value, metadata },
+    payload: { field, value, metadata }
   };
 }
 
 export function changeDraftFieldValidation(uniquefieldId, errors) {
   return {
     type: DRAFT_VALIDATION_ERRORS,
-    payload: { uniquefieldId, errors },
+    payload: { uniquefieldId, errors }
   };
 }
 
@@ -226,13 +226,13 @@ export function clearFieldErrors() {
 export function localBackupRetrieved(entry) {
   return {
     type: DRAFT_LOCAL_BACKUP_RETRIEVED,
-    payload: { entry },
+    payload: { entry }
   };
 }
 
 export function loadLocalBackup() {
   return {
-    type: DRAFT_CREATE_FROM_LOCAL_BACKUP,
+    type: DRAFT_CREATE_FROM_LOCAL_BACKUP
   };
 }
 
@@ -267,13 +267,13 @@ export function deleteLocalBackup(collection, slug) {
  * Exported Thunk Action Creators
  */
 
-export function loadEntry(collection, slug) {
+export function loadEntry(collection, slug, ref) {
   return (dispatch, getState) => {
     const state = getState();
     const backend = currentBackend(state.config);
     dispatch(entryLoading(collection, slug));
     return backend
-      .getEntry(collection, slug)
+      .getEntry(collection, slug, ref)
       .then(loadedEntry => {
         return dispatch(entryLoaded(collection, loadedEntry));
       })
@@ -283,11 +283,11 @@ export function loadEntry(collection, slug) {
           notifSend({
             message: {
               details: error.message,
-              key: 'ui.toast.onFailToLoadEntries',
+              key: 'ui.toast.onFailToLoadEntries'
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         dispatch(entryLoadError(error, collection, slug));
       });
@@ -295,12 +295,12 @@ export function loadEntry(collection, slug) {
 }
 
 const appendActions = fromJS({
-  ['append_next']: { action: 'next', append: true },
+  ['append_next']: { action: 'next', append: true }
 });
 
 const addAppendActionsToCursor = cursor =>
   Cursor.create(cursor).updateStore('actions', actions =>
-    actions.union(appendActions.filter(v => actions.has(v.get('action'))).keySeq()),
+    actions.union(appendActions.filter(v => actions.has(v.get('action'))).keySeq())
   );
 
 export function loadEntries(collection, page = 0) {
@@ -311,9 +311,7 @@ export function loadEntries(collection, page = 0) {
     const state = getState();
     const backend = currentBackend(state.config);
     const integration = selectIntegration(state, collection.get('name'), 'listEntries');
-    const provider = integration
-      ? getIntegrationProvider(state.integrations, backend.getToken, integration)
-      : backend;
+    const provider = integration ? getIntegrationProvider(state.integrations, backend.getToken, integration) : backend;
     const append = !!(page && !isNaN(page) && page > 0);
     dispatch(entriesLoading(collection));
     provider
@@ -331,33 +329,31 @@ export function loadEntries(collection, page = 0) {
           ? Cursor.create({
               actions: ['next'],
               meta: { usingOldPaginationAPI: true },
-              data: { nextPage: page + 1 },
+              data: { nextPage: page + 1 }
             })
-          : Cursor.create(response.cursor),
+          : Cursor.create(response.cursor)
       }))
       .then(response =>
         dispatch(
           entriesLoaded(
             collection,
-            response.cursor.meta.get('usingOldPaginationAPI')
-              ? response.entries.reverse()
-              : response.entries,
+            response.cursor.meta.get('usingOldPaginationAPI') ? response.entries.reverse() : response.entries,
             response.pagination,
             addAppendActionsToCursor(response.cursor),
-            append,
-          ),
-        ),
+            append
+          )
+        )
       )
       .catch(err => {
         dispatch(
           notifSend({
             message: {
               details: err,
-              key: 'ui.toast.onFailToLoadEntries',
+              key: 'ui.toast.onFailToLoadEntries'
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         return Promise.reject(dispatch(entriesFailed(collection, err)));
       });
@@ -395,20 +391,18 @@ export function traverseCollectionCursor(collection, action) {
       const { entries, cursor: newCursor } = await traverseCursor(backend, cursor, realAction);
       // Pass null for the old pagination argument - this will
       // eventually be removed.
-      return dispatch(
-        entriesLoaded(collection, entries, null, addAppendActionsToCursor(newCursor), append),
-      );
+      return dispatch(entriesLoaded(collection, entries, null, addAppendActionsToCursor(newCursor), append));
     } catch (err) {
       console.error(err);
       dispatch(
         notifSend({
           message: {
             details: err,
-            key: 'ui.toast.onFailToPersist',
+            key: 'ui.toast.onFailToPersist'
           },
           kind: 'danger',
-          dismissAfter: 8000,
-        }),
+          dismissAfter: 8000
+        })
       );
       return Promise.reject(dispatch(entriesFailed(collection, err)));
     }
@@ -432,9 +426,7 @@ export function createEmptyDraftData(fields, withNameKey = true) {
     const isEmptyDefaultValue = val => [[{}], {}].some(e => isEqual(val, e));
 
     if (List.isList(subfields)) {
-      const subDefaultValue = list
-        ? [createEmptyDraftData(subfields)]
-        : createEmptyDraftData(subfields);
+      const subDefaultValue = list ? [createEmptyDraftData(subfields)] : createEmptyDraftData(subfields);
       if (!isEmptyDefaultValue(subDefaultValue)) {
         acc[name] = subDefaultValue;
       }
@@ -442,9 +434,7 @@ export function createEmptyDraftData(fields, withNameKey = true) {
     }
 
     if (Map.isMap(subfields)) {
-      const subDefaultValue = list
-        ? [createEmptyDraftData([subfields], false)]
-        : createEmptyDraftData([subfields]);
+      const subDefaultValue = list ? [createEmptyDraftData([subfields], false)] : createEmptyDraftData([subfields]);
       if (!isEmptyDefaultValue(subDefaultValue)) {
         acc[name] = subDefaultValue;
       }
@@ -472,18 +462,18 @@ export function persistEntry(collection) {
     // Early return if draft contains validation errors
     if (!fieldsErrors.isEmpty()) {
       const hasPresenceErrors = fieldsErrors.some(errors =>
-        errors.some(error => error.type && error.type === ValidationErrorTypes.PRESENCE),
+        errors.some(error => error.type && error.type === ValidationErrorTypes.PRESENCE)
       );
 
       if (hasPresenceErrors) {
         dispatch(
           notifSend({
             message: {
-              key: 'ui.toast.missingRequiredField',
+              key: 'ui.toast.missingRequiredField'
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
       }
 
@@ -504,23 +494,16 @@ export function persistEntry(collection) {
     const serializedEntryDraft = entryDraft.set('entry', serializedEntry);
     dispatch(entryPersisting(collection, serializedEntry));
     return backend
-      .persistEntry(
-        state.config,
-        collection,
-        serializedEntryDraft,
-        assetProxies.toJS(),
-        state.integrations,
-        usedSlugs,
-      )
+      .persistEntry(state.config, collection, serializedEntryDraft, assetProxies.toJS(), state.integrations, usedSlugs)
       .then(slug => {
         dispatch(
           notifSend({
             message: {
-              key: 'ui.toast.entrySaved',
+              key: 'ui.toast.entrySaved'
             },
             kind: 'success',
-            dismissAfter: 4000,
-          }),
+            dismissAfter: 4000
+          })
         );
         dispatch(entryPersisted(collection, serializedEntry, slug));
       })
@@ -530,11 +513,11 @@ export function persistEntry(collection) {
           notifSend({
             message: {
               details: error,
-              key: 'ui.toast.onFailToPersist',
+              key: 'ui.toast.onFailToPersist'
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         return Promise.reject(dispatch(entryPersistFail(collection, serializedEntry, error)));
       });
@@ -557,11 +540,11 @@ export function deleteEntry(collection, slug) {
           notifSend({
             message: {
               details: error,
-              key: 'ui.toast.onFailToDelete',
+              key: 'ui.toast.onFailToDelete'
             },
             kind: 'danger',
-            dismissAfter: 8000,
-          }),
+            dismissAfter: 8000
+          })
         );
         console.error(error);
         return Promise.reject(dispatch(entryDeleteFail(collection, slug, error)));

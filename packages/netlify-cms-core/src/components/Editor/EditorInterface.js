@@ -25,7 +25,7 @@ const styles = {
   pane: css`
     height: 100%;
     overflow-y: auto;
-  `,
+  `
 };
 
 const ReactSplitPaneGlobalStyles = () => (
@@ -119,7 +119,7 @@ class EditorInterface extends Component {
     showEventBlocker: false,
     previewVisible: localStorage.getItem(PREVIEW_VISIBLE) !== 'false',
     scrollSyncEnabled: localStorage.getItem(SCROLL_SYNC_ENABLED) !== 'false',
-    previewMode: localStorage.getItem(PREVIEW_MODE) || 0,
+    previewMode: localStorage.getItem(PREVIEW_MODE) || 0
   };
 
   handleSplitPaneDragStart = () => {
@@ -165,6 +165,7 @@ class EditorInterface extends Component {
     const {
       collection,
       entry,
+      entryCommits,
       fields,
       fieldsMetaData,
       fieldsErrors,
@@ -187,7 +188,7 @@ class EditorInterface extends Component {
       currentStatus,
       onLogoutClick,
       loadDeployPreview,
-      deployPreview,
+      deployPreview
     } = this.props;
 
     const { previewVisible, scrollSyncEnabled, showEventBlocker, previewMode } = this.state;
@@ -244,6 +245,7 @@ class EditorInterface extends Component {
           isUpdatingStatus={entry.get('isUpdatingStatus')}
           isDeleting={entry.get('isDeleting')}
           onPersist={this.handleOnPersist}
+          entryCommits={entryCommits}
           onPersistAndNew={() => this.handleOnPersist({ createNew: true })}
           onDelete={onDelete}
           onDeleteUnpublishedChanges={onDeleteUnpublishedChanges}
@@ -251,6 +253,7 @@ class EditorInterface extends Component {
           showDelete={showDelete}
           onPublish={onPublish}
           onPublishAndNew={() => this.handleOnPublish({ createNew: true })}
+          onSelectHistoryEntry={this.props.onSelectHistoryEntry}
           user={user}
           hasChanged={hasChanged}
           displayUrl={displayUrl}
@@ -329,7 +332,7 @@ EditorInterface.propTypes = {
   currentStatus: PropTypes.string,
   onLogoutClick: PropTypes.func.isRequired,
   deployPreview: ImmutablePropTypes.map,
-  loadDeployPreview: PropTypes.func.isRequired,
+  loadDeployPreview: PropTypes.func.isRequired
 };
 
 export default EditorInterface;
