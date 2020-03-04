@@ -12,24 +12,19 @@ import {
   selectAllowDeletion,
   selectFolderEntryExtension,
   selectIdentifier,
-  selectInferedField,
+  selectInferedField
 } from 'Reducers/collections';
 import { createEntry } from 'ValueObjects/Entry';
 import { sanitizeSlug } from 'Lib/urlHelper';
 import { getBackend } from 'Lib/registry';
-import {
-  localForage,
-  Cursor,
-  CURSOR_COMPATIBILITY_SYMBOL,
-  EditorialWorkflowError,
-} from 'netlify-cms-lib-util';
+import { localForage, Cursor, CURSOR_COMPATIBILITY_SYMBOL, EditorialWorkflowError } from 'netlify-cms-lib-util';
 import { EDITORIAL_WORKFLOW, status } from 'Constants/publishModes';
 import {
   SLUG_MISSING_REQUIRED_DATE,
   compileStringTemplate,
   extractTemplateVars,
   parseDateFromEntry,
-  dateParsers,
+  dateParsers
 } from 'Lib/stringTemplate';
 
 export class LocalStorageAuthStore {
@@ -84,18 +79,14 @@ function slugFormatter(collection, entryData, slugConfig) {
   const identifier = entryData.get(selectIdentifier(collection));
   if (!identifier) {
     throw new Error(
-      'Collection must have a field name that is a valid entry identifier, or must have `identifier_field` set',
+      'Collection must have a field name that is a valid entry identifier, or must have `identifier_field` set'
     );
   }
 
   // Pass entire slug through `prepareSlug` and `sanitizeSlug`.
   // TODO: only pass slug replacements through sanitizers, static portions of
   // the slug template should not be sanitized. (breaking change)
-  const processSlug = flow([
-    compileStringTemplate,
-    prepareSlug,
-    partialRight(sanitizeSlug, slugConfig),
-  ]);
+  const processSlug = flow([compileStringTemplate, prepareSlug, partialRight(sanitizeSlug, slugConfig)]);
 
   return processSlug(template, new Date(), identifier, entryData);
 }
@@ -105,13 +96,11 @@ const commitMessageTemplates = Map({
   update: 'Update {{collection}} “{{slug}}”',
   delete: 'Delete {{collection}} “{{slug}}”',
   uploadMedia: 'Upload “{{path}}”',
-  deleteMedia: 'Delete “{{path}}”',
+  deleteMedia: 'Delete “{{path}}”'
 });
 
 const commitMessageFormatter = (type, config, { slug, path, collection }) => {
-  const templates = commitMessageTemplates.merge(
-    config.getIn(['backend', 'commit_messages'], Map()),
-  );
+  const templates = commitMessageTemplates.merge(config.getIn(['backend', 'commit_messages'], Map()));
   const messageTemplate = templates.get(type);
   return messageTemplate.replace(/\{\{([^}]+)\}\}/g, (_, variable) => {
     switch (variable) {
@@ -173,11 +162,7 @@ function createPreviewUrl(baseUrl, collection, slug, slugConfig, entry) {
 
   // Prepare and sanitize slug variables only, leave the rest of the
   // `preview_path` template as is.
-  const processSegment = flow([
-    value => String(value),
-    prepareSlug,
-    partialRight(sanitizeSlug, slugConfig),
-  ]);
+  const processSegment = flow([value => String(value), prepareSlug, partialRight(sanitizeSlug, slugConfig)]);
   let compiledPath;
 
   try {
@@ -208,7 +193,7 @@ export class Backend {
     this.implementation = implementation.init(config, {
       useWorkflow: config.getIn(['publish_mode']) === EDITORIAL_WORKFLOW,
       updateUserCredentials: this.updateUserCredentials,
-      initialWorkflowStatus: status.first(),
+      initialWorkflowStatus: status.first()
     });
     this.backendName = backendName;
     this.authStore = authStore;
@@ -309,12 +294,10 @@ export class Backend {
   processEntries(loadedEntries, collection) {
     const collectionFilter = collection.get('filter');
     const entries = loadedEntries.map(loadedEntry =>
-      createEntry(
-        collection.get('name'),
-        selectEntrySlug(collection, loadedEntry.file.path),
-        loadedEntry.file.path,
-        { raw: loadedEntry.data || '', label: loadedEntry.file.label },
-      ),
+      createEntry(collection.get('name'), selectEntrySlug(collection, loadedEntry.file.path), loadedEntry.file.path, {
+        raw: loadedEntry.data || '',
+        label: loadedEntry.file.label
+      })
     );
     const formattedEntries = entries.map(this.entryWithFormat(collection));
     // If this collection has a "filter" property, filter entries accordingly
@@ -336,8 +319,8 @@ export class Backend {
         */
       cursor: Cursor.create(loadedEntries[CURSOR_COMPATIBILITY_SYMBOL]).wrapData({
         cursorType: 'collectionEntries',
-        collection,
-      }),
+        collection
+      })
     }));
   }
 
@@ -385,11 +368,11 @@ export class Backend {
               return selectInferedField(collection, 'date');
             }
             return elem;
-          }),
+          })
         ].filter(Boolean);
         const collectionEntries = await this.listAllEntries(collection);
         return fuzzy.filter(searchTerm, collectionEntries, {
-          extract: extractSearchFields(uniq(searchFields)),
+          extract: extractSearchFields(uniq(searchFields))
         });
       })
       .map(p => p.catch(err => errors.push(err) && []));
@@ -419,15 +402,13 @@ export class Backend {
     const [data, unwrappedCursor] = cursor.unwrapData();
     // TODO: stop assuming all cursors are for collections
     const collection = data.get('collection');
-    return this.implementation
-      .traverseCursor(unwrappedCursor, action)
-      .then(async ({ entries, cursor: newCursor }) => ({
-        entries: this.processEntries(entries, collection),
-        cursor: Cursor.create(newCursor).wrapData({
-          cursorType: 'collectionEntries',
-          collection,
-        }),
-      }));
+    return this.implementation.traverseCursor(unwrappedCursor, action).then(async ({ entries, cursor: newCursor }) => ({
+      entries: this.processEntries(entries, collection),
+      cursor: Cursor.create(newCursor).wrapData({
+        cursorType: 'collectionEntries',
+        collection
+      })
+    }));
   }
 
   async getLocalDraftBackup(collection, slug) {
@@ -438,9 +419,7 @@ export class Backend {
     }
     const { raw, path } = backup;
     const label = getLabelForFileCollectionEntry(collection, path);
-    return this.entryWithFormat(collection, slug)(
-      createEntry(collection.get('name'), slug, path, { raw, label }),
-    );
+    return this.entryWithFormat(collection, slug)(createEntry(collection.get('name'), slug, path, { raw, label }));
   }
 
   async persistLocalDraftBackup(entry, collection) {
@@ -465,16 +444,20 @@ export class Backend {
     return localForage.removeItem(getEntryBackupKey());
   }
 
-  getEntry(collection, slug) {
+  getEntry(collection, slug, ref) {
     const path = selectEntryPath(collection, slug);
     const label = getLabelForFileCollectionEntry(collection, path);
-    return this.implementation.getEntry(collection, slug, path).then(loadedEntry =>
-      this.entryWithFormat(collection, slug)(
+    return this.implementation.getEntry(collection, slug, path, ref).then(loadedEntry =>
+      this.entryWithFormat(
+        collection,
+        slug
+      )(
         createEntry(collection.get('name'), slug, loadedEntry.file.path, {
           raw: loadedEntry.data,
           label,
-        }),
-      ),
+          ref: loadedEntry.ref
+        })
+      )
     );
   }
 
@@ -496,7 +479,7 @@ export class Backend {
       return this.implementation.getMediaDisplayURL(displayURL);
     }
     const err = new Error(
-      'getMediaDisplayURL is not implemented by the current backend, but the backend returned a displayURL which was not a string!',
+      'getMediaDisplayURL is not implemented by the current backend, but the backend returned a displayURL which was not a string!'
     );
     err.displayURL = displayURL;
     return Promise.reject(err);
@@ -520,18 +503,13 @@ export class Backend {
       .then(loadedEntries => loadedEntries.filter(entry => entry !== null))
       .then(entries =>
         entries.map(loadedEntry => {
-          const entry = createEntry(
-            loadedEntry.metaData.collection,
-            loadedEntry.slug,
-            loadedEntry.file.path,
-            {
-              raw: loadedEntry.data,
-              isModification: loadedEntry.isModification,
-            },
-          );
+          const entry = createEntry(loadedEntry.metaData.collection, loadedEntry.slug, loadedEntry.file.path, {
+            raw: loadedEntry.data,
+            isModification: loadedEntry.isModification
+          });
           entry.metaData = loadedEntry.metaData;
           return entry;
-        }),
+        })
       )
       .then(entries => ({
         pagination: 0,
@@ -541,7 +519,7 @@ export class Backend {
             acc.push(this.entryWithFormat(collection)(entry));
           }
           return acc;
-        }, []),
+        }, [])
       }));
   }
 
@@ -551,7 +529,7 @@ export class Backend {
       .then(loadedEntry => {
         const entry = createEntry('draft', loadedEntry.slug, loadedEntry.file.path, {
           raw: loadedEntry.data,
-          isModification: loadedEntry.isModification,
+          isModification: loadedEntry.isModification
         });
         entry.metaData = loadedEntry.metaData;
         return entry;
@@ -577,7 +555,7 @@ export class Backend {
 
     return {
       url: createPreviewUrl(baseUrl, collection, slug, this.config.get('slug'), entry),
-      status: 'SUCCESS',
+      status: 'SUCCESS'
     };
   }
 
@@ -624,24 +602,16 @@ export class Backend {
       /**
        * Always capitalize the status for consistency.
        */
-      status: deployPreview.status ? deployPreview.status.toUpperCase() : '',
+      status: deployPreview.status ? deployPreview.status.toUpperCase() : ''
     };
   }
 
-  async persistEntry(
-    config,
-    collection,
-    entryDraft,
-    MediaFiles,
-    integrations,
-    usedSlugs,
-    options = {},
-  ) {
+  async persistEntry(config, collection, entryDraft, MediaFiles, integrations, usedSlugs, options = {}) {
     const newEntry = entryDraft.getIn(['entry', 'newRecord']) || false;
 
     const parsedData = {
       title: entryDraft.getIn(['entry', 'data', 'title'], 'No Title'),
-      description: entryDraft.getIn(['entry', 'data', 'description'], 'No Description!'),
+      description: entryDraft.getIn(['entry', 'data', 'description'], 'No Description!')
     };
 
     let entryObj;
@@ -653,13 +623,13 @@ export class Backend {
         collection,
         entryDraft.getIn(['entry', 'data']),
         config.get('slug'),
-        usedSlugs,
+        usedSlugs
       );
       const path = selectEntryPath(collection, slug);
       entryObj = {
         path,
         slug,
-        raw: this.entryToRaw(collection, entryDraft.get('entry')),
+        raw: this.entryToRaw(collection, entryDraft.get('entry'))
       };
     } else {
       const path = entryDraft.getIn(['entry', 'path']);
@@ -667,14 +637,14 @@ export class Backend {
       entryObj = {
         path,
         slug,
-        raw: this.entryToRaw(collection, entryDraft.get('entry')),
+        raw: this.entryToRaw(collection, entryDraft.get('entry'))
       };
     }
 
     const commitMessage = commitMessageFormatter(newEntry ? 'create' : 'update', config, {
       collection,
       slug: entryObj.slug,
-      path: entryObj.path,
+      path: entryObj.path
     });
 
     const useWorkflow = config.getIn(['publish_mode']) === EDITORIAL_WORKFLOW;
@@ -692,7 +662,7 @@ export class Backend {
       commitMessage,
       collectionName,
       useWorkflow,
-      ...updatedOptions,
+      ...updatedOptions
     };
 
     return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(() => entryObj.slug);
@@ -700,7 +670,7 @@ export class Backend {
 
   persistMedia(config, file) {
     const options = {
-      commitMessage: commitMessageFormatter('uploadMedia', config, { path: file.path }),
+      commitMessage: commitMessageFormatter('uploadMedia', config, { path: file.path })
     };
     return this.implementation.persistMedia(file, options);
   }
