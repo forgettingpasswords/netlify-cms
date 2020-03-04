@@ -117,6 +117,7 @@ export default class API {
     if (sha) {
       localForage.setItem(cacheKey, result);
     }
+
     return result;
   };
 
