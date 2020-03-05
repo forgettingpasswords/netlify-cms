@@ -141,12 +141,16 @@ export default class GitLab {
 
   async getFileVersions(path) {
     const commits = await this.api.readFileHistory(path);
-    return commits.map(({ id, committed_date, author_name }) => ({
+    const formatted = commits.map(({ id, committed_date, author_name }) => ({
       ref: id,
       date: committed_date,
       author: author_name,
       file: { path }
     }));
+
+    const last = formatted[formatted.length - 1];
+
+    return [...formatted.slice(0, -1), { ...last, ref: this.branch }];
   }
 
   getMedia() {
