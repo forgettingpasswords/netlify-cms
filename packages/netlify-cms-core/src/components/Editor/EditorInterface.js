@@ -254,6 +254,7 @@ class EditorInterface extends Component {
           onPublish={onPublish}
           onPublishAndNew={() => this.handleOnPublish({ createNew: true })}
           onSelectHistoryEntry={this.props.onSelectHistoryEntry}
+          currentCommitRef={entry.get('ref')}
           user={user}
           hasChanged={hasChanged}
           displayUrl={displayUrl}
