@@ -433,15 +433,26 @@ class EditorToolbar extends React.Component {
   };
 
   render() {
-    const { entryCommits, user, hasChanged, displayUrl, collection, hasWorkflow, onLogoutClick, t } = this.props;
-
+    const {
+      currentCommitRef,
+      entryCommits,
+      user,
+      hasChanged,
+      displayUrl,
+      collection,
+      hasWorkflow,
+      onLogoutClick,
+      t
+    } = this.props;
     const entryOptions = entryCommits.map(({ ref, date, author }) => ({
       label: `${author} ${date}`,
       value: ref
     }));
 
-    const selectedEntry = 'nothing';
-    const onSelectEntry = () => {};
+    const selectedOption = entryOptions.find(({ value }) => currentCommitRef === value);
+
+    const lastOption = entryOptions[entryOptions.length - 1];
+    const selectedValue = selectedOption || lastOption;
 
     return (
       <ToolbarContainer>
@@ -466,10 +477,12 @@ class EditorToolbar extends React.Component {
           </ToolbarSubSectionFirst>
           <ToolbarSubSectionLast>
             <Select
-              value={selectedEntry}
+              isOptionSelected={({ value }) => value === currentCommitRef}
+              isOptionDisabled={({ value }) => value === currentCommitRef}
+              defaultValue={lastOption}
+              value={selectedValue}
               onChange={({ value }) => this.props.onSelectHistoryEntry(value)}
               options={entryOptions}
-              isSearchable={false}
               styles={{ container: styles => ({ ...styles, width: '20em' }) }}
             />
             {hasWorkflow ? this.renderWorkflowPublishControls() : this.renderSimplePublishControls()}
