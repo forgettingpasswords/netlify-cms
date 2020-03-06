@@ -83,7 +83,10 @@ export default class GitLab {
       this.fetchFiles(files.filter(file => file.name.endsWith('.' + extension))).then(fetchedFiles => {
         const returnedFiles = fetchedFiles;
         returnedFiles[CURSOR_COMPATIBILITY_SYMBOL] = cursor;
-        return returnedFiles;
+        return returnedFiles.map(entry => ({
+          ...entry,
+          ref: this.branch
+        }));
       })
     );
   }
@@ -101,7 +104,10 @@ export default class GitLab {
     }));
     return this.fetchFiles(files).then(fetchedFiles => {
       const returnedFiles = fetchedFiles;
-      return returnedFiles;
+      return returnedFiles.map(entry => ({
+        ...entry,
+        ref: this.branch
+      }));
     });
   }
 
