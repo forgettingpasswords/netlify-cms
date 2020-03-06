@@ -452,6 +452,8 @@ class EditorToolbar extends React.Component {
       }))
       .reverse();
 
+    const hasHistory = entryOptions.length > 1;
+
     const selectedOption = entryOptions.find(({ value }) => currentCommitRef === value);
 
     const lastOption = entryOptions[entryOptions.length - 1];
@@ -479,15 +481,17 @@ class EditorToolbar extends React.Component {
             {hasWorkflow ? this.renderWorkflowSaveControls() : this.renderSimpleSaveControls()}
           </ToolbarSubSectionFirst>
           <ToolbarSubSectionLast>
-            <Select
-              isOptionSelected={({ value }) => value === currentCommitRef}
-              isOptionDisabled={({ value }) => value === currentCommitRef}
-              defaultValue={lastOption}
-              value={selectedValue}
-              onChange={({ value }) => this.props.onSelectHistoryEntry(value)}
-              options={entryOptions}
-              styles={{ container: styles => ({ ...styles, width: '25em' }) }}
-            />
+            {hasHistory && (
+              <Select
+                isOptionSelected={({ value }) => value === currentCommitRef}
+                isOptionDisabled={({ value }) => value === currentCommitRef}
+                defaultValue={lastOption}
+                value={selectedValue}
+                onChange={({ value }) => this.props.onSelectHistoryEntry(value)}
+                options={entryOptions}
+                styles={{ container: styles => ({ ...styles, width: '25em' }) }}
+              />
+            )}
             {hasWorkflow ? this.renderWorkflowPublishControls() : this.renderSimplePublishControls()}
           </ToolbarSubSectionLast>
         </ToolbarSectionMain>
