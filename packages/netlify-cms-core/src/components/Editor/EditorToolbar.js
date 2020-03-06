@@ -444,10 +444,13 @@ class EditorToolbar extends React.Component {
       onLogoutClick,
       t
     } = this.props;
-    const entryOptions = entryCommits.map(({ ref, date, author }) => ({
-      label: `${author} ${date}`,
-      value: ref
-    }));
+
+    const entryOptions = entryCommits
+      .map(({ ref, date, author }) => ({
+        label: `${author}: ${new Date(date).toDateString()}`,
+        value: ref
+      }))
+      .reverse();
 
     const selectedOption = entryOptions.find(({ value }) => currentCommitRef === value);
 
@@ -483,7 +486,7 @@ class EditorToolbar extends React.Component {
               value={selectedValue}
               onChange={({ value }) => this.props.onSelectHistoryEntry(value)}
               options={entryOptions}
-              styles={{ container: styles => ({ ...styles, width: '20em' }) }}
+              styles={{ container: styles => ({ ...styles, width: '25em' }) }}
             />
             {hasWorkflow ? this.renderWorkflowPublishControls() : this.renderSimplePublishControls()}
           </ToolbarSubSectionLast>
