@@ -45,9 +45,13 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       append = action.payload.append;
       page = action.payload.page;
       return state.withMutations(map => {
-        loadedEntries.forEach(entry =>
-          map.setIn(['entities', `${collection}.${entry.slug}`], fromJS(entry).set('isFetching', false))
-        );
+        loadedEntries.forEach(entry => {
+          const existing = map.getIn(['entities', `${collection}.${entry.slug}`]);
+          const newValue = fromJS(entry)
+            .merge(existing)
+            .set('isFetching', false);
+          map.setIn(['entities', `${collection}.${entry.slug}`], newValue);
+        });
 
         const ids = List(loadedEntries.map(entry => entry.slug));
         map.setIn(

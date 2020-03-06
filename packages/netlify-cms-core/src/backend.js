@@ -296,7 +296,8 @@ export class Backend {
     const entries = loadedEntries.map(loadedEntry =>
       createEntry(collection.get('name'), selectEntrySlug(collection, loadedEntry.file.path), loadedEntry.file.path, {
         raw: loadedEntry.data || '',
-        label: loadedEntry.file.label
+        label: loadedEntry.file.label,
+        ref: loadedEntry.ref
       })
     );
     const formattedEntries = entries.map(this.entryWithFormat(collection));
