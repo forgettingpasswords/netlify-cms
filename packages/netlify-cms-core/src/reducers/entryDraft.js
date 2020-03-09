@@ -44,15 +44,6 @@ const entryDraftReducer = (state = Map(), action) => {
         state.set('fieldsErrors', Map());
         state.set('hasChanged', false);
       });
-    case DRAFT_CREATE_FROM_ENTRY_HISTORY: {
-      const {
-        payload: { entry, metadata }
-      } = action;
-      return state.withMutations(state => {
-        state.set('entry', entry);
-        state.set('fieldsMetaData', metadata || Map());
-      });
-    }
     case DRAFT_CREATE_EMPTY:
       // New Entry
       return state.withMutations(state => {
