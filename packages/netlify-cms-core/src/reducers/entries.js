@@ -8,6 +8,7 @@ import {
   ENTRIES_FAILURE,
   ENTRY_DELETE_SUCCESS
 } from 'Actions/entries';
+import { ADD_ENTRY_HISTORY } from 'Actions/entryHistory';
 
 import { SEARCH_ENTRIES_SUCCESS } from 'Actions/search';
 
@@ -22,11 +23,26 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
     case ENTRY_REQUEST:
       return state.setIn(['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'], true);
 
+    case ADD_ENTRY_HISTORY: {
+      const { collection, slug, commits } = action.payload;
+      const lastCommit = commits[commits.length - 1];
+      const { ref } = lastCommit;
+
+      const newState = state.withMutations(map => {
+        map.setIn(['entities', `${collection}.${slug}`, 'ref'], ref);
+      });
+
+      return newState;
+    }
+
     case ENTRY_SUCCESS: {
       collection = action.payload.collection;
       slug = action.payload.entry.slug;
       const newState = state.withMutations(map => {
-        map.setIn(['entities', `${collection}.${slug}`], fromJS(action.payload.entry));
+        const existing = map.getIn(['entities', `${collection}.${slug}`]);
+        const newValue = existing.merge(fromJS(action.payload.entry)).set('isFetching', false);
+
+        map.setIn(['entities', `${collection}.${slug}`], newValue);
         const ids = map.getIn(['pages', collection, 'ids'], List());
         if (!ids.includes(slug)) {
           map.setIn(['pages', collection, 'ids'], ids.unshift(slug));

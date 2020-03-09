@@ -81,12 +81,8 @@ export default class GitLab {
   entriesByFolder(collection, extension) {
     return this.api.listFiles(collection.get('folder')).then(({ files, cursor }) =>
       this.fetchFiles(files.filter(file => file.name.endsWith('.' + extension))).then(fetchedFiles => {
-        const returnedFiles = fetchedFiles;
-        returnedFiles[CURSOR_COMPATIBILITY_SYMBOL] = cursor;
-        return returnedFiles.map(entry => ({
-          ...entry,
-          ref: this.branch
-        }));
+        fetchedFiles[CURSOR_COMPATIBILITY_SYMBOL] = cursor;
+        return fetchedFiles;
       })
     );
   }
@@ -102,13 +98,7 @@ export default class GitLab {
       path: collectionFile.get('file'),
       label: collectionFile.get('label')
     }));
-    return this.fetchFiles(files).then(fetchedFiles => {
-      const returnedFiles = fetchedFiles;
-      return returnedFiles.map(entry => ({
-        ...entry,
-        ref: this.branch
-      }));
-    });
+    return this.fetchFiles(files).then(fetchedFiles => fetchedFiles);
   }
 
   fetchFiles = files => {
@@ -141,7 +131,7 @@ export default class GitLab {
     return this.api.readFile(path, undefined, { ref }).then(data => ({
       file: { path },
       data,
-      ref: ref || this.branch
+      ref: ref
     }));
   }
 
@@ -154,9 +144,7 @@ export default class GitLab {
       file: { path }
     }));
 
-    const last = formatted[formatted.length - 1];
-
-    return [...formatted.slice(0, -1), { ...last, ref: this.branch }];
+    return formatted;
   }
 
   getMedia() {
