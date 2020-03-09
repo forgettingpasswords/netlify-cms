@@ -456,7 +456,7 @@ class EditorToolbar extends React.Component {
 
     const selectedOption = entryOptions.find(({ value }) => currentCommitRef === value);
 
-    const lastOption = entryOptions[entryOptions.length - 1];
+    const lastOption = entryOptions[0];
     const selectedValue = selectedOption || lastOption;
 
     return (
