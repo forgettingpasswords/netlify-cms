@@ -261,14 +261,21 @@ export default class API {
       commitParams.author_email = email;
     }
 
-    await this.request({
+    const { id, committed_date, title, author_name } = await this.request({
       url: `${this.repoURL}/repository/commits`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(commitParams)
-    });
+    }).then(this.responseToJSON);
 
-    return { ...item, uploaded: true };
+    return {
+      ...item,
+      uploaded: true,
+      ref: id,
+      commitDate: committed_date,
+      title,
+      author: author_name
+    };
   };
 
   persistFiles = (files, { commitMessage, newEntry }) =>
