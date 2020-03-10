@@ -118,17 +118,19 @@ export function entryPersisting(collection, entry) {
   };
 }
 
-export function entryPersisted(collection, entry, slug) {
+export function entryPersisted(collection, entry, slug, ref, author, commitDate) {
   return {
     type: ENTRY_PERSIST_SUCCESS,
     payload: {
       collectionName: collection.get('name'),
       entrySlug: entry.get('slug'),
-
       /**
        * Pass slug from backend for newly created entries.
        */
-      slug
+      slug,
+      ref,
+      author,
+      commitDate
     }
   };
 }
@@ -495,7 +497,7 @@ export function persistEntry(collection) {
     dispatch(entryPersisting(collection, serializedEntry));
     return backend
       .persistEntry(state.config, collection, serializedEntryDraft, assetProxies.toJS(), state.integrations, usedSlugs)
-      .then(slug => {
+      .then(({ slug, ref, author, commitDate }) => {
         dispatch(
           notifSend({
             message: {
@@ -505,7 +507,7 @@ export function persistEntry(collection) {
             dismissAfter: 4000
           })
         );
-        dispatch(entryPersisted(collection, serializedEntry, slug));
+        dispatch(entryPersisted(collection, serializedEntry, slug, ref, author, commitDate));
       })
       .catch(error => {
         console.error(error);

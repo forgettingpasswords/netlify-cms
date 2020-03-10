@@ -6,6 +6,7 @@ import {
   ENTRIES_REQUEST,
   ENTRIES_SUCCESS,
   ENTRIES_FAILURE,
+  ENTRY_PERSIST_SUCCESS,
   ENTRY_DELETE_SUCCESS
 } from 'Actions/entries';
 import { ADD_ENTRY_HISTORY } from 'Actions/entryHistory';
@@ -23,6 +24,14 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
     case ENTRY_REQUEST:
       return state.setIn(['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'], true);
 
+    case ENTRY_PERSIST_SUCCESS: {
+      const { collectionName, slug, ref, author, commitDate } = action.payload;
+      return state.withMutations(map => {
+        map.setIn(['entities', `${collection}.${slug}`, 'ref'], ref);
+        map.setIn(['entities', `${collection}.${slug}`, 'contentSame'], true);
+      });
+    }
+
     case ADD_ENTRY_HISTORY: {
       const { collection, slug, commits } = action.payload;
       const lastCommit = commits[commits.length - 1];
@@ -30,6 +39,7 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
 
       const newState = state.withMutations(map => {
         map.setIn(['entities', `${collection}.${slug}`, 'ref'], ref);
+        map.setIn(['entities', `${collection}.${slug}`, 'contentSame'], false);
       });
 
       return newState;
@@ -40,7 +50,10 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       slug = action.payload.entry.slug;
       const newState = state.withMutations(map => {
         const existing = map.getIn(['entities', `${collection}.${slug}`]);
-        const newValue = existing.merge(fromJS(action.payload.entry)).set('isFetching', false);
+        const newValue = existing
+          .merge(fromJS(action.payload.entry))
+          .set('isFetching', false)
+          .set('contentSame', false);
 
         map.setIn(['entities', `${collection}.${slug}`], newValue);
         const ids = map.getIn(['pages', collection, 'ids'], List());
