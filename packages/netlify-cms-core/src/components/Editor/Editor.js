@@ -183,7 +183,7 @@ class Editor extends React.Component {
       this.createBackup(this.props.entryDraft.get('entry'), this.props.collection);
     }
 
-    if (prevProps.entry === this.props.entry) return;
+    if (prevProps.entry === this.props.entry || (this.props.entry && this.props.entry.get('contentSame'))) return;
 
     const { entry, newEntry, fields, collection } = this.props;
 
@@ -338,6 +338,7 @@ class Editor extends React.Component {
       deployPreview,
       loadDeployPreview,
       slug,
+      currentCommitRef,
       t
     } = this.props;
 
@@ -357,6 +358,7 @@ class Editor extends React.Component {
       <EditorInterface
         entry={entryDraft.get('entry')}
         entryCommits={entryCommits}
+        currentCommitRef={currentCommitRef}
         getAsset={boundGetAsset}
         collection={collection}
         fields={fields}
@@ -396,6 +398,7 @@ function mapStateToProps(state, ownProps) {
   const newEntry = ownProps.newRecord === true;
   const fields = selectFields(collection, slug);
   const entry = newEntry ? null : selectEntry(state, collectionName, slug);
+  const currentCommitRef = entry ? entry.get('ref') : null;
   const entryCommits = selectEntryHistory(state, collectionName, slug);
   const boundGetAsset = getAsset.bind(null, state);
   const user = auth && auth.get('user');
@@ -412,6 +415,7 @@ function mapStateToProps(state, ownProps) {
   return {
     collection,
     collections,
+    currentCommitRef,
     newEntry,
     entryDraft,
     entryCommits,
