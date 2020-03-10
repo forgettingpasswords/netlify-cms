@@ -164,6 +164,7 @@ class EditorInterface extends Component {
   render() {
     const {
       collection,
+      currentCommitRef,
       entry,
       entryCommits,
       fields,
@@ -254,7 +255,7 @@ class EditorInterface extends Component {
           onPublish={onPublish}
           onPublishAndNew={() => this.handleOnPublish({ createNew: true })}
           onSelectHistoryEntry={this.props.onSelectHistoryEntry}
-          currentCommitRef={entry.get('ref')}
+          currentCommitRef={currentCommitRef}
           user={user}
           hasChanged={hasChanged}
           displayUrl={displayUrl}
