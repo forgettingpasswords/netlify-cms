@@ -1,4 +1,4 @@
-import { attempt, flatten, isError, trimStart, trimEnd, flow, partialRight, uniq } from 'lodash';
+import { attempt, flatten, isError, trimStart, trimEnd, flow, partialRight, uniq, drop, findLastIndex } from 'lodash';
 import { Map } from 'immutable';
 import { stripIndent } from 'common-tags';
 import fuzzy from 'fuzzy';
@@ -99,10 +99,70 @@ const commitMessageTemplates = Map({
   deleteMedia: 'Delete “{{path}}”'
 });
 
+const NETLIFY_ACTION = 'Netlify_Action';
+const ACTION_SEPARATOR = ':';
+const DELETION_META_TYPE = 'DELETE';
+const CREATION_META_TYPE = 'CREATE';
+const UPDATE_META_TYPE = 'UPDATE';
+
+const commitMetaTypeParser = commitMessage => {
+  try {
+    const lines = commitMessage.split(/\r\n|\r|\n/);
+    const netlifyActionLine = lines[lines.length - 1];
+    const [descriptor, metaAction] = netlifyActionLine.split(ACTION_SEPARATOR);
+
+    if (descriptor !== NETLIFY_ACTION) {
+      return null;
+    }
+
+    if (!Object.values(metaTypes).includes(metaAction)) {
+      return null;
+    }
+
+    return metaAction;
+  } catch (err) {
+    return null;
+  }
+};
+
+const dropUnrelatedCommits = commits => {
+  const controlledCommits = commits.filter(({ message }) => {
+    const whatever = commitMetaTypeParser(message);
+    return !!whatever;
+  });
+
+  const deletionIndex = findLastIndex(controlledCommits, ({ message }) => {
+    const metaType = commitMetaTypeParser(message);
+    return metaType === DELETION_META_TYPE;
+  });
+
+  if (deletionIndex === -1) {
+    return controlledCommits;
+  }
+
+  return drop(controlledCommits, deletionIndex + 1);
+};
+
+const metaTypes = {
+  update: UPDATE_META_TYPE,
+  create: CREATION_META_TYPE,
+  delete: DELETION_META_TYPE
+};
+
+// Implying the meta action line to be the last line in the commit!!!
+const commitMetaFormatter = (type, message) => {
+  const metaType = metaTypes[type];
+  if (!metaType) {
+    return message;
+  }
+
+  return `${message}\n${NETLIFY_ACTION}${ACTION_SEPARATOR}${metaType}`;
+};
+
 const commitMessageFormatter = (type, config, { slug, path, collection }) => {
   const templates = commitMessageTemplates.merge(config.getIn(['backend', 'commit_messages'], Map()));
   const messageTemplate = templates.get(type);
-  return messageTemplate.replace(/\{\{([^}]+)\}\}/g, (_, variable) => {
+  const interpolated = messageTemplate.replace(/\{\{([^}]+)\}\}/g, (_, variable) => {
     switch (variable) {
       case 'slug':
         return slug;
@@ -115,6 +175,9 @@ const commitMessageFormatter = (type, config, { slug, path, collection }) => {
         return '';
     }
   });
+
+  const withMeta = commitMetaFormatter(type, interpolated);
+  return withMeta;
 };
 
 const extractSearchFields = searchFields => entry =>
@@ -462,9 +525,10 @@ export class Backend {
     );
   }
 
-  getFileVersions(collection, slug) {
+  async getFileVersions(collection, slug) {
     const path = selectEntryPath(collection, slug);
-    return this.implementation.getFileVersions(path);
+    const result = await this.implementation.getFileVersions(path);
+    return dropUnrelatedCommits(result);
   }
 
   supportsFileVersioning() {
