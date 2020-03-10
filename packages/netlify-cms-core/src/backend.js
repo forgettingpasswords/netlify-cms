@@ -666,7 +666,11 @@ export class Backend {
       ...updatedOptions
     };
 
-    return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(() => entryObj.slug);
+    // NOTE AFTER CHANGING THE RETURN VALUE OF THIS - EDITORIAL WORKFLOW CONSUMERS MIGHT HAVE BEEN BROKEN
+    return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(results => {
+      const [publishResponse] = results;
+      return { slug: entryObj.slug, ...publishResponse };
+    });
   }
 
   persistMedia(config, file) {
