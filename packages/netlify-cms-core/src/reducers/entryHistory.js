@@ -1,6 +1,6 @@
-import { Map } from 'immutable';
+import { Map, remove } from 'immutable';
 import { ADD_ENTRY_HISTORY } from 'Actions/entryHistory';
-import { ENTRY_PERSIST_SUCCESS } from 'Actions/entries';
+import { ENTRY_PERSIST_SUCCESS, ENTRY_DELETE_SUCCESS } from 'Actions/entries';
 
 const defaultHandler = state => state;
 
@@ -28,9 +28,18 @@ const entryPersistSuccess = (state, { payload }) => {
   });
 };
 
+const entryDeleteSuccess = (state, { payload }) => {
+  const { collectionName, entrySlug } = payload;
+  const key = `${collectionName}.${entrySlug}`;
+  return state.withMutations(mutatingState => {
+    mutatingState.delete(key);
+  });
+};
+
 const actionHandlers = {
   [ADD_ENTRY_HISTORY]: newHistoryForEntry,
-  [ENTRY_PERSIST_SUCCESS]: entryPersistSuccess
+  [ENTRY_PERSIST_SUCCESS]: entryPersistSuccess,
+  [ENTRY_DELETE_SUCCESS]: entryDeleteSuccess
 };
 
 const entryHistory = (state = Map(), action) => {
