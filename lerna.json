@@ -7,7 +7,7 @@
   "loglevel": "success",
   "command": {
     "version": {
-      "allowBranch": "2188-playan",
+      "allowBranch": "2033-publish",
       "conventionalCommits": true,
       "preid": "dpl",
       "gitRemote": "upstream",
