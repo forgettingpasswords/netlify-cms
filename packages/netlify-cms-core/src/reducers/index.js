@@ -35,25 +35,22 @@ export default reducers;
 /*
  * Selectors
  */
-export const selectEntry = (state, collection, slug) =>
-  fromEntries.selectEntry(state.entries, collection, slug);
+export const selectEntry = (state, collection, slug) => fromEntries.selectEntry(state.entries, collection, slug);
 
 export const selectEntryHistory = (state, collectionName, slug) =>
   fromEntryHistory.selectEntryHistory(state.entryHistory, collectionName, slug);
 
-export const selectEntries = (state, collection) =>
-  fromEntries.selectEntries(state.entries, collection);
+export const selectIsRefLatestCommit = (state, collection, slug, ref) =>
+  fromEntryHistory.selectIsRefLatestCommit(state.entryHistory, collection, slug, ref);
 
-export const selectPublishedSlugs = (state, collection) =>
-  fromEntries.selectPublishedSlugs(state.entries, collection);
+export const selectEntries = (state, collection) => fromEntries.selectEntries(state.entries, collection);
+
+export const selectPublishedSlugs = (state, collection) => fromEntries.selectPublishedSlugs(state.entries, collection);
 
 export const selectSearchedEntries = state => {
   const searchItems = state.search.get('entryIds');
   return (
-    searchItems &&
-    searchItems.map(({ collection, slug }) =>
-      fromEntries.selectEntry(state.entries, collection, slug),
-    )
+    searchItems && searchItems.map(({ collection, slug }) => fromEntries.selectEntry(state.entries, collection, slug))
   );
 };
 

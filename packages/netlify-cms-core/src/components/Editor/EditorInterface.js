@@ -131,9 +131,9 @@ class EditorInterface extends Component {
   };
 
   handleOnPersist = (opts = {}) => {
-    const { createNew = false } = opts;
+    const { createNew = false, revert = false } = opts;
     this.controlPaneRef.validate();
-    this.props.onPersist({ createNew });
+    this.props.onPersist({ createNew, revert });
   };
 
   handleOnPublish = (opts = {}) => {
@@ -189,7 +189,8 @@ class EditorInterface extends Component {
       currentStatus,
       onLogoutClick,
       loadDeployPreview,
-      deployPreview
+      deployPreview,
+      isLatestCommit
     } = this.props;
 
     const { previewVisible, scrollSyncEnabled, showEventBlocker, previewMode } = this.state;
@@ -246,8 +247,10 @@ class EditorInterface extends Component {
           isUpdatingStatus={entry.get('isUpdatingStatus')}
           isDeleting={entry.get('isDeleting')}
           onPersist={this.handleOnPersist}
-          entryCommits={entryCommits}
           onPersistAndNew={() => this.handleOnPersist({ createNew: true })}
+          onPersistRevert={() => this.handleOnPersist({ revert: true })}
+          isLatestCommit={isLatestCommit}
+          entryCommits={entryCommits}
           onDelete={onDelete}
           onDeleteUnpublishedChanges={onDeleteUnpublishedChanges}
           onChangeStatus={onChangeStatus}
