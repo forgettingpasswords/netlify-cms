@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.4.0 (2020-03-11)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/6ffd13b))
+* fix umd builds ([#2214](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/2214)) ([e04f6be](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/e04f6be))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/7987091))
+* **backends:** fix commit message handling ([#1568](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/1568)) ([f7e7120](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/f7e7120))
+* **workflow:** enable workflow per method ([#1569](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/1569)) ([90b8156](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/90b8156))
+* **workflow:** fix status not set on new workflow entries ([#1558](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/1558)) ([0aa085f](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/0aa085f))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-test/commit/ccef446))
+
+
+
+
+
 # 2.3.0 (2020-02-17)
 
 

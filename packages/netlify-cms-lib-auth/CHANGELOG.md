@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.4.0 (2020-03-11)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/commit/6ffd13b))
+* **auth:** scrollbars not appearing in auth window ([#1766](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/issues/1766)) ([8176243](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/commit/8176243))
+* **bitbucket:** fix rebasing mistakes in bitbucket backend and deps ([#1522](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/issues/1522)) ([bdfd944](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/commit/bdfd944))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth/commit/ccef446))
+
+
+
+
+
 # 2.3.0 (2020-02-17)
 
 
