@@ -1,4 +1,4 @@
-import { Map, remove } from 'immutable';
+import { Map } from 'immutable';
 import { ADD_ENTRY_HISTORY } from 'Actions/entryHistory';
 import { ENTRY_PERSIST_SUCCESS, ENTRY_DELETE_SUCCESS } from 'Actions/entries';
 
