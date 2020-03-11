@@ -25,7 +25,7 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       return state.setIn(['entities', `${action.payload.collection}.${action.payload.slug}`, 'isFetching'], true);
 
     case ENTRY_PERSIST_SUCCESS: {
-      const { collectionName, slug, newRef, author, commitDate } = action.payload;
+      const { slug, newRef } = action.payload;
       return state.withMutations(map => {
         map.setIn(['entities', `${collection}.${slug}`, 'ref'], newRef);
         map.setIn(['entities', `${collection}.${slug}`, 'contentSame'], true);
