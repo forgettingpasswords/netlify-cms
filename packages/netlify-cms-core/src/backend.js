@@ -95,41 +95,65 @@ const commitMessageTemplates = Map({
   create: 'Create {{collection}} “{{slug}}”',
   update: 'Update {{collection}} “{{slug}}”',
   delete: 'Delete {{collection}} “{{slug}}”',
+  revert: 'Revert {{collection}} “{{slug}}”',
   uploadMedia: 'Upload “{{path}}”',
   deleteMedia: 'Delete “{{path}}”'
 });
 
 const NETLIFY_ACTION = 'Netlify_Action';
+const REVERT_REFERENCE = 'Revert_Reference';
+const META_SEPARATOR = ';';
 const ACTION_SEPARATOR = ':';
 const DELETION_META_TYPE = 'DELETE';
 const CREATION_META_TYPE = 'CREATE';
 const UPDATE_META_TYPE = 'UPDATE';
+const REVERT_META_TYPE = 'REVERT';
+
+const commitMetaParser = commitMessage => {
+  const lines = commitMessage.split(/\r\n|\r|\n/);
+  const netlifyMetaLine = lines[lines.length - 1];
+  const metaFields = netlifyMetaLine.split(META_SEPARATOR);
+  return metaFields.map(metaField => {
+    const [key, value] = metaField.split(ACTION_SEPARATOR);
+    return { key, value };
+  });
+};
 
 const commitMetaTypeParser = commitMessage => {
   try {
-    const lines = commitMessage.split(/\r\n|\r|\n/);
-    const netlifyActionLine = lines[lines.length - 1];
-    const [descriptor, metaAction] = netlifyActionLine.split(ACTION_SEPARATOR);
+    const meta = commitMetaParser(commitMessage);
+    const { value } = meta.find(({ key }) => key === NETLIFY_ACTION);
 
-    if (descriptor !== NETLIFY_ACTION) {
+    if (!Object.values(metaTypes).includes(value)) {
       return null;
     }
 
-    if (!Object.values(metaTypes).includes(metaAction)) {
+    return value;
+  } catch (err) {
+    return null;
+  }
+};
+
+const extractReversionRef = message => {
+  try {
+    const meta = commitMetaParser(message);
+    const reversion = meta.find(({ key }) => key === REVERT_REFERENCE);
+    if (!reversion) {
       return null;
     }
 
-    return metaAction;
+    const { value } = reversion;
+    return value;
   } catch (err) {
     return null;
   }
 };
 
 const dropUnrelatedCommits = commits => {
-  const controlledCommits = commits.filter(({ message }) => {
-    const whatever = commitMetaTypeParser(message);
-    return !!whatever;
-  });
+  const reversionRefs = commits.map(({ message }) => extractReversionRef(message)).filter(ref => !!ref);
+  const controlledCommits = commits
+    .filter(({ message }) => !!commitMetaTypeParser(message))
+    .filter(({ ref }) => !reversionRefs.includes(ref));
 
   const deletionIndex = findLastIndex(controlledCommits, ({ message }) => {
     const metaType = commitMetaTypeParser(message);
@@ -140,26 +164,31 @@ const dropUnrelatedCommits = commits => {
     return controlledCommits;
   }
 
-  return drop(controlledCommits, deletionIndex + 1);
+  const stuff = drop(controlledCommits, deletionIndex + 1);
+  return stuff;
 };
 
 const metaTypes = {
   update: UPDATE_META_TYPE,
   create: CREATION_META_TYPE,
-  delete: DELETION_META_TYPE
+  delete: DELETION_META_TYPE,
+  revert: REVERT_META_TYPE
 };
 
 // Implying the meta action line to be the last line in the commit!!!
-const commitMetaFormatter = (type, message) => {
+const commitMetaFormatter = (type, message, { ref, revert }) => {
   const metaType = metaTypes[type];
   if (!metaType) {
     return message;
   }
 
-  return `${message}\n${NETLIFY_ACTION}${ACTION_SEPARATOR}${metaType}`;
+  const referencedCommit = revert && ref ? `${META_SEPARATOR}${REVERT_REFERENCE}${ACTION_SEPARATOR}${ref}` : '';
+
+  const plainMeta = `${message}\n${NETLIFY_ACTION}${ACTION_SEPARATOR}${metaType}`;
+  return `${plainMeta}${referencedCommit}`;
 };
 
-const commitMessageFormatter = (type, config, { slug, path, collection }) => {
+const commitMessageFormatter = (type, config, { slug, path, collection, ref, revert }) => {
   const templates = commitMessageTemplates.merge(config.getIn(['backend', 'commit_messages'], Map()));
   const messageTemplate = templates.get(type);
   const interpolated = messageTemplate.replace(/\{\{([^}]+)\}\}/g, (_, variable) => {
@@ -176,7 +205,7 @@ const commitMessageFormatter = (type, config, { slug, path, collection }) => {
     }
   });
 
-  const withMeta = commitMetaFormatter(type, interpolated);
+  const withMeta = commitMetaFormatter(type, interpolated, { ref, revert });
   return withMeta;
 };
 
@@ -671,7 +700,8 @@ export class Backend {
     };
   }
 
-  async persistEntry(config, collection, entryDraft, MediaFiles, integrations, usedSlugs, options = {}) {
+  async persistEntry(config, collection, entryDraft, MediaFiles, integrations, usedSlugs, options = { revert: false }) {
+    const { revert, ref } = options;
     const newEntry = entryDraft.getIn(['entry', 'newRecord']) || false;
 
     const parsedData = {
@@ -706,10 +736,14 @@ export class Backend {
       };
     }
 
-    const commitMessage = commitMessageFormatter(newEntry ? 'create' : 'update', config, {
+    const commitAction = revert ? 'revert' : newEntry ? 'create' : 'update';
+
+    const commitMessage = commitMessageFormatter(commitAction, config, {
       collection,
       slug: entryObj.slug,
-      path: entryObj.path
+      path: entryObj.path,
+      ref,
+      revert
     });
 
     const useWorkflow = config.getIn(['publish_mode']) === EDITORIAL_WORKFLOW;

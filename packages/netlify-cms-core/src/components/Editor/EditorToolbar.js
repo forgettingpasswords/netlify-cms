@@ -281,8 +281,18 @@ class EditorToolbar extends React.Component {
   };
 
   renderSimplePublishControls = () => {
-    const { collection, onPersist, onPersistAndNew, isPersisting, hasChanged, isNewEntry, t } = this.props;
-    if (!isNewEntry && !hasChanged) {
+    const {
+      collection,
+      onPersist,
+      onPersistAndNew,
+      onPersistRevert,
+      isPersisting,
+      isLatestCommit,
+      hasChanged,
+      isNewEntry,
+      t
+    } = this.props;
+    if (!isNewEntry && !hasChanged && isLatestCommit) {
       return (
         <>
           {this.renderDeployPreviewControls(t('editor.editorToolbar.deployButtonLabel'))}
@@ -290,6 +300,17 @@ class EditorToolbar extends React.Component {
         </>
       );
     }
+
+    if (!isNewEntry && !hasChanged && !isLatestCommit) {
+      return (
+        <>
+          <SaveButton key="revert-button" onClick={onPersistRevert}>
+            Revert
+          </SaveButton>
+        </>
+      );
+    }
+
     return (
       <div>
         <ToolbarDropdown
