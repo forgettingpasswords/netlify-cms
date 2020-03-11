@@ -23,7 +23,7 @@ const generateCommits = length => {
         committed_date: '2020-01-16T09:36:56.000+01:00',
         committer_email: 'admin@example.com',
         committer_name: 'Administrator',
-        message: `Update Post “Test”`,
+        message: `Update Post “Test”\nNetlify_Action:UPDATE`,
         parent_ids: [acc[acc.length - 1].id]
       }
     ],
@@ -36,7 +36,7 @@ const generateCommits = length => {
         committed_date: '2020-01-16T09:36:56.000+01:00',
         committer_email: 'admin@example.com',
         committer_name: 'Administrator',
-        message: `Create Post “Test”`,
+        message: `Create Post “Test”\nNetlify_Action:CREATE`,
         parent_ids: []
       }
     ]
@@ -131,7 +131,7 @@ const mockRepo = {
         committer_email: 'admin@example.com',
         committer_name: 'Administrator',
         id: 'a48b8cddeaddb67bb0e0f921697ed540b1a8d678',
-        message: 'Create Post “2020-01-16-test”',
+        message: 'Create Post “2020-01-16-test”\nNetlify_Action:CREATE',
         parent_ids: []
       },
       {
@@ -142,7 +142,7 @@ const mockRepo = {
         committer_email: 'admin@example.com',
         committer_name: 'Administrator',
         id: '3b871fb6a28a98bf693d92f5feec7b69083ddbd4',
-        message: 'Update Post “2020-01-16-test”',
+        message: 'Update Post “2020-01-16-test”\nNetlify_Action:UPDATE',
         parent_ids: ['a48b8cddeaddb67bb0e0f921697ed540b1a8d678']
       }
     ],
@@ -504,7 +504,9 @@ describe('gitlab backend', () => {
       const commits = await backend.getFileVersions(fromJS(collectionContentConfig), slug);
       expect(commits).toEqual(
         expect.arrayContaining(
-          mockRepo.commits[filePath].map(({ id }) => expect.objectContaining({ ref: id, file: { path: filePath } }))
+          mockRepo.commits[filePath].map(({ id, message, author_name }) =>
+            expect.objectContaining({ message, author: author_name, ref: id, file: { path: filePath } })
+          )
         )
       );
     });

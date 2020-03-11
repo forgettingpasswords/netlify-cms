@@ -49,7 +49,7 @@ const entries = (state = Map({ entities: Map(), pages: Map() }), action) => {
       collection = action.payload.collection;
       slug = action.payload.entry.slug;
       const newState = state.withMutations(map => {
-        const existing = map.getIn(['entities', `${collection}.${slug}`]);
+        const existing = map.getIn(['entities', `${collection}.${slug}`]) || Map();
         const newValue = existing
           .merge(fromJS(action.payload.entry))
           .set('isFetching', false)
