@@ -10,11 +10,11 @@ const newHistoryForEntry = (state, { payload }) => {
 };
 
 const entryPersistSuccess = (state, { payload }) => {
-  const { collectionName, slug, ref, author, commitDate } = payload;
+  const { collectionName, slug, newRef, author, commitDate, oldRef, revert } = payload;
   const key = `${collectionName}.${slug}`;
 
   const newHistoryObject = {
-    ref,
+    ref: newRef,
     date: commitDate,
     author,
     file: {
@@ -24,7 +24,10 @@ const entryPersistSuccess = (state, { payload }) => {
   };
 
   return state.withMutations(mutatingState => {
-    mutatingState.updateIn([key], history => (history ? history.concat([newHistoryObject]) : [newHistoryObject]));
+    mutatingState.updateIn([key], history => {
+      const newHistory = history ? history.concat([newHistoryObject]) : [newHistoryObject];
+      return revert ? newHistory.filter(({ ref }) => ref !== oldRef) : newHistory;
+    });
   });
 };
 
@@ -50,5 +53,11 @@ const entryHistory = (state = Map(), action) => {
 };
 
 export const selectEntryHistory = (state, collectionName, slug) => state.get(`${collectionName}.${slug}`) || [];
+
+export const selectIsRefLatestCommit = (state, collection, slug, ref) => {
+  const history = selectEntryHistory(state, collection, slug);
+  const lastItem = history[history.length - 1];
+  return lastItem && lastItem.ref === ref;
+};
 
 export default entryHistory;

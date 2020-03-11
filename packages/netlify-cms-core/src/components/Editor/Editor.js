@@ -30,7 +30,14 @@ import {
 } from 'Actions/editorialWorkflow';
 import { loadDeployPreview } from 'Actions/deploys';
 import { deserializeValues } from 'Lib/serializeEntryValues';
-import { selectEntry, selectEntryHistory, selectUnpublishedEntry, selectDeployPreview, getAsset } from 'Reducers';
+import {
+  selectEntry,
+  selectEntryHistory,
+  selectIsRefLatestCommit,
+  selectUnpublishedEntry,
+  selectDeployPreview,
+  getAsset
+} from 'Reducers';
 import { selectFields } from 'Reducers/collections';
 import { status, EDITORIAL_WORKFLOW } from 'Constants/publishModes';
 import EditorInterface from './EditorInterface';
@@ -237,10 +244,19 @@ class Editor extends React.Component {
   };
 
   handlePersistEntry = async (opts = {}) => {
-    const { createNew = false } = opts;
-    const { persistEntry, collection, currentStatus, hasWorkflow, loadEntry, slug, createEmptyDraft } = this.props;
+    const { createNew = false, revert = false } = opts;
+    const {
+      persistEntry,
+      collection,
+      currentStatus,
+      hasWorkflow,
+      loadEntry,
+      slug,
+      createEmptyDraft,
+      currentCommitRef
+    } = this.props;
 
-    await persistEntry(collection);
+    await persistEntry(collection, { revert, ref: currentCommitRef });
 
     this.deleteBackup(collection, slug);
 
@@ -339,6 +355,7 @@ class Editor extends React.Component {
       loadDeployPreview,
       slug,
       currentCommitRef,
+      isLatestCommit,
       t
     } = this.props;
 
@@ -364,6 +381,7 @@ class Editor extends React.Component {
         fields={fields}
         fieldsMetaData={entryDraft.get('fieldsMetaData')}
         fieldsErrors={entryDraft.get('fieldsErrors')}
+        isLatestCommit={isLatestCommit}
         onChange={changeDraftField}
         onValidate={changeDraftFieldValidation}
         onPersist={this.handlePersistEntry}
@@ -400,6 +418,7 @@ function mapStateToProps(state, ownProps) {
   const entry = newEntry ? null : selectEntry(state, collectionName, slug);
   const currentCommitRef = entry ? entry.get('ref') : null;
   const entryCommits = selectEntryHistory(state, collectionName, slug);
+  const isLatestCommit = selectIsRefLatestCommit(state, collectionName, slug, currentCommitRef);
   const boundGetAsset = getAsset.bind(null, state);
   const user = auth && auth.get('user');
   const hasChanged = entryDraft.get('hasChanged');
@@ -432,7 +451,8 @@ function mapStateToProps(state, ownProps) {
     collectionEntriesLoaded,
     currentStatus,
     deployPreview,
-    localBackup
+    localBackup,
+    isLatestCommit
   };
 }
 

@@ -118,7 +118,7 @@ export function entryPersisting(collection, entry) {
   };
 }
 
-export function entryPersisted(collection, entry, slug, ref, author, commitDate) {
+export function entryPersisted(collection, entry, slug, newRef, author, commitDate, revert, oldRef) {
   return {
     type: ENTRY_PERSIST_SUCCESS,
     payload: {
@@ -128,9 +128,11 @@ export function entryPersisted(collection, entry, slug, ref, author, commitDate)
        * Pass slug from backend for newly created entries.
        */
       slug,
-      ref,
+      oldRef,
+      newRef,
       author,
-      commitDate
+      commitDate,
+      revert
     }
   };
 }
@@ -454,7 +456,7 @@ export function createEmptyDraftData(fields, withNameKey = true) {
   }, {});
 }
 
-export function persistEntry(collection) {
+export function persistEntry(collection, { revert = false, ref }) {
   return (dispatch, getState) => {
     const state = getState();
     const entryDraft = state.entryDraft;
@@ -496,8 +498,16 @@ export function persistEntry(collection) {
     const serializedEntryDraft = entryDraft.set('entry', serializedEntry);
     dispatch(entryPersisting(collection, serializedEntry));
     return backend
-      .persistEntry(state.config, collection, serializedEntryDraft, assetProxies.toJS(), state.integrations, usedSlugs)
-      .then(({ slug, ref, author, commitDate }) => {
+      .persistEntry(
+        state.config,
+        collection,
+        serializedEntryDraft,
+        assetProxies.toJS(),
+        state.integrations,
+        usedSlugs,
+        { revert, ref }
+      )
+      .then(({ slug, ref: newRef, author, commitDate }) => {
         dispatch(
           notifSend({
             message: {
@@ -507,7 +517,7 @@ export function persistEntry(collection) {
             dismissAfter: 4000
           })
         );
-        dispatch(entryPersisted(collection, serializedEntry, slug, ref, author, commitDate));
+        dispatch(entryPersisted(collection, serializedEntry, slug, newRef, author, commitDate, revert, ref));
       })
       .catch(error => {
         console.error(error);
