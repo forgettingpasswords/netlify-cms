@@ -41,7 +41,7 @@
     "publish:version": "lerna version --no-push",
     "publish:push": "run-s publish:push-git publish:from-git",
     "publish:push-git": "git push --follow-tags",
-    "publish:from-git": "lerna publish from-git --pre-dist-tag beta",
+    "publish:from-git": "lerna publish --force-publish from-git --pre-dist-tag beta",
     "publish:dry-run": "run-s \"publish:version --no-git-tag-version\"",
     "publish:prerelease": "run-s publish:prerelease:before-manual-version publish:after-manual-version",
     "publish:prerelease:ci": "run-s publish:prepare \"publish:version --conventional-prerelease --yes\" build publish:push-git \"publish:from-git --yes\"",
