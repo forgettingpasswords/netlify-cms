@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-boolean/compare/@forgettingpasswords/netlify-cms-widget-boolean@2.4.0...@forgettingpasswords/netlify-cms-widget-boolean@2.4.1) (2020-03-13)
+
+**Note:** Version bump only for package @forgettingpasswords/netlify-cms-widget-boolean
+
+
+
+
+
 # 2.4.0 (2020-03-11)
 
 
