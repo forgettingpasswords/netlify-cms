@@ -7,7 +7,7 @@
   "loglevel": "success",
   "command": {
     "version": {
-      "allowBranch": "DPL-Publish-Config",
+      "allowBranch": "DPL-TESTING",
       "conventionalCommits": true,
       "preid": "dpl",
       "gitRemote": "origin",
