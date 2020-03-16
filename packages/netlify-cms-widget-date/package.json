@@ -1,5 +1,5 @@
 {
-  "name": "netlify-cms-widget-date",
+  "name": "@forgettingpasswords/netlify-cms-widget-date",
   "description": "Widget for editing dates in Netlify CMS.",
   "version": "2.3.3",
   "homepage": "https://www.netlifycms.org/docs/widgets/#date",
@@ -32,5 +32,39 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
+  },
+  "_moduleAliases": {
+    "netlify-cms": "@forgettingpasswords/netlify-cms",
+    "netlify-cms-app": "@forgettingpasswords/netlify-cms-app",
+    "netlify-cms-backend-bitbucket": "@forgettingpasswords/netlify-cms-backend-bitbucket",
+    "netlify-cms-backend-git-gateway": "@forgettingpasswords/netlify-cms-backend-git-gateway",
+    "netlify-cms-backend-github": "@forgettingpasswords/netlify-cms-backend-github",
+    "netlify-cms-backend-gitlab": "@forgettingpasswords/netlify-cms-backend-gitlab",
+    "netlify-cms-backend-test": "@forgettingpasswords/netlify-cms-backend-test",
+    "netlify-cms-core": "@forgettingpasswords/netlify-cms-core",
+    "netlify-cms-default-exports": "@forgettingpasswords/netlify-cms-default-exports",
+    "netlify-cms-editor-component-image": "@forgettingpasswords/netlify-cms-editor-component-image",
+    "netlify-cms-lib-auth": "@forgettingpasswords/netlify-cms-lib-auth",
+    "netlify-cms-lib-util": "@forgettingpasswords/netlify-cms-lib-util",
+    "netlify-cms-media-library-cloudinary": "@forgettingpasswords/netlify-cms-media-library-cloudinary",
+    "netlify-cms-media-library-uploadcare": "@forgettingpasswords/netlify-cms-media-library-uploadcare",
+    "netlify-cms-ui-default": "@forgettingpasswords/netlify-cms-ui-default",
+    "netlify-cms-widget-boolean": "@forgettingpasswords/netlify-cms-widget-boolean",
+    "netlify-cms-widget-date": "@forgettingpasswords/netlify-cms-widget-date",
+    "netlify-cms-widget-datetime": "@forgettingpasswords/netlify-cms-widget-datetime",
+    "netlify-cms-widget-file": "@forgettingpasswords/netlify-cms-widget-file",
+    "netlify-cms-widget-image": "@forgettingpasswords/netlify-cms-widget-image",
+    "netlify-cms-widget-list": "@forgettingpasswords/netlify-cms-widget-list",
+    "netlify-cms-widget-map": "@forgettingpasswords/netlify-cms-widget-map",
+    "netlify-cms-widget-markdown": "@forgettingpasswords/netlify-cms-widget-markdown",
+    "netlify-cms-widget-number": "@forgettingpasswords/netlify-cms-widget-number",
+    "netlify-cms-widget-object": "@forgettingpasswords/netlify-cms-widget-object",
+    "netlify-cms-widget-relation": "@forgettingpasswords/netlify-cms-widget-relation",
+    "netlify-cms-widget-select": "@forgettingpasswords/netlify-cms-widget-select",
+    "netlify-cms-widget-string": "@forgettingpasswords/netlify-cms-widget-string",
+    "netlify-cms-widget-text": "@forgettingpasswords/netlify-cms-widget-text"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
