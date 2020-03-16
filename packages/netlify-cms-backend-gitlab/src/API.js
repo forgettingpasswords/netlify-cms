@@ -88,7 +88,7 @@ export default class API {
     const entries = [];
     let { cursor, entries: initialEntries } = await this.fetchCursorAndEntries({
       url: `${this.repoURL}/repository/commits`,
-      params: { ref_name: ref, path, all: true, per_page: 100 },
+      params: { ref_name: ref, path, per_page: 100 },
       cache: 'no-store'
     });
 

@@ -137,13 +137,15 @@ export default class GitLab {
 
   async getFileVersions(path) {
     const commits = await this.api.readFileHistory(path);
-    const formatted = commits.map(({ id, committed_date, author_name, message }) => ({
-      ref: id,
-      date: committed_date,
-      author: author_name,
-      message,
-      file: { path }
-    }));
+    const formatted = commits
+      .map(({ id, committed_date, author_name, message }) => ({
+        ref: id,
+        date: committed_date,
+        author: author_name,
+        message,
+        file: { path }
+      }))
+      .reverse();
 
     return formatted;
   }
