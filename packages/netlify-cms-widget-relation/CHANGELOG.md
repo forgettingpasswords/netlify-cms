@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.8.0 (2020-03-16)
+
+
+### Bug Fixes
+
+* **widget-relation:** clear button ([#2285](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2285)) ([9318aa0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/9318aa0))
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/7987091))
+* **netlify-cms-core:** fix fields metadata for objects and lists ([#2011](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2011)) ([2d1d1c1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/2d1d1c1))
+* **relation:** fix relation widget selection bug ([#1572](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/1572)) ([77fbc04](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/77fbc04))
+* **relation-widget:** accept string in searchFields config ([#2137](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2137)) ([9fed79b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/9fed79b))
+
+
+### Features
+
+* **widget-relation:** support nested field references in relation widget ([#2391](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2391)) ([d6964b5](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/d6964b5))
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/ccef446))
+* **netlify-cms-widget-relation:** use react-select and add support for multiple entries ([#1936](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/issues/1936)) ([518f6fb](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation/commit/518f6fb))
+
+
+
+
+
 # 2.7.0 (2020-03-16)
 
 

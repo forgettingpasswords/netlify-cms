@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms-lib-util",
   "description": "Shared utilities for Netlify CMS.",
-  "version": "2.4.0-dpl.3",
+  "version": "2.4.0-dpl.4",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
   "module": "dist/esm/index.js",
