@@ -10,7 +10,7 @@
       "allowBranch": "2033-publish",
       "conventionalCommits": true,
       "preid": "dpl",
-      "gitRemote": "upstream",
+      "gitRemote": "origin",
       "message": "chore(release): publish"
     }
   },
