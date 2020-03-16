@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.8.0 (2020-03-16)
+
+
+### Bug Fixes
+
+* **widget-markdown:** ensure correct value on list reorder ([#2298](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2298)) ([60caca0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/60caca0))
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/7987091))
+* **editor-component-image:** fix null on empty markdown image alt ([#1778](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1778)) ([9b72419](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/9b72419))
+* **editor-components:** fix default value processing ([#1848](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1848)) ([a0cfa1a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/a0cfa1a))
+* **markdown-widget:** handle leading or trailing whitespace ([#1517](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1517)) ([ade03d0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/ade03d0))
+* **netlify-cms-widget-markdown:** add missing border radius on toolbar ([#1905](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1905)) ([3772171](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/3772171))
+* add support for default field values in editor components ([#1616](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1616)) ([0d01809](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/0d01809))
+* bug fixes from linters ([#1524](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1524)) ([6632e5d](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/6632e5d))
+
+
+### Features
+
+* **editor-components:** match any characters with shortcodes ([#2268](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2268)) ([14b6292](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/14b6292))
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/ccef446))
+* **core:** recover entry after unexpected quit ([#2129](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/2129)) ([686504a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/686504a))
+* **editor-components:** support title in image component ([#1862](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/issues/1862)) ([cbb7762](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/commit/cbb7762))
+
+
+
+
+
 ## [2.7.1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-markdown/compare/@forgettingpasswords/netlify-cms-widget-markdown@2.7.0...@forgettingpasswords/netlify-cms-widget-markdown@2.7.1) (2020-03-13)
 
 **Note:** Version bump only for package @forgettingpasswords/netlify-cms-widget-markdown
