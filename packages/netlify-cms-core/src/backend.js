@@ -151,9 +151,7 @@ const extractReversionRef = message => {
 
 const dropUnrelatedCommits = commits => {
   const reversionRefs = commits.map(({ message }) => extractReversionRef(message)).filter(ref => !!ref);
-  const controlledCommits = commits
-    .filter(({ message }) => !!commitMetaTypeParser(message))
-    .filter(({ ref }) => !reversionRefs.includes(ref));
+  const controlledCommits = commits.filter(({ ref }) => !reversionRefs.includes(ref));
 
   const deletionIndex = findLastIndex(controlledCommits, ({ message }) => {
     const metaType = commitMetaTypeParser(message);
