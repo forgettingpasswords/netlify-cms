@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.7.0 (2020-03-16)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/7987091))
+* **list-widget:** fix single field usage in list widget ([#1395](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/1395)) ([06d3650](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/06d3650))
+* **netlify-cms-core:** fix fields metadata for objects and lists ([#2011](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/2011)) ([2d1d1c1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/2d1d1c1))
+* **netlify-cms-core:** validate nested fields ([#1873](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/1873)) ([627e600](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/627e600))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object/commit/ccef446))
+
+
+
+
+
 # 2.6.0 (2020-03-16)
 
 
