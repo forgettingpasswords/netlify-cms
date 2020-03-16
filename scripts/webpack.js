@@ -13,28 +13,28 @@ const rules = () => ({
     use: {
       loader: 'babel-loader',
       options: {
-        rootMode: 'upward',
+        rootMode: 'upward'
         // configFile: path.resolve(`${__dirname}/../babel.config.js`),
-      },
-    },
+      }
+    }
   }),
   css: () => ({
     test: /\.css$/,
     include: [/(ol|redux-notifications|react-datetime)/],
-    use: ['to-string-loader', 'css-loader'],
+    use: ['to-string-loader', 'css-loader']
   }),
   svg: () => ({
     test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
     exclude: [/node_modules/],
-    use: 'svg-inline-loader',
-  }),
+    use: 'svg-inline-loader'
+  })
 });
 
 const plugins = () => {
   return {
     ignoreEsprima: () => new webpack.IgnorePlugin(/^esprima$/, /js-yaml/),
     ignoreMomentOptionalDeps: () => new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    friendlyErrors: () => new FriendlyErrorsWebpackPlugin(),
+    friendlyErrors: () => new FriendlyErrorsWebpackPlugin()
   };
 };
 
@@ -50,11 +50,11 @@ const stats = () => {
       modules: false,
       timings: false,
       version: false,
-      warnings: false,
+      warnings: false
     };
   }
   return {
-    all: false,
+    all: false
   };
 };
 
@@ -63,31 +63,32 @@ const umdDirPath = path.resolve(process.cwd(), 'dist/umd');
 const cjsPath = path.resolve(process.cwd(), 'dist/cjs');
 const targetOutputs = () => {
   console.log(`Building [${pkg.name}, library: ${toGlobalName(pkg.name)}]`);
+  const name = pkg.name.split('/')[1];
   return {
     umd: {
       path: umdPath,
-      filename: `${pkg.name}.js`,
-      library: toGlobalName(pkg.name),
+      filename: `${name}.js`,
+      library: toGlobalName(name),
       libraryTarget: 'umd',
-      libraryExport: toGlobalName(pkg.name),
+      libraryExport: toGlobalName(name),
       umdNamedDefine: true,
-      globalObject: 'window',
+      globalObject: 'window'
     },
     umddir: {
       path: umdDirPath,
       filename: `index.js`,
-      library: toGlobalName(pkg.name),
+      library: toGlobalName(name),
       libraryTarget: 'umd',
-      libraryExport: toGlobalName(pkg.name),
+      libraryExport: toGlobalName(name),
       umdNamedDefine: true,
-      globalObject: 'window',
+      globalObject: 'window'
     },
     cjs: {
       path: cjsPath,
       filename: 'index.js',
-      library: toGlobalName(pkg.name),
-      libraryTarget: 'window',
-    },
+      library: toGlobalName(name),
+      libraryTarget: 'window'
+    }
   };
 };
 
@@ -108,12 +109,14 @@ const baseConfig = ({ target = isProduction ? 'umd' : 'umddir' } = {}) => ({
   entry: './src/index.js',
   output: targetOutputs()[target],
   module: {
-    rules: Object.values(rules()).map(rule => rule()),
+    rules: Object.values(rules()).map(rule => rule())
   },
   plugins: Object.values(plugins()).map(plugin => plugin()),
   devtool: 'source-map',
   target: 'web',
-
+  resolve: {
+    alias: pkg.moduleAliases || {}
+  },
   /**
    * Exclude peer dependencies from package bundles.
    */
@@ -125,7 +128,7 @@ const baseConfig = ({ target = isProduction ? 'umd' : 'umddir' } = {}) => ({
           const isPeerDep = dep => new RegExp(`^${dep}($|/)`).test(request);
           return externals.some(isPeerDep) ? cb(null, request) : cb();
         },
-  stats: stats(),
+  stats: stats()
 });
 
 const getConfig = ({ baseOnly = false } = {}) => {
@@ -139,5 +142,5 @@ const getConfig = ({ baseOnly = false } = {}) => {
 module.exports = {
   getConfig,
   rules: rules(),
-  plugins: plugins(),
+  plugins: plugins()
 };
