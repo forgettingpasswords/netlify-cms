@@ -7,10 +7,10 @@
   "loglevel": "success",
   "command": {
     "version": {
-      "allowBranch": "features",
+      "allowBranch": "DPL-Publish-Config",
       "conventionalCommits": true,
-      "preid": "beta",
-      "gitRemote": "upstream",
+      "preid": "dpl",
+      "gitRemote": "origin",
       "message": "chore(release): publish"
     }
   },

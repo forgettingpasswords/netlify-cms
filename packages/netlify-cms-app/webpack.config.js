@@ -16,6 +16,7 @@ const baseConfig = {
       NETLIFY_CMS_APP_VERSION: JSON.stringify(`${pkg.version}${isProduction ? '' : '-dev'}`),
     }),
   ],
+  resolve: { alias: pkg['_moduleAliases'] || {} },
 };
 
 module.exports = baseConfig;
