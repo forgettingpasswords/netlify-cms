@@ -7,9 +7,9 @@
   "loglevel": "success",
   "command": {
     "version": {
-      "allowBranch": "features",
+      "allowBranch": "DPL-ALTERNATIVE",
       "conventionalCommits": true,
-      "preid": "beta",
+      "preid": "stuff",
       "gitRemote": "upstream",
       "message": "chore(release): publish"
     }
