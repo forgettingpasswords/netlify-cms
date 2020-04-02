@@ -31,6 +31,7 @@
     "lint-quiet": "run-p -c --aggregate-output \"lint:* -- --quiet\"",
     "lint:css": "stylelint --ignore-path .gitignore \"{packages/**/*.{css,js},website/**/*.css}\"",
     "lint:js": "eslint --color --ignore-path .gitignore \"{{packages,scripts,website}/**/,}*.js\"",
+    "DISABLED:lint:format": "prettier \"{{packages,scripts,website}/**/,}*.{js,css}\" --list-different",
     "format": "run-s \"lint:css -- --fix --quiet\" \"lint:js -- --fix --quiet\" \"format:prettier -- --write\"",
     "format:prettier": "prettier \"{{packages,scripts,website}/**/,}*.{js,css}\"",
     "dpl:clean": "rimraf dist",
