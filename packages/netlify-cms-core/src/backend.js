@@ -762,11 +762,16 @@ export class Backend {
       ...updatedOptions
     };
 
-    // NOTE AFTER CHANGING THE RETURN VALUE OF THIS - EDITORIAL WORKFLOW CONSUMERS MIGHT HAVE BEEN BROKEN
-    return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(results => {
-      const [publishResponse] = results;
-      return { slug: entryObj.slug, ...publishResponse };
-    });
+    const isFileVersioningSupported = this.supportsFileVersioning();
+
+    if (isFileVersioningSupported) {
+      return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(results => {
+        const [publishResponse] = results;
+        return { slug: entryObj.slug, ...publishResponse };
+      });
+    } else {
+      return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(() => entryObj.slug);
+    }
   }
 
   persistMedia(config, file) {

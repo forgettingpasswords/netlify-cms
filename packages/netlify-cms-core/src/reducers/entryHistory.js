@@ -1,12 +1,17 @@
 import { Map } from 'immutable';
-import { ADD_ENTRY_HISTORY } from 'Actions/entryHistory';
+import { BLOCK_ENTRY_HISTORY, ADD_ENTRY_HISTORY } from 'Actions/entryHistory';
 import { ENTRY_PERSIST_SUCCESS, ENTRY_DELETE_SUCCESS } from 'Actions/entries';
+
+const defaultState = Map([
+  ['history', Map()],
+  ['blockHistory', false]
+]);
 
 const defaultHandler = state => state;
 
 const newHistoryForEntry = (state, { payload }) => {
   const { key, commits } = payload;
-  return state.set(key, commits);
+  return state.setIn(['history', key], commits);
 };
 
 const entryPersistSuccess = (state, { payload }) => {
@@ -24,7 +29,7 @@ const entryPersistSuccess = (state, { payload }) => {
   };
 
   return state.withMutations(mutatingState => {
-    mutatingState.updateIn([key], history => {
+    return mutatingState.updateIn(['history', key], history => {
       const newHistory = history ? history.concat([newHistoryObject]) : [newHistoryObject];
       return revert ? newHistory.filter(({ ref }) => ref !== oldRef) : newHistory;
     });
@@ -35,28 +40,42 @@ const entryDeleteSuccess = (state, { payload }) => {
   const { collectionName, entrySlug } = payload;
   const key = `${collectionName}.${entrySlug}`;
   return state.withMutations(mutatingState => {
-    mutatingState.delete(key);
+    mutatingState.deleteIn(['history', key]);
   });
+};
+
+const blockEntryHistory = state => {
+  return state.set('blockHistory', true);
 };
 
 const actionHandlers = {
   [ADD_ENTRY_HISTORY]: newHistoryForEntry,
   [ENTRY_PERSIST_SUCCESS]: entryPersistSuccess,
-  [ENTRY_DELETE_SUCCESS]: entryDeleteSuccess
+  [ENTRY_DELETE_SUCCESS]: entryDeleteSuccess,
+  [BLOCK_ENTRY_HISTORY]: blockEntryHistory
 };
 
-const entryHistory = (state = Map(), action) => {
+const entryHistory = (state = defaultState, action) => {
+  if (state.get('blockHistory')) {
+    return state;
+  }
+
   const { type } = action;
   const handler = actionHandlers[type] || defaultHandler;
   const newState = handler(state, action);
   return newState;
 };
 
-export const selectEntryHistory = (state, collectionName, slug) => state.get(`${collectionName}.${slug}`) || [];
+export const selectEntryHistory = (state, collectionName, slug) =>
+  state.getIn(['history', `${collectionName}.${slug}`]) || [];
 
 export const selectIsRefLatestCommit = (state, collection, slug, ref) => {
   const history = selectEntryHistory(state, collection, slug);
   const lastItem = history[history.length - 1];
+  if (!lastItem) {
+    return true;
+  }
+
   return lastItem && lastItem.ref === ref;
 };
 
