@@ -1,4 +1,5 @@
 const { readdirSync, readFile, writeFile } = require('fs');
+// eslint-disable-next-line
 const [initiator, scriptPath, owner] = process.argv;
 
 if (!owner) {
@@ -61,6 +62,7 @@ const replaceDependencies = (deps, aliases) => {
 const replaceOwner = path => {
   readFile(path, 'utf8', (err, data) => {
     const jsoned = JSON.parse(data);
+    // eslint-disable-next-line
     const { name, dependencies, peerDependencies, devDependencies } = jsoned;
     const ownedDeps = replaceDependencies(dependencies, aliases);
     // const ownedPeers = replaceDependencies(peerDependencies, aliases);
