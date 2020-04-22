@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms-backend-git-gateway",
   "description": "Git Gateway backend for Netlify CMS",
-  "version": "2.4.5",
+  "version": "2.5.0",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
   "module": "dist/esm/index.js",
@@ -73,5 +73,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "b4d36b39a3b333af712cfc66bafd70856b430e1c"
 }

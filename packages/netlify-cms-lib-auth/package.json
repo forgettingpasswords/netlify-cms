@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms-lib-auth",
   "description": "Shared authentication functionality for Netlify CMS.",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-auth",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
   "module": "dist/esm/index.js",
@@ -58,5 +58,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "b4d36b39a3b333af712cfc66bafd70856b430e1c"
 }

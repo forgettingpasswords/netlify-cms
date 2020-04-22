@@ -1,6 +1,6 @@
 {
   "name": "@forgettingpasswords/netlify-cms-default-exports",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "NetlifyCMS default exports",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-default-exports",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
@@ -66,5 +66,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "b4d36b39a3b333af712cfc66bafd70856b430e1c"
 }
