@@ -988,6 +988,163 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@forgettingpasswords/netlify-cms-backend-bitbucket@^2.6.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-backend-bitbucket/-/netlify-cms-backend-bitbucket-2.9.0.tgz#e82c2bc7dcfc9704384d4fa06fe809613f217ad9"
+  integrity sha512-74JyDcvZ0bS5TR6PBna4NOoLXK+2UGancj6fstR2Uoda/SFEfMj2KEGmfOBr8Hnsfk5PbCZTjzsSyZTj82IHJA==
+  dependencies:
+    js-base64 "^2.5.1"
+    semaphore "^1.1.0"
+
+"@forgettingpasswords/netlify-cms-backend-git-gateway@^2.6.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-backend-git-gateway/-/netlify-cms-backend-git-gateway-2.9.0.tgz#5b090fc95f83c6ce0781ca0f520abf07aaf2dc4b"
+  integrity sha512-EJ7bL6VYoJrnTgc2rFmv95/PRys+RzTI/PMUjFF2JwObIOfMiWkKdFXgM+pLl+fguGeoSsESPtWdAM9lwbFO3w==
+  dependencies:
+    gotrue-js "^0.9.24"
+    ini "^1.3.5"
+    jwt-decode "^2.2.0"
+    minimatch "^3.0.4"
+
+"@forgettingpasswords/netlify-cms-backend-gitlab@^2.5.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-backend-gitlab/-/netlify-cms-backend-gitlab-2.8.0.tgz#2b46f9de44d5263703f2f60578c977d04bf1c35b"
+  integrity sha512-GKUEVHrhZGCbZaLg8DCQv5kswK1XxebeJePHm4/Q5ApxlkKIxz6f/Yxyrb0oIYOL01KMkTJQj7wK45lFvpiEbg==
+  dependencies:
+    js-base64 "^2.5.1"
+    semaphore "^1.1.0"
+
+"@forgettingpasswords/netlify-cms-backend-test@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-backend-test/-/netlify-cms-backend-test-2.7.0.tgz#3f4eb3013ddb6c9220c828b3e968438bcd9739c0"
+  integrity sha512-AqTkm02LXC0hr0D9mthEEBCncpXXBOnFEjraImwSuUrDi7f31yeLHzTjZylafcqZeNTuLHU6W2JZTKXWFpK3Fw==
+
+"@forgettingpasswords/netlify-cms-editor-component-image@^2.6.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-editor-component-image/-/netlify-cms-editor-component-image-2.9.0.tgz#12898c5a273f8e45b2c11ed317af2cc9a46c333b"
+  integrity sha512-00HNcGT1WzyvjfjlMo9y9STzJ0Ze7Uo4u7qVLCM9ZrDixkLwsV2USWO7asosyV6N/9ng4kHSe4OxykjOXIqXAg==
+
+"@forgettingpasswords/netlify-cms-lib-auth@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-lib-auth/-/netlify-cms-lib-auth-2.7.0.tgz#f034dcba04323f671c062e5666ca4fc311afea69"
+  integrity sha512-pQjdjEfKbiLKj5GZS/k7pyr1Kkq1COE5P196vS2jIAUoru++HPOpw5Tl16JqmAcF+Uvp5OnLF0/8wbbea3rlYg==
+
+"@forgettingpasswords/netlify-cms-media-library-cloudinary@^1.5.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-media-library-cloudinary/-/netlify-cms-media-library-cloudinary-1.8.0.tgz#2d4814bb820fc70d2219179249b3c1df50c00d8a"
+  integrity sha512-+myBF+XvL5CVEDp2q1IUTwQBHGvo2y6DzjJqMx14CenhV1VvLtnzkvOBfu1Vnlx9t5nbGALX/2nN1JvF1k+MSA==
+
+"@forgettingpasswords/netlify-cms-media-library-uploadcare@^0.7.0":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-media-library-uploadcare/-/netlify-cms-media-library-uploadcare-0.7.1.tgz#a970d7108fd8033693902b33ba4f1c625c59f725"
+  integrity sha512-EecA4o2uMZDFQIBPrbs4Oep3YKuVV2WitAwPg6K6rdYy5wI2RtSHUoogV49fTcHpHofWU8MAdwSaPhFYg2+ihw==
+  dependencies:
+    uploadcare-widget "^3.7.0"
+    uploadcare-widget-tab-effects "^1.4.0"
+
+"@forgettingpasswords/netlify-cms-widget-boolean@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-boolean/-/netlify-cms-widget-boolean-2.7.0.tgz#b8be25d417f3e7b4d31ff6849e67164d10ded174"
+  integrity sha512-45fTX0LHzkSKvtbZagRZgD4iPKcimgbd3Y12iKpx+dk5gbxF6y1T59knXrDzUynI61cq+ZveC+s4nuGN5EIw/g==
+
+"@forgettingpasswords/netlify-cms-widget-date@^2.5.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-date/-/netlify-cms-widget-date-2.8.0.tgz#b58b40d8fb2ac5b33087c6f326a507dc7816943f"
+  integrity sha512-AA2I+THd/kX8uI3USPhhDV/Jr7LBNnTHCg1mYuQuooAximMpZNCGcMXQvP3/QeivYuV+pf7PzzkQkIxJbctsRg==
+  dependencies:
+    react-datetime "^2.16.3"
+
+"@forgettingpasswords/netlify-cms-widget-datetime@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-datetime/-/netlify-cms-widget-datetime-2.7.0.tgz#b6dc2beb4b422b8b86ff854e60139ed38f83e20e"
+  integrity sha512-p+E+D+t2DQ93wQUpCua/86OaFxpGVCgwuw/gL3mtNyVRrz+P5L5IihHe5XKAIteDg5ldOJlv5e/sRzuIjAhqhg==
+
+"@forgettingpasswords/netlify-cms-widget-file@^2.6.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-file/-/netlify-cms-widget-file-2.9.0.tgz#c5fefe265d0e01bf1c17ce117e5e6ddb07f75ec8"
+  integrity sha512-Tvh3GaZ+vNAjsdss9aRJi69xNyoG+RwPGWjsE63m/TNX/2cLxe+CiTXgcIF4Ezwp0YwERZjUay7lBfTQerMU2g==
+  dependencies:
+    common-tags "^1.8.0"
+
+"@forgettingpasswords/netlify-cms-widget-image@^2.5.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-image/-/netlify-cms-widget-image-2.8.0.tgz#be7140c05e831adf990ef2c18ad38477781cb310"
+  integrity sha512-GxkqACoYDT5y+uQs09iMvjUJ+72en/QmAph/l6gicodlA7in1h8wFzZ8OSSp9BRK+29J7gLv1nYXAaPZfK3aeQ==
+
+"@forgettingpasswords/netlify-cms-widget-list@^2.5.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-list/-/netlify-cms-widget-list-2.8.0.tgz#4dad84a169f279b49e908f245bf852aeb4941085"
+  integrity sha512-4at5LIkDdWzVFNGFrvIY44HzkmKnAvfJ/A70+Cdmvi7u/v+082jsyJXpXcncm21V2/LJrm4elHFcLCarvXBY1w==
+  dependencies:
+    react-sortable-hoc "^1.0.0"
+
+"@forgettingpasswords/netlify-cms-widget-map@^1.5.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-map/-/netlify-cms-widget-map-1.8.0.tgz#c5c50f63f7a9d56d5ddb314b48f5513fd10d9afb"
+  integrity sha512-I/RSqF5xW29ga8QhR1RVWFZWHPzQAkKhvECVAepSFIVuKmUt3AUYSRGmon/jPZ3Bxm61Lkr+8e3QWdnVOmYtvQ==
+  dependencies:
+    ol "^5.3.1"
+
+"@forgettingpasswords/netlify-cms-widget-markdown@^2.7.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-markdown/-/netlify-cms-widget-markdown-2.10.0.tgz#54b469d819567ecd4383f3876b4c12c47481e402"
+  integrity sha512-wcadhz7yo38OLc4xONpR2xkJXYegeWdA8Lmd0P5i/7I+7ud0pQ2d06O5Yfa1qvF9WOE42PUpSj00SKC+/N2VGQ==
+  dependencies:
+    is-hotkey "^0.1.4"
+    mdast-util-definitions "^1.2.3"
+    mdast-util-to-string "^1.0.5"
+    rehype-parse "^3.1.0"
+    rehype-remark "^2.0.0"
+    rehype-stringify "^3.0.0"
+    remark-parse "^3.0.1"
+    remark-rehype "^2.0.0"
+    remark-stringify "^3.0.1"
+    slate "^0.34.0"
+    slate-edit-list "^0.11.3"
+    slate-edit-table "^0.15.1"
+    slate-plain-serializer "^0.5.15"
+    slate-react "0.12.9"
+    slate-soft-break "^0.6.1"
+    unified "^6.1.4"
+    unist-builder "^1.0.2"
+    unist-util-visit-parents "^1.1.1"
+
+"@forgettingpasswords/netlify-cms-widget-number@^2.5.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-number/-/netlify-cms-widget-number-2.8.0.tgz#cb6750a9bf0965797936eda7da21d8ea50d693df"
+  integrity sha512-e2yEYGyaSmwD4PMP1UirkPGGqqrq6QxDNVt49HrwEmSe27bY6gtJqSJPQPTIew49AM2r8OLiPYYFVNKM8qfmJQ==
+
+"@forgettingpasswords/netlify-cms-widget-object@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-object/-/netlify-cms-widget-object-2.7.0.tgz#c46dbfa0d688f731db99bac4a65e45efdf4a390c"
+  integrity sha512-tfx//J+vVE5uu2IMZ1hlw+Kj4p2yTZk26DJeC8tiIy2NUrC/W4PiKwdHBlaseUjtthn1Tgw9Tt4u0Un7qSjeEw==
+
+"@forgettingpasswords/netlify-cms-widget-relation@^2.6.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-relation/-/netlify-cms-widget-relation-2.9.0.tgz#2ba491b85fb2f4dff30060390f104e4b30a03358"
+  integrity sha512-iHoV7qRjD6xZOJxQEs6yBglNz2hrPXD2LA/W3jz1g67FJFr2KiNFrFcfg0SkDOyxj+YGvfuykBpQR4/PGNr8yQ==
+  dependencies:
+    react-select "^2.4.2"
+
+"@forgettingpasswords/netlify-cms-widget-select@^2.6.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-select/-/netlify-cms-widget-select-2.9.0.tgz#5120c1f8122da0faea1c55d04796398df55a7a41"
+  integrity sha512-RlVVuj4vxESGxDhYgIVSUrLqqejddGxDEAgETotR6TYh4/HanH0Y5xn5DXXr5q+McgNNJ3puSdRRt83Tv/m8TA==
+  dependencies:
+    react-select "^2.4.2"
+
+"@forgettingpasswords/netlify-cms-widget-string@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-string/-/netlify-cms-widget-string-2.7.0.tgz#54a53c84cf9e9af9762d4870050de37b189338a1"
+  integrity sha512-z49cZqHigH57DGXJi1dU+40UAxuGtPiUYeXjlrUA8fxRMS1bJjYx7QVicT3IKJAwlwfM9QLielhkRwjirPNLTw==
+
+"@forgettingpasswords/netlify-cms-widget-text@^2.4.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@forgettingpasswords/netlify-cms-widget-text/-/netlify-cms-widget-text-2.7.0.tgz#49b9f51eacf0f9cff84c65b66b585297afc5c94e"
+  integrity sha512-NvaeqB9Q1DZk6uItwXAnJLJWAhq6n8A3whWYiTYUF+jbpT6P4RJOBPM8bFGTin6HfHdOXlENFqcMi0NF3YTjTQ==
+  dependencies:
+    react-textarea-autosize "^7.1.0"
+
 "@jest/console@^24.7.1":
   version "24.7.1"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.7.1.tgz#32a9e42535a97aedfe037e725bd67e954b459545"
