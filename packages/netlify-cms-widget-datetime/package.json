@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms-widget-datetime",
   "description": "Widget for editing dates and times in Netlify CMS.",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "homepage": "https://www.netlifycms.org/docs/widgets/#datetime",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-datetime",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
@@ -61,5 +61,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "b4d36b39a3b333af712cfc66bafd70856b430e1c"
+  "gitHead": "1e4cb291d1cbe3d138396815589ec2215ea13a00"
 }
