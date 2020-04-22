@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.6.0-dpl.10 (2020-04-22)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/6ffd13b))
+* fix umd builds ([#2214](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2214)) ([e04f6be](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/e04f6be))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/7987091))
+* **backends:** fix commit message handling ([#1568](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/1568)) ([f7e7120](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/f7e7120))
+* **bitbucket:** fix rebasing mistakes in bitbucket backend and deps ([#1522](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/1522)) ([bdfd944](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/bdfd944))
+* **bitbucket:** setting site_id for BitBucket auth ([#1660](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/1660)) ([d139ac4](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/d139ac4))
+* **gitlab:** fetch media library images through API ([#1433](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/1433)) ([83d2adc](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/83d2adc))
+
+
+### Features
+
+* **backend-bitbucket:** add implicit auth ([#2247](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2247)) ([54fde06](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/54fde06))
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/d142b32))
+* allow custom logo on auth page ([#1818](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/1818)) ([c6ae1e8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/c6ae1e8))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-bitbucket/commit/ccef446))
+
+
+
+
+
 # 2.6.0 (2020-04-22)
 
 

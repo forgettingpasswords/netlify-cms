@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.5.0-dpl.10 (2020-04-22)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/6ffd13b))
+* fix umd builds ([#2214](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/2214)) ([e04f6be](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/e04f6be))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/7987091))
+* **backend-gitlab:** show svg previews ([#1946](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/1946)) ([c3adebe](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/c3adebe))
+* **backend-gitlab:** support folder names with whitespace ([#1799](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/1799)) ([a9f69f9](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/a9f69f9))
+* **backends:** fix commit message handling ([#1568](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/1568)) ([f7e7120](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/f7e7120))
+* **gitlab:** fetch media library images through API ([#1433](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/1433)) ([83d2adc](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/83d2adc))
+* **gitlab:** fix uploads ([#1566](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/1566)) ([d59c990](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/d59c990))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/d142b32))
+* allow custom logo on auth page ([#1818](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/1818)) ([c6ae1e8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/c6ae1e8))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/commit/ccef446))
+
+
+
+
+
 # 2.5.0 (2020-04-22)
 
 

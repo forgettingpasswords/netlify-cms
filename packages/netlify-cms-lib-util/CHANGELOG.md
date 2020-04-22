@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.4.0-dpl.10 (2020-04-22)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/6ffd13b))
+* remove alert modal from localForage error case ([#1676](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/1676)) ([4f3116d](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/4f3116d))
+* **bitbucket:** fix rebasing mistakes in bitbucket backend and deps ([#1522](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/1522)) ([bdfd944](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/bdfd944))
+
+
+### Features
+
+* **backend-github:** Open Authoring ([#2430](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/2430)) ([edf0a3a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/edf0a3a))
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/ccef446))
+* **media:** add external media library support, Uploadcare integration ([#1602](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/issues/1602)) ([0596904](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util/commit/0596904))
+
+
+
+
+
 # 2.4.0-dpl.1 (2020-04-22)
 
 

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.5.0-dpl.10 (2020-04-22)
+
+
+### Bug Fixes
+
+* **widget-list:** honor default values for widgets in lists ([#2395](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2395)) ([83bd5d5](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/83bd5d5))
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/7987091))
+* **deps:** update dependency react-sortable-hoc to v1 ([#2198](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2198)) ([b5180e9](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/b5180e9))
+* **list-widget:** fix single field usage in list widget ([#1395](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/1395)) ([06d3650](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/06d3650))
+* **netlify-cms-core:** fix fields metadata for objects and lists ([#2011](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2011)) ([2d1d1c1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/2d1d1c1))
+* **netlify-cms-core:** validate nested fields ([#1873](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/1873)) ([627e600](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/627e600))
+* **widget-list:** fix list item deletion ([#1815](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/1815)) ([cd2036f](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/cd2036f))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/ccef446))
+* **netlify-cms-widget-list:** add variable type definitions to list widget ([#1857](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/issues/1857)) ([8ddc168](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-list/commit/8ddc168))
+
+
+
+
+
 # 2.5.0 (2020-04-22)
 
 

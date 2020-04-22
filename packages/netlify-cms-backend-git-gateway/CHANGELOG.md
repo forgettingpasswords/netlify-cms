@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.6.0-dpl.10 (2020-04-22)
+
+
+### Bug Fixes
+
+* **backend-git-gateway:** fix image display w/o large media ([#2271](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2271)) ([6c3506b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/6c3506b))
+* **core:** address new entries error for non-github backends ([#2390](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2390)) ([a5bd6b3](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/a5bd6b3))
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/7987091))
+* **backend-git-gateway:** double slashes when gateway_url contained a backend ([#1712](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1712)) ([6de47cd](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/6de47cd))
+* **editorial-workflow:** fix LM pointers changing to binary files ([#2228](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2228)) ([d39a361](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/d39a361))
+* fix umd builds ([#2214](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2214)) ([e04f6be](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/e04f6be))
+* **backend-github:** make non-Large Media previews work with Git Gateway+Github ([#2151](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2151)) ([63582dc](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/63582dc))
+* **bitbucket:** fix rebasing mistakes in bitbucket backend and deps ([#1522](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1522)) ([bdfd944](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/bdfd944))
+* **git-gateway:** correct `proxied` value for proxied backends ([#1540](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1540)) ([f7dba87](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/f7dba87))
+* **git-gateway:** fix previews for GitHub images not in Large Media ([#2125](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2125)) ([d17f896](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/d17f896))
+* **git-gateway:** pass options through git-gateway backend ([#1532](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1532)) ([4c5436a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/4c5436a))
+* **identity:** switch user name reference to full_name ([#1809](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1809)) ([55d45a8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/55d45a8))
+* **netlify-cms-backend-git-gateway:** content-type may have charset ([#1951](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1951)) ([c74dbae](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/c74dbae))
+* **workflow:** fix workflow entries not appearing ([#1581](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1581)) ([95c8de0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/95c8de0))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/ccef446))
+* **workflow:** add deploy preview links ([#2028](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2028)) ([15d221d](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/15d221d))
+* allow custom logo on auth page ([#1818](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/1818)) ([c6ae1e8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/c6ae1e8))
+
+
+
+
+
 # 2.6.0 (2020-04-22)
 
 

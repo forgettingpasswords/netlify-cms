@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.5.0-dpl.10 (2020-04-22)
+
+
+### Bug Fixes
+
+* **widget-number:** allow zero as value ([#2261](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2261)) ([800c3ee](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/800c3ee))
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/7987091))
+* **widget-number:** fix empty value handling for number input ([#2077](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2077)) ([be15015](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/be15015))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/ccef446))
+* **widget-number:** add range validation ([#2049](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/issues/2049)) ([dc44cac](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-number/commit/dc44cac))
+
+
+
+
+
 # 2.5.0 (2020-04-22)
 
 
