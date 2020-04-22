@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.4.0 (2020-04-22)
+
+
+### Bug Fixes
+
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/6ffd13b))
+* update peer dep versions ([#2234](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/2234)) ([7987091](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/7987091))
+* **a11y:** correct label "for" references to fields ([#1904](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/1904)) ([955f94f](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/955f94f))
+* **widget-date:** fix default value for nested date widget ([#1859](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/1859)) ([d8f8887](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/d8f8887))
+
+
+### Features
+
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/d142b32))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/ccef446))
+* **widget-date:** add input display formatting ([#1739](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/issues/1739)) ([855efd8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/commit/855efd8))
+
+
+
+
+
 ## [2.3.3](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-date/compare/netlify-cms-widget-date@2.3.2...netlify-cms-widget-date@2.3.3) (2019-07-24)
 
 **Note:** Version bump only for package netlify-cms-widget-date
