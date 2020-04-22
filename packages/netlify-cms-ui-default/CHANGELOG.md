@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.7.0-dpl.1 (2020-04-22)
+
+
+### Bug Fixes
+
+* **ui:** typos in color vars ([#2444](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2444)) ([d260161](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/d260161))
+* **widget-markdown:** keep markdown widget dropdowns on top ([#2326](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2326)) ([5f807d7](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/5f807d7))
+* export on netlify-cms and maps on esm ([#2244](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2244)) ([6ffd13b](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/6ffd13b))
+* **a11y:** correct label "for" references to fields ([#1904](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1904)) ([955f94f](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/955f94f))
+* **bitbucket:** fix rebasing mistakes in bitbucket backend and deps ([#1522](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1522)) ([bdfd944](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/bdfd944))
+* **deps:** update dependency react-aria-menubutton to v6 ([#2195](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2195)) ([e8d3db1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/e8d3db1))
+* **list-widget:** fix single field usage in list widget ([#1395](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1395)) ([06d3650](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/06d3650))
+* **list-widget:** use the sortable handle ([#1655](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1655)) ([e215f68](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/e215f68))
+* **UI:** fix loader styling ([#1521](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1521)) ([0bd0273](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/0bd0273))
+
+
+### Features
+
+* **backend-github:** Open Authoring ([#2430](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2430)) ([edf0a3a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/edf0a3a))
+* add ES module builds ([#2215](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2215)) ([d142b32](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/d142b32))
+* allow custom logo on auth page ([#1818](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1818)) ([c6ae1e8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/c6ae1e8))
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/82cc794))
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/ccef446))
+* **netlify-cms-widget-list:** add variable type definitions to list widget ([#1857](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1857)) ([8ddc168](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/8ddc168))
+* **netlify-cms-widget-relation:** use react-select and add support for multiple entries ([#1936](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/1936)) ([518f6fb](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/518f6fb))
+* **workflow:** add deploy preview links ([#2028](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/issues/2028)) ([15d221d](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default/commit/15d221d))
+
+
+
+
+
 # 2.7.0-dpl.0 (2020-04-22)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms-media-library-cloudinary",
   "description": "Cloudinary integration for Netlify CMS",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-media-library-cloudinary",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
   "module": "dist/esm/index.js",
