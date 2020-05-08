@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0-dpl.11](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/@forgettingpasswords/netlify-cms-core@2.13.0-dpl.10...@forgettingpasswords/netlify-cms-core@2.13.0-dpl.11) (2020-05-08)
+
+
+### Features
+
+* add prePublish,postPublish events ([#3172](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/3172)) + dpl ([2c98d41](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/2c98d41))
+
+
+
+
+
 # 2.13.0-dpl.10 (2020-04-22)
 
 
