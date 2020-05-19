@@ -183,13 +183,18 @@ export function registerEventListener({ name, handler }, options = {}) {
 export async function invokeEvent({ name, data }) {
   validateEventName(name);
   const handlers = registry.eventHandlers[name];
+  let iterationData = null;
+
   for (const { handler, options } of handlers) {
     try {
-      await handler(data, options);
+      const dataToUse = iterationData || data;
+      iterationData = await handler(dataToUse, options);
     } catch (e) {
       console.warn(`Failed running handler for event ${name} with message: ${e.message}`);
     }
   }
+
+  return iterationData;
 }
 
 export function removeEventListener({ name, handler }) {
