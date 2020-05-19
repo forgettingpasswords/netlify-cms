@@ -44,29 +44,6 @@ export class LocalStorageAuthStore {
   }
 }
 
-const createEntryObj = async (collection, entry, config, usedSlugs, newEntry) => {
-  if (newEntry) {
-    if (!selectAllowNewEntries(collection)) {
-      throw new Error('Not allowed to create new entries in this collection');
-    }
-    const slug = await this.generateUniqueSlug(collection, entry.getIn(['data']), config.get('slug'), usedSlugs);
-    const path = selectEntryPath(collection, slug);
-    return {
-      path,
-      slug,
-      raw: this.entryToRaw(collection, entry)
-    };
-  } else {
-    const path = entry.getIn(['path']);
-    const slug = entry.getIn(['slug']);
-    return {
-      path,
-      slug,
-      raw: this.entryToRaw(collection, entry)
-    };
-  }
-};
-
 function prepareSlug(slug) {
   return (
     slug
@@ -312,6 +289,29 @@ export class Backend {
     this.authStore = authStore;
     if (this.implementation === null) {
       throw new Error('Cannot instantiate a Backend with no implementation');
+    }
+  }
+
+  async createEntryObj(collection, entry, config, usedSlugs, newEntry) {
+    if (newEntry) {
+      if (!selectAllowNewEntries(collection)) {
+        throw new Error('Not allowed to create new entries in this collection');
+      }
+      const slug = await this.generateUniqueSlug(collection, entry.getIn(['data']), config.get('slug'), usedSlugs);
+      const path = selectEntryPath(collection, slug);
+      return {
+        path,
+        slug,
+        raw: this.entryToRaw(collection, entry)
+      };
+    } else {
+      const path = entry.getIn(['path']);
+      const slug = entry.getIn(['slug']);
+      return {
+        path,
+        slug,
+        raw: this.entryToRaw(collection, entry)
+      };
     }
   }
 
@@ -730,7 +730,7 @@ export class Backend {
       description: entryDraft.getIn(['entry', 'data', 'description'], 'No Description!')
     };
 
-    const entryObj = createEntryObj(collection, entryDraft.getIn(['entry']), config, usedSlugs, newEntry);
+    const entryObj = await this.createEntryObj(collection, entryDraft.getIn(['entry']), config, usedSlugs, newEntry);
 
     const commitAction = revert ? 'revert' : newEntry ? 'create' : 'update';
 
@@ -771,17 +771,19 @@ export class Backend {
 
     if (isFileVersioningSupported) {
       const resolvedEntry = modifiedData
-        ? createEntryObj(collection, modifiedData, config, usedSlugs, newEntry)
+        ? await this.createEntryObj(collection, modifiedData, config, usedSlugs, newEntry)
         : entryObj;
+
       const results = this.implementation.persistEntry(resolvedEntry, MediaFiles, opts);
       const [publishResponse] = results;
-      returnValue = { slug: entryObj.slug, ...publishResponse };
+      returnValue = { slug: resolvedEntry.slug, ...publishResponse };
     } else {
       const resolvedEntry = modifiedData
-        ? createEntryObj(collection, modifiedData, config, usedSlugs, newEntry)
+        ? await this.createEntryObj(collection, modifiedData, config, usedSlugs, newEntry)
         : entryObj;
+
       await this.implementation.persistEntry(resolvedEntry, MediaFiles, opts);
-      returnValue = entryObj.slug;
+      returnValue = resolvedEntry.slug;
     }
 
     if (!useWorkflow) {
