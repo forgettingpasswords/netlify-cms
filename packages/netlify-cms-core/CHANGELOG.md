@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0-dpl.12](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/@forgettingpasswords/netlify-cms-core@2.13.0-dpl.11...@forgettingpasswords/netlify-cms-core@2.13.0-dpl.12) (2020-05-19)
+
+**Note:** Version bump only for package @forgettingpasswords/netlify-cms-core
+
+
+
+
+
 # [2.13.0-dpl.11](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/@forgettingpasswords/netlify-cms-core@2.13.0-dpl.10...@forgettingpasswords/netlify-cms-core@2.13.0-dpl.11) (2020-05-08)
 
 
