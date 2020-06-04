@@ -774,7 +774,7 @@ export class Backend {
         ? await this.createEntryObj(collection, modifiedData, config, usedSlugs, newEntry)
         : entryObj;
 
-      const results = this.implementation.persistEntry(resolvedEntry, MediaFiles, opts);
+      const results = await this.implementation.persistEntry(resolvedEntry, MediaFiles, opts);
       const [publishResponse] = results;
       returnValue = { slug: resolvedEntry.slug, ...publishResponse };
     } else {
