@@ -68,6 +68,23 @@ export function sanitizeURI(str, { replacement = '', encoding = 'unicode' } = {}
     .join('');
 }
 
+const umlautReplacements = {
+  Ü: 'UE',
+  Ä: 'AE',
+  Ö: 'OE',
+  ü: 'ue',
+  ä: 'ae',
+  ö: 'oe',
+  ß: 'ss'
+};
+
+const umlauts = Object.keys(umlautReplacements);
+const umlautUnion = umlauts.slice(1).reduce((acc, umlaut) => `${acc}|${umlaut}`, umlauts[0]);
+const replaceUmlautsRegex = new RegExp(umlautUnion, 'g');
+
+export const toUrlSafeUmlauts = value =>
+  value.replace(replaceUmlautsRegex, umlautMatch => umlautReplacements[umlautMatch]);
+
 export function sanitizeSlug(str, options = Map()) {
   const encoding = options.get('encoding', 'unicode');
   const stripDiacritics = options.get('clean_accents', false);
@@ -77,11 +94,13 @@ export function sanitizeSlug(str, options = Map()) {
     throw new Error('The input slug must be a string.');
   }
 
+  const germanSanitaryStr = toUrlSafeUmlauts(str);
+
   const sanitizedSlug = flow([
     ...(stripDiacritics ? [diacritics.remove] : []),
     partialRight(sanitizeURI, { replacement, encoding }),
-    partialRight(sanitizeFilename, { replacement }),
-  ])(str);
+    partialRight(sanitizeFilename, { replacement })
+  ])(germanSanitaryStr);
 
   // Remove any doubled or leading/trailing replacement characters (that were added in the sanitizers).
   const doubleReplacement = new RegExp(`(?:${escapeRegExp(replacement)})+`, 'g');
