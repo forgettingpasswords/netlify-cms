@@ -1,7 +1,7 @@
 {
   "name": "@forgettingpasswords/netlify-cms-app",
   "description": "An extensible, open source, Git-based, React CMS for static sites. Reusable congiuration with React as peer.",
-  "version": "2.10.0-dpl.15",
+  "version": "2.10.0-dpl.16",
   "homepage": "https://www.netlifycms.org",
   "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-app",
   "bugs": "https://github.com/netlify/netlify-cms/issues",
@@ -27,7 +27,7 @@
     "@forgettingpasswords/netlify-cms-backend-github": "^2.5.0-dpl.10",
     "@forgettingpasswords/netlify-cms-backend-gitlab": "^2.5.0",
     "@forgettingpasswords/netlify-cms-backend-test": "^2.4.0",
-    "@forgettingpasswords/netlify-cms-core": "^2.13.0-dpl.15",
+    "@forgettingpasswords/netlify-cms-core": "^2.13.0-dpl.16",
     "@forgettingpasswords/netlify-cms-editor-component-image": "^2.6.0",
     "@forgettingpasswords/netlify-cms-lib-auth": "^2.4.0",
     "@forgettingpasswords/netlify-cms-lib-util": "^2.4.0-dpl.10",
