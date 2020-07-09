@@ -775,7 +775,9 @@ export class Backend {
         : entryObj;
 
       const results = await this.implementation.persistEntry(resolvedEntry, MediaFiles, opts);
+      console.log('before', results);
       const [publishResponse] = results;
+      console.log('after');
       returnValue = { slug: resolvedEntry.slug, ...publishResponse };
     } else {
       const resolvedEntry = modifiedData

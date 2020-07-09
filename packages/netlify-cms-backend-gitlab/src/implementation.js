@@ -180,7 +180,7 @@ export default class GitLab {
   }
 
   async persistEntry(entry, mediaFiles, options = {}) {
-    return this.api.persistFiles([entry], options);
+    return await this.api.persistFiles([entry], options);
   }
 
   async persistMedia(mediaFile, options = {}) {
