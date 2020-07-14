@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0-dpl.12](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/compare/@forgettingpasswords/netlify-cms-backend-gitlab@2.5.0-dpl.10...@forgettingpasswords/netlify-cms-backend-gitlab@2.5.0-dpl.12) (2020-07-14)
+
+**Note:** Version bump only for package @forgettingpasswords/netlify-cms-backend-gitlab
+
+
+
+
+
 # [2.5.0-dpl.11](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab/compare/@forgettingpasswords/netlify-cms-backend-gitlab@2.5.0-dpl.10...@forgettingpasswords/netlify-cms-backend-gitlab@2.5.0-dpl.11) (2020-07-09)
 
 **Note:** Version bump only for package @forgettingpasswords/netlify-cms-backend-gitlab
